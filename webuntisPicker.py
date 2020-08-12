@@ -36,7 +36,79 @@ friday = monday + datetime.timedelta(days=4) + datetime.timedelta(days=7)
 wantedDay = monday
 rowRam = ""
 
+        
+def work(rowcount):
+    print(rowcount)
+    if rowcount >= 5:
+        print("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIFFFFFFFFFFFFFFFFF")
+        row = rowRam
+    rowcount -=-1
+    to = ""
+    state = None
+    print(rowcount)
+    if rowcount != 5:
+        for date, cell in row:
+            for period in cell:
+                for su in period.subjects:
+                    proc = str(su).split(" ")
+                    if("VTF" not in proc[1]):
+                        proc[0] = proc[0].upper()
+                        proc[1] = proc[1].split("k")[1]
+                        proc = proc[0] + proc[1]
 
+                    if(proc in kurse):
+                        
+                        if(period.code != None):
+                            if(period.code == "cancelled"):
+                                out +="<s>"
+                                out += proc
+                                try:
+                                    to += proc + " " + str(period.rooms[0])
+                                except:
+                                    to += proc + " " + str(period.rooms)
+                                state = True
+                                out +="</s>" 
+                            else:
+                                out += proc
+                                out += period.code + " "
+                                to += proc +  " ?:" + period.code
+                        else:
+                            out += proc + " "
+                            out += str(period.rooms[0])
+                            to += proc + " " + str(period.rooms[0])
+                            state = False
+    elif rowcount >= 5:
+        to += "-Mittagspause-"
+    outF.append(to) 
+    outFState.append(state)
+    rowRam = row
+
+def webU(wantedDay = today):
+    print("Updating table...", end = "")
+    global outify, weekdayL, outF, outFState, rowRam
+    with se.login() as s:
+        timeGr = parseTimegrid(s)
+        klasse = s.klassen().filter(name='EF')[0]
+        table = s.timetable(klasse=klasse, start=wantedDay, end=wantedDay).to_table()
+        weekdayL = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"][wantedDay.weekday()]
+        out = ""
+        times = []
+        i = 0
+        while i < len(timeGr["startTime"]):
+            outify.append(timeGr["startTime"][i] + " - " + timeGr["endTime"][i])
+            i-=-1
+        rowcount = 0
+        for time, row in table:
+            work(rowcount)
+        work()
+    print("[DONE]")                           
+    return(out)
+    
+
+finalData = ""
+
+
+# Webserver
 class updateCallback(tornado.web.RequestHandler):
     def get(self):
         global kurse, finalData, outify, weekdayL, outF, outFState, selected
@@ -48,83 +120,7 @@ class updateCallback(tornado.web.RequestHandler):
         weekdayL = ""
         outF = []
         outFState = []
-        finalData, strout = webU(wantedDay)
-        
-
-def webU(wantedDay = today):
-    print("Updating table...", end = "")
-    global outify, weekdayL, outF, outFState, rowRam
-    with se.login() as s:
-        timeGr = parseTimegrid(s)
-
-        
-        klasse = s.klassen().filter(name='EF')[0]
-
-         
-        table = s.timetable(klasse=klasse, start=wantedDay, end=wantedDay).to_table()
-        weekdayL = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"][wantedDay.weekday()]
-        out = ""
-        strout = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"][wantedDay.weekday()]
-        times = []
-        i = 0
-        while i < len(timeGr["startTime"]):
-            outify.append(timeGr["startTime"][i] + " - " + timeGr["endTime"][i])
-            i-=-1
-        rowcount = 0
-        for time, row in table:
-            print(rowcount)
-            if rowcount >= 5:
-                print("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIFFFFFFFFFFFFFFFFF")
-                row = rowRam
-            rowcount -=-1
-            strout += '----[{}]----\n'.format(time.strftime('%H:%M'))
-            to = ""
-            state = None
-            print(rowcount)
-            if rowcount != 5:
-                for date, cell in row:
-                    for period in cell:
-                        for su in period.subjects:
-                            proc = str(su).split(" ")
-                            if("VTF" not in proc[1]):
-                                proc[0] = proc[0].upper()
-                                proc[1] = proc[1].split("k")[1]
-                                proc = proc[0] + proc[1]
-
-                            if(proc in kurse):
-                            
-                                strout += proc
-                                if(period.code != None):
-                                    if(period.code == "cancelled"):
-                                        out +="<s>"
-                                        out += proc
-                                        try:
-                                            to += proc + " " + str(period.rooms[0])
-                                        except:
-                                            to += proc + " " + str(period.rooms)
-                                        state = True
-                                        out +="</s>" 
-                                    else:
-                                        out += proc
-                                        out += period.code + " "
-                                        to += proc +  " ?:" + period.code
-                                    strout += (" "*(11-len(proc)) + "\n"+period.code + "\n")
-                                else:
-                                    out += proc + " "
-                                    out += str(period.rooms[0])
-                                    to += proc + " " + str(period.rooms[0])
-                                    state = False
-                                    strout += (" " * (11 - len(proc)) + str(period.rooms[0]) + "\n")
-            elif rowcount >= 5:
-                to += "-Mittagspause-"
-            outF.append(to) 
-            outFState.append(state)
-            rowRam = row
-    print("[DONE]")                           
-    return(out, strout)
-    
-
-finalData = ""
+        finalData = webU(wantedDay)
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         global finalData, outify, weekdayL, outF, outFState
@@ -145,6 +141,6 @@ if __name__ == "__main__":
     io_loop = tornado.ioloop.IOLoop.current()
     app = make_app()
     app.listen(8888)
-    finalData, strout = webU(wantedDay)
+    finalData = webU(wantedDay)
     print("Starting server")
     tornado.ioloop.IOLoop.current().start()
