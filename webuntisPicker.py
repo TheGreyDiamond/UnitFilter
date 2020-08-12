@@ -12,22 +12,14 @@ se = webuntis.Session(
 
 logging.basicConfig(level=logging.WARN)
 
-def parseTimegrid(dayGrid):
-    dayGrid = str(dayGrid)
-    proce = dayGrid.split("[")[1]
-    proce = proce.replace("]", "")
-    proce = proce.split("}, {")
+def parseTimegrid(se):
     
-    fout = []
-    for elm in proce:
-        tiObj = {}
-        tempy = elm.strip("{").strip("}").split(",")
-        tiObj['startTime'] = ["".join(list(i.start.isoformat())[0:-3]) for i in s.timegrid_units()[0].time_units]
-        tiObj['endTime'] = ["".join(list(i.end.isoformat())[0:-3]) for i in s.timegrid_units()[0].time_units]
-        fout.append(tiObj)
+    tiObj = {}
+    tiObj['startTime'] = ["".join(list(i.start.isoformat())[0:-3]) for i in se.timegrid_units()[0].time_units]
+    tiObj['endTime'] = ["".join(list(i.end.isoformat())[0:-3]) for i in se.timegrid_units()[0].time_units]
 
 
-    return(fout)
+    return(tiObj)
 
 outify = []
 weekdayL = ""
@@ -36,21 +28,23 @@ outFState = []
 def webU():
     global outify, weekdayL, outF, outFState
     with se.login() as s:
-        timegrid2 = s.timegrid_units()[0]  
-        timeGr = parseTimegrid(timegrid2)
+        timeGr = parseTimegrid(s)
 
         today = datetime.date.today()
         monday = today - datetime.timedelta(days=today.weekday())
         friday = monday + datetime.timedelta(days=4)
         klasse = s.klassen().filter(name='EF')[0]
-        table = s.timetable(klasse=klasse, start=friday, end=friday).to_table()
+        table = s.timetable(klasse=klasse, start=today, end=today).to_table()
         weekdayL = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"][today.weekday()]
         out = ""
         strout = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"][today.weekday()]
         times = []
-
-        for elm in timeGr:
-            outify.append(str(elm["startTime"]) + " - " + str(elm["endTime"]))
+        print(timeGr)
+        i = 0
+        while i < len(timeGr["startTime"]):
+            outify.append(timeGr["startTime"][i] + " - " + timeGr["endTime"][i])
+            i-=-1
+        print(outify)
            
         for time, row in table:
             #out += '----[{}]----\n'.format(time.strftime('%H:%M'))
