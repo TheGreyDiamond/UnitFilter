@@ -106,9 +106,6 @@ def webU(wantedDay = today):
         work(row, out)
     print("[DONE]")                           
     return(out)
-    
-
-
 
 # Webserver
 class updateCallback(tornado.web.RequestHandler):
