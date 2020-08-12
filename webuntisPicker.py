@@ -72,9 +72,9 @@ def webU(wantedDay = today):
             i-=-1
         rowcount = 0
         for time, row in table:
-            print("blaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-            print(rowRam)
-            if rowcount >= 6:
+            print(rowcount)
+            if rowcount >= 5:
+                print("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIFFFFFFFFFFFFFFFFF")
                 row = rowRam
             rowcount -=-1
             strout += '----[{}]----\n'.format(time.strftime('%H:%M'))
@@ -82,8 +82,6 @@ def webU(wantedDay = today):
             state = None
             print(rowcount)
             if rowcount != 5:
-                #print("if")
-                #print(row)
                 for date, cell in row:
                     for period in cell:
                         for su in period.subjects:
@@ -109,7 +107,7 @@ def webU(wantedDay = today):
                                     else:
                                         out += proc
                                         out += period.code + " "
-                                        to += proc +  " " + period.code
+                                        to += proc +  " ?:" + period.code
                                     strout += (" "*(11-len(proc)) + "\n"+period.code + "\n")
                                 else:
                                     out += proc + " "
@@ -118,15 +116,10 @@ def webU(wantedDay = today):
                                     state = False
                                     strout += (" " * (11 - len(proc)) + str(period.rooms[0]) + "\n")
             elif rowcount >= 5:
-                #print("elif")
-                print(row)
                 to += "-Mittagspause-"
             outF.append(to) 
             outFState.append(state)
-            if not rowcount == 5:
-                rowRam = row
-                print("asdglkhasöglwlöglögdjögagjsdlögj")
-                print(type(rowRam))
+            rowRam = row
     print("[DONE]")                           
     return(out, strout)
     
