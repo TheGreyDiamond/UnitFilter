@@ -1,4 +1,4 @@
-import webuntis, os, tornado.web, tornado.ioloop, logging, datetime, time
+import webuntis, os, tornado.web, tornado.ioloop, logging, datetime, time, sqlite3
 
 se = webuntis.Session(
     username='JgstEF',
@@ -31,6 +31,8 @@ kursDict = {"soeren": ["CH2", "EK1", "IF2", "E52", "GE2", "KU1", "ER1", "C01", "
             "joshua": ["CH2", "PA2", "IF2", "E53", "L61", "MU1", "ER1", "C01", "D3", "M3", "GE3", "SP1"]}
 kurse = kursDict["soeren"] ## Defaults to soeren
 selected = "soeren"
+
+
 
 def parseTimegrid(se):
     tiObj = {}
