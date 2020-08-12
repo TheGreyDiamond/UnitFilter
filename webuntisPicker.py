@@ -17,7 +17,6 @@ outF = []
 outFState = []
 rowRam = ""
 rowcount = 0
-temp = ""
 finalData = ""
 
 # Time defintions
@@ -40,8 +39,7 @@ def parseTimegrid(se):
     return(tiObj)
 
 def work(row2, out):
-    global rowcount, rowRam, temp
-    print(rowcount)
+    global rowcount, rowRam
     if rowcount >= 5:
         row = rowRam
     else:
@@ -49,7 +47,6 @@ def work(row2, out):
     rowcount -=-1
     to = ""
     state = None
-    print(rowcount)
     if rowcount != 5:
         for date, cell in row:
             for period in cell:
@@ -61,7 +58,6 @@ def work(row2, out):
                         proc = proc[0] + proc[1]
 
                     if(proc in kurse):
-                        
                         if(period.code != None):
                             if(period.code == "cancelled"):
                                 out +="<s>"
@@ -85,7 +81,7 @@ def work(row2, out):
         to += "-Mittagspause-"
     outF.append(to) 
     outFState.append(state)
-    rowRam = temp
+    rowRam = row2
 
 def webU(wantedDay = today):
     print("Updating table...", end = "")
