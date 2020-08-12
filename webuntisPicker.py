@@ -1,11 +1,5 @@
 import webuntis, os, tornado.web, tornado.ioloop, logging, datetime, time
 
-kursDict = {"soeren": ["CH2", "EK1", "IF2", "E52", "GE2", "KU1", "ER1", "C01", "D2", "M2", "PH1", "SP1"],
-            "joshua": ["CH2", "PA2", "IF2", "E53", "L61", "MU1", "ER1", "C01", "D3", "M3", "GE3", "SP1"]}
-kurse = kursDict["soeren"] ## Defaults to soeren
-selected = "soeren"
-
-
 se = webuntis.Session(
     username='JgstEF',
     password='Doruwiwilu1',
@@ -16,32 +10,42 @@ se = webuntis.Session(
 
 logging.basicConfig(level=logging.WARN)
 
+
+outify = []
+weekdayL = ""
+outF = []
+outFState = []
+rowRam = ""
+rowcount = 0
+temp = ""
+finalData = ""
+
+# Time defintions
+today = datetime.date.today()
+monday = today - datetime.timedelta(days=today.weekday()) + datetime.timedelta(days=7)
+friday = monday + datetime.timedelta(days=4) + datetime.timedelta(days=7)
+
+
+# Settings
+wantedDay = monday
+kursDict = {"soeren": ["CH2", "EK1", "IF2", "E52", "GE2", "KU1", "ER1", "C01", "D2", "M2", "PH1", "SP1"],
+            "joshua": ["CH2", "PA2", "IF2", "E53", "L61", "MU1", "ER1", "C01", "D3", "M3", "GE3", "SP1"]}
+kurse = kursDict["soeren"] ## Defaults to soeren
+selected = "soeren"
+
 def parseTimegrid(se):
     tiObj = {}
     tiObj['startTime'] = ["".join(list(i.start.isoformat())[0:-3]) for i in se.timegrid_units()[0].time_units]
     tiObj['endTime'] = ["".join(list(i.end.isoformat())[0:-3]) for i in se.timegrid_units()[0].time_units]
     return(tiObj)
 
-outify = []
-weekdayL = ""
-outF = []
-outFState = []
-
-today = datetime.date.today()
-monday = today - datetime.timedelta(days=today.weekday()) + datetime.timedelta(days=7)
-friday = monday + datetime.timedelta(days=4) + datetime.timedelta(days=7)
-
-
-### Settings
-wantedDay = monday
-rowRam = ""
-
-        
-def work(rowcount):
+def work(row2, out):
+    global rowcount, rowRam, temp
     print(rowcount)
     if rowcount >= 5:
-        print("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIFFFFFFFFFFFFFFFFF")
         row = rowRam
+    else:
+        row = row2
     rowcount -=-1
     to = ""
     state = None
@@ -81,7 +85,7 @@ def work(rowcount):
         to += "-Mittagspause-"
     outF.append(to) 
     outFState.append(state)
-    rowRam = row
+    rowRam = temp
 
 def webU(wantedDay = today):
     print("Updating table...", end = "")
@@ -97,30 +101,32 @@ def webU(wantedDay = today):
         while i < len(timeGr["startTime"]):
             outify.append(timeGr["startTime"][i] + " - " + timeGr["endTime"][i])
             i-=-1
-        rowcount = 0
         for time, row in table:
-            work(rowcount)
-        work()
+            work(row, out)
+        work(row, out)
     print("[DONE]")                           
     return(out)
     
 
-finalData = ""
 
 
 # Webserver
 class updateCallback(tornado.web.RequestHandler):
     def get(self):
-        global kurse, finalData, outify, weekdayL, outF, outFState, selected
+        global kurse, finalData, outify, weekdayL, outF, outFState, selected, rowRam, rowcount, temp
         self.write("<script> window.close(); </script>")
         kurse = kursDict[self.get_argument("kurs")]
         selected = self.get_argument("kurs")
-        print(kurse)
+        print("Changed selection", kurse)
         outify = []
         weekdayL = ""
         outF = []
         outFState = []
+        rowRam = ""
+        rowcount = 0
+        temp = ""
         finalData = webU(wantedDay)
+
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         global finalData, outify, weekdayL, outF, outFState
