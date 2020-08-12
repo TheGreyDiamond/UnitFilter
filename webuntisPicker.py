@@ -1,6 +1,9 @@
 import webuntis, os, tornado.web, tornado.ioloop, logging, datetime, time
 
-kurse = ["CH2","EK1","IF2","E52","GE2","KU1","ER1","C01","D2","M2","PH1","SP1"]
+kursDict = {"soeren": ["CH2","EK1","IF2","E52","GE2","KU1","ER1","C01","D2","M2","PH1","SP1"],
+            "joshua": ["CH2", "PA2", "IF2", "E53", "L61", "MU1", "ER1", "C01", "D3", "M3", "GE3", "SP1"]}
+kurse = kursDict["soeren"]
+
 
 se = webuntis.Session(
     username='JgstEF',
@@ -25,6 +28,20 @@ outify = []
 weekdayL = ""
 outF = []
 outFState = []
+
+class updateCallback(tornado.web.RequestHandler):
+    def get(self):
+        global kurse, finalData, outify, outF, outFState, weekdayL
+        self.write("<script> window.close(); </script>")
+        kurse = kursDict[self.get_argument("kurs")]
+        print(kurse)
+        outify = []
+        weekdayL = ""
+        outF = []
+        outFState = []
+        finalData, strout = webU()
+        
+
 def webU():
     global outify, weekdayL, outF, outFState
     with se.login() as s:
@@ -34,17 +51,20 @@ def webU():
         monday = today - datetime.timedelta(days=today.weekday())
         friday = monday + datetime.timedelta(days=4)
         klasse = s.klassen().filter(name='EF')[0]
-        table = s.timetable(klasse=klasse, start=today, end=today).to_table()
-        weekdayL = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"][today.weekday()]
+
+        wantedDay = today
+
+        table = s.timetable(klasse=klasse, start=wantedDay, end=wantedDay).to_table()
+        weekdayL = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"][wantedDay.weekday()]
         out = ""
-        strout = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"][today.weekday()]
+        strout = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"][wantedDay.weekday()]
         times = []
-        print(timeGr)
+        #print(timeGr)
         i = 0
         while i < len(timeGr["startTime"]):
             outify.append(timeGr["startTime"][i] + " - " + timeGr["endTime"][i])
             i-=-1
-        print(outify)
+        #print(outify)
            
         for time, row in table:
             #out += '----[{}]----\n'.format(time.strftime('%H:%M'))
@@ -92,7 +112,7 @@ def webU():
 finalData = ""
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        global finalData
+        global finalData, outify, weekdayL, outF, outFState
         htmlDataPre = '''<html>
         <head>
         <style>
@@ -117,7 +137,10 @@ def make_app():
         template_path=os.path.join(os.path.dirname(__file__), "templates")
     )
     data = "Test"
-    return tornado.web.Application([(r"/", MainHandler)], static_path=os.path.join(os.path.dirname(__file__), "static"),template_path=os.path.join(os.path.dirname(__file__), "templates"))
+    return tornado.web.Application([
+        (r"/", MainHandler),
+        (r"/update_kurse", updateCallback),
+    ], static_path=os.path.join(os.path.dirname(__file__), "static"),template_path=os.path.join(os.path.dirname(__file__), "templates"))
 
 if __name__ == "__main__":
     io_loop = tornado.ioloop.IOLoop.current()

@@ -6,6 +6,14 @@
 </head>
 
 <body>
+  <script>
+    function to(url){
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", url, false ); // false for synchronous request
+        xmlHttp.send( null );
+        location.reload();
+    }
+</script>
     <table class="tg">
         <thead>
           <tr>
@@ -91,6 +99,23 @@
           </tr>
         </tbody>
         </table>
+        <form action="/update_kurse">
+            </br>
+          <label for="cars">Kurzblock w&auml;hlen:</label>
+          <select name="kurs" id="kurs">
+            <option value="soeren">Soeren</option>
+            <option value="joshua">Joshua</option>
+          </select>
+          <br><br>
+        </form>
+        <button onclick="handleClick()">Anwenden</button>
+        <script>
+          function handleClick(){
+            drop = document.getElementById("kurs")
+            to("/update_kurse?kurs=" + drop.value)
+            window.reload()
+          }
+        </script>
 </body>
 
 </html>
