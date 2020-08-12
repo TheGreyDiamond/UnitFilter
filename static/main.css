@@ -1,7 +1,22 @@
-html, body {
-    font-family: Verdana, Geneva, sans-serif;
-    background-color: white;
+html {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
+
 table {
-    border: 1px solid black;
-}
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    border-collapse: collapse;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+
+  .th-highLight {
+      background-color: #5b5b5b;
+  }
