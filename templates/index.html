@@ -78,6 +78,17 @@
             {% except %}
             {% end %}
           </tr>
+          <tr>
+            <td class="tg-0pky">{{ data[7] }}<br></td>
+            {% try %}
+            {% if roomStates[7] == True %}
+                <td class="tg-0pky"><s>{{ roomData[7] }}</s></td>
+            {% else %}
+                <td class="tg-0pky">{{ roomData[7] }}</td>
+            {% end %}
+            {% except %}
+            {% end %}
+          </tr>
         </tbody>
         </table>
 </body>
