@@ -1,5 +1,8 @@
-html {
-    font-family: "Poppins", sans-serif;
+body {
+  font-family: "Poppins", sans-serif;
+  height: 100%;
+  width: 100%;
+  margin: 0px;
 }
 table {
     font-family: "Poppins", sans-serif;
@@ -18,4 +21,15 @@ table {
 
   .th-highLight {
       background-color: #5b5b5b;
+  }
+  canvas {
+    margin: 0px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: -500;
+  }
+
+  .loginForm{
+    color: black;
   }

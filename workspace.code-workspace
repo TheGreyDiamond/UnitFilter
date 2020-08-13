@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "..\\..\\ArtNetColorPicker\\static\\css"
+		},
+		{
+			"path": "..\\..\\ArtNetColorPicker\\static\\res"
+		}
+	],
+	"settings": {}
+}

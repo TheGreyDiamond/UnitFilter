@@ -125,6 +125,11 @@ class updateCallback(tornado.web.RequestHandler):
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         global finalData, outify, weekdayL, outF, outFState
+        self.render("main.html", data = outify, datum = weekdayL, roomData = outF, roomStates = outFState, sel = selected)
+
+class LoginPage(tornado.web.RequestHandler):
+    def get(self):
+        global finalData, outify, weekdayL, outF, outFState
         self.render("index.html", data = outify, datum = weekdayL, roomData = outF, roomStates = outFState, sel = selected)
 
 def make_app():
@@ -134,8 +139,9 @@ def make_app():
     )
     data = "Test"
     return tornado.web.Application([
-        (r"/", MainHandler),
+        (r"/main", MainHandler),
         (r"/update_kurse", updateCallback),
+        (r"/", LoginPage),
     ], static_path=os.path.join(os.path.dirname(__file__), "static"),template_path=os.path.join(os.path.dirname(__file__), "templates"))
 
 if __name__ == "__main__":

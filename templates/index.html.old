@@ -1,0 +1,43 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>FilterUntis</title>
+  <meta name="description" content="A filterd way of using Webuntis">
+  <meta name="author" content="TheGreydiamond & JoZoHD">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ static_url("main.css") }}">
+  <script src='https://unpkg.com/trianglify@^4/dist/trianglify.bundle.js'></script>
+</head>
+
+<body>
+  <script>
+    function to(url){
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", url, false ); // false for synchronous request
+        xmlHttp.send( null );
+        location.reload();
+    }
+</script>
+
+<script>
+  const pattern = trianglify({
+    cellSize: 100,
+    width: 3840,
+    height: 2160,
+  colorSpace: 'lab',
+colorFunction: trianglify.colorFunctions.interpolateLinear(0.5),
+//xColors: ['#67001f', '#b2182b', '#d6604d', '#f4a582', '#fddbc7', '#ffffff', '#e0e0e0', '#bababa', '#878787', '#4d4d4d', '#1a1a1a'],
+//yColors: ['#FFF']
+  })
+  document.body.appendChild(pattern.toCanvas())
+</script>
+    <div class="loginForm">
+
+    </div>
+
+</body>
+</html>

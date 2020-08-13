@@ -1,174 +1,114 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-
-  <title>FilterUntis</title>
-  <meta name="description" content="A filterd way of using Webuntis">
-  <meta name="author" content="TheGreydiamond & JoZoHD">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ static_url("main.css") }}">
+	<title>Login V2</title>
+	<meta charset="UTF-8") }}">
+	<meta name="viewport" content="width=device-width, initial-scale=1") }}">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="{{ static_url("images/icons/favicon.ico") }}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ static_url("vendor/bootstrap/css/bootstrap.min.css") }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ static_url("fonts/font-awesome-4.7.0/css/font-awesome.min.css") }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ static_url("fonts/iconic/css/material-design-iconic-font.min.css") }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ static_url("vendor/animate/animate.css") }}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{{ static_url("vendor/css-hamburgers/hamburgers.min.css") }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ static_url("vendor/animsition/css/animsition.min.css") }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ static_url("vendor/select2/select2.min.css") }}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{{ static_url("vendor/daterangepicker/daterangepicker.css") }}">
+	<script src='https://unpkg.com/trianglify@^4/dist/trianglify.bundle.js'></script>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ static_url("css/util.css") }}">
+	<link rel="stylesheet" type="text/css" href="{{ static_url("css/main.css") }}">
+<!--===============================================================================================-->
 </head>
-
 <body>
-  <script>
-    function to(url){
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open( "GET", url, false ); // false for synchronous request
-        xmlHttp.send( null );
-        location.reload();
-    }
-</script>
-    <table class="tg">
-        <thead>
-          <tr>
-            <th class="tg-0pky"></th>
-            {% if datum == "Montag" %}
-            <th class="tg-0pky th-highLight">Montag</th>
-            {% else %}
-            <th class="tg-0pky">Montag</th>
-            {% end %}
+	<script>
+		const pattern = trianglify({
+		  cellSize: 100,
+		  width: 3840,
+		  height: 2160,
+		colorSpace: 'lab',
+	  colorFunction: trianglify.colorFunctions.interpolateLinear(0.5),
+	  //xColors: ['#67001f', '#b2182b', '#d6604d', '#f4a582', '#fddbc7', '#ffffff', '#e0e0e0', '#bababa', '#878787', '#4d4d4d', '#1a1a1a'],
+	  //yColors: ['#FFF']
+		})
+		document.body.appendChild(pattern.toCanvas())
+	  </script>
 
-            {% if datum == "Dienstag" %}
-            <th class="tg-0pky th-highLight">Dienstag</th>
-            {% else %}
-            <th class="tg-0pky">Dienstag</th>
-            {% end %}
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form">
+					<span class="login100-form-title p-b-26">
+						Welcome
+					</span>
+					<span class="login100-form-title p-b-48">
+						<i class="zmdi zmdi-font"></i>
+					</span>
 
-            {% if datum == "Mittwoch" %}
-            <th class="tg-0pky th-highLight">Mittwoch</th>
-            {% else %}
-            <th class="tg-0pky">Mittwoch</th>
-            {% end %}
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
+						<input class="input100" type="text" name="email">
+						<span class="focus-input100" data-placeholder="Email"></span>
+					</div>
 
-            {% if datum == "Donnerstag" %}
-            <th class="tg-0pky th-highLight">Donnerstag</th>
-            {% else %}
-            <th class="tg-0pky">Donnerstag</th>
-            {% end %}
+					<div class="wrap-input100 validate-input" data-validate="Enter password">
+						<span class="btn-show-pass">
+							<i class="zmdi zmdi-eye"></i>
+						</span>
+						<input class="input100" type="password" name="pass">
+						<span class="focus-input100" data-placeholder="Password"></span>
+					</div>
 
-            {% if datum == "Freitag" %}
-            <th class="tg-0pky th-highLight">Freitag</th>
-            {% else %}
-            <th class="tg-0pky">Freitag</th>
-            {% end %}
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn">
+								Login
+							</button>
+						</div>
+					</div>
 
-            
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="tg-0pky">{{data[0] }}</td>
-            {% try %}
-            {% if roomStates[0] == True %}
-                <td class="tg-0pky"><s>{{ roomData[0] }}</s></td>
-            {% else %}
-                <td class="tg-0pky">{{ roomData[0] }}</td>
-            {% end %}
-            {% except %}
-            {% end %}
-          </tr>
+					<div class="text-center p-t-115">
+						<span class="txt1">
+							Don’t have an account?
+						</span>
 
-          <tr>
-            <td class="tg-0pky">{{ data[1] }}<br></td>
-            {% try %}
-            {% if roomStates[1] == True %}
-                <td class="tg-0pky"><s>{{ roomData[1] }}</s></td>
-            {% else %}
-                <td class="tg-0pky">{{ roomData[1] }}</td>
-            {% end %}
-            {% except %}
-            {% end %}
-          </tr>
+						<a class="txt2" href="#">
+							Sign Up
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
 
-          <tr>
-            <td class="tg-0pky">{{ data[2] }}<br></td>
-            {% try %}
-            {% if roomStates[2] == True %}
-                <td class="tg-0pky"><s>{{ roomData[2] }}</s></td>
-            {% else %}
-                <td class="tg-0pky">{{ roomData[2] }}</td>
-            {% end %}
-            {% except %}
-            {% end %}
-          </tr>
-          <tr>
-            <td class="tg-0pky">{{ data[3] }}<br></td>
-            {% try %}
-            {% if roomStates[3] == True %}
-                <td class="tg-0pky"><s>{{ roomData[3] }}</s></td>
-            {% else %}
-                <td class="tg-0pky">{{ roomData[3] }}</td>
-            {% end %}
-            {% except %}
-            {% end %}
-          </tr>
-          <tr>
-            <td class="tg-0pky">{{ data[4] }}<br></td>
-            {% try %}
-            {% if roomStates[4] == True %}
-                <td class="tg-0pky"><s>{{ roomData[4] }}</s></td>
-            {% else %}
-                <td class="tg-0pky">{{ roomData[4] }}</td>
-            {% end %}
-            {% except %}
-            {% end %}
-          </tr>
-          <tr>
-            <td class="tg-0pky">{{ data[5] }}<br></td>
-            {% try %}
-            {% if roomStates[5] == True %}
-                <td class="tg-0pky"><s>{{ roomData[5] }}</s></td>
-            {% else %}
-                <td class="tg-0pky">{{ roomData[5] }}</td>
-            {% end %}
-            {% except %}
-            {% end %}
-          </tr>
-          <tr>
-            <td class="tg-0pky">{{ data[6] }}<br></td>
-            {% try %}
-            {% if roomStates[6] == True %}
-                <td class="tg-0pky"><s>{{ roomData[6] }}</s></td>
-            {% else %}
-                <td class="tg-0pky">{{ roomData[6] }}</td>
-            {% end %}
-            {% except %}
-            {% end %}
-          </tr>
-          <tr>
-            <td class="tg-0pky">{{ data[7] }}<br></td>
-            {% try %}
-            {% if roomStates[7] == True %}
-                <td class="tg-0pky"><s>{{ roomData[7] }}</s></td>
-            {% else %}
-                <td class="tg-0pky">{{ roomData[7] }}</td>
-            {% end %}
-            {% except %}
-            {% end %}
-          </tr>
-          
-        </tbody>
-        </table>
-        <form action="/update_kurse">
-            </br>
-          <label for="kurs">Kursblock w&auml;hlen:</label>
-          <select name="kurs" id="kurs" value={{ sel }}>
-            <option value="" selected disabled>Bitte w&auml;hlen</option>
-            <option value="soeren">Soeren</option>
-            <option value="joshua">Joshua</option>
-          </select>
-          <br><br>
-        </form>
-        <button onclick="handleClick()">Anwenden</button>
-        <script>
-          function handleClick(){
-            drop = document.getElementById("kurs")
-            to("/update_kurse?kurs=" + drop.value)
-            window.reload()
-          }
-        </script>
+	<div id="dropDownSelect1"></div>
+	
+<!--===============================================================================================-->
+	<script src="{{ static_url("vendor/jquery/jquery-3.2.1.min.js") }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ static_url("vendor/animsition/js/animsition.min.js") }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ static_url("vendor/bootstrap/js/popper.js") }}"></script>
+	<script src="{{ static_url("vendor/bootstrap/js/bootstrap.min.js") }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ static_url("vendor/select2/select2.min.js") }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ static_url("vendor/daterangepicker/moment.min.js") }}"></script>
+	<script src="{{ static_url("vendor/daterangepicker/daterangepicker.js") }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ static_url("vendor/countdowntime/countdowntime.js") }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ static_url("js/main.js") }}"></script>
+	
+
 </body>
 </html>
