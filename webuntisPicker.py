@@ -1,4 +1,4 @@
-import webuntis, os, tornado.web, tornado.ioloop, logging, datetime, time, sqlite3
+import webuntis, os, tornado.web, tornado.ioloop, logging, datetime, time, sqlite3, hashlib
 
 untisPasswort = 'Doruwiwilu1'
 
@@ -37,30 +37,36 @@ selected = "soeren"
 
 def initDB():
     print("Starting DB init")
-    f = open("ready.lock", "w+")
-    li = f.readlines()
-    done = None
-    for el in li:
-        if("setup done" in el):
-            done = True
-            break
-        else:
-            print("Init started")
-            print(done)
-            f.write("setup done")
-            sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
-            mysqlCreateCode = '''CREATE TABLE `userdata` (
-	                        `id` INT NOT NULL AUTO_INCREMENT,
-	                        `e_mail` VARCHAR(255),
-	                        `password_hash` VARCHAR(255),
-	                        `class_code` VARCHAR(255),
-	                        PRIMARY KEY (`id`)
-                            );'''
-            cursor = sqliteConnection.cursor()
-            cursor.execute(mysqlCreateCode)
-            cursor.close()
+    try:
+        f = open("ready.lock", "x")
+    except FileExistsError:
+        print("No new setup")
+    else:
+        print("Init started")
+        sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
+        mysqlCreateCode = '''CREATE TABLE userdata (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    e_mail        VARCHAR (255),
+    password_hash VARCHAR (255),
+    class_code    VARCHAR (255)
+);'''
+        cursor = sqliteConnection.cursor()
+        cursor.execute(mysqlCreateCode)
+        cursor.close()
 
-    f.close()
+def createUser(e_mail, password):
+        sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
+        hasher = hashlib.md5()
+        passwordEncode = password.encode("utf-8")
+        hasher.update(passwordEncode)
+        print(hasher.hexdigest())
+        mysqlData = 'INSERT INTO userdata (e_mail, password_hash, class_code) VALUES ("' + e_mail + '", "' + hasher.hexdigest() + '", "");'
+        cursor = sqliteConnection.cursor()
+        ret = cursor.execute(mysqlData)
+        sqliteConnection.commit()
+        cursor.close()
+        print("Created new user [DONE] Code:", ret)
+
 
 def parseTimegrid(se):
     tiObj = {}
@@ -197,6 +203,7 @@ class newAccountHandler(tornado.web.RequestHandler):
                 untisOk = True
                 if(password == password2):
                     passwordSame = True
+                    createUser(email, password)
                 else:
                     errCode.append("PASS_UNSAME")
             else:
