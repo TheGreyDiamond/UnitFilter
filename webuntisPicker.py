@@ -94,6 +94,20 @@ def setFachKombo(email, fachs):
     #    print("Creation failed!")
     #    return(False)
 
+def getFachKombo(e_mail):
+    sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
+    mysqlData = 'SELECT kombi FROM fachKombi WHERE user="' + e_mail.strip("<").strip("'").strip('"') + '";'
+    cursor = sqliteConnection.cursor()
+    ret = cursor.execute(mysqlData)
+    record = cursor.fetchall()
+    cursor.close()
+    print(record[0][0])
+    proc = record[0][0]
+    proc = proc.strip("[").replace("]", "").replace("'", "").replace(" ", "")
+    proc = proc.split(",")
+    print(proc)
+    return(proc)
+
 def checkUser(e_mail, password):
     
         sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
@@ -210,8 +224,18 @@ class updateCallback(tornado.web.RequestHandler):
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        global finalData, outify, weekdayL, outF, outFState
+        global kurse, finalData, outify, weekdayL, outF, outFState, selected, rowRam, rowcount, temp
         if(self.get_cookie("user")):
+            kurse = getFachKombo(self.get_cookie("user"))
+            outify = []
+            weekdayL = ""
+            outF = []
+            outFState = []
+            rowRam = ""
+            rowcount = 0
+            temp = ""
+            selected = "custom"
+            finalData = webU(wantedDay)
             self.render("main.html", data = outify, datum = weekdayL, roomData = outF, roomStates = outFState, sel = selected)
         else:
             self.render("index.html", errorMsg = "")
@@ -227,11 +251,11 @@ class almostDone(tornado.web.RequestHandler):
                 args.append(self.get_argument("a" + str(i)))
                 i -=- 1
             
-            print(args)
+            # print(args)
             out = []
             for el in args:
                 el2 = el.upper()
-                #print(len(re.findall("/(E\d)/", el2)))
+                # print(len(re.findall("(^E\d)", el2)))
                 if(re.search("(^E\d)", el2)):
                     out.append(el2[0] + "5" + el2[1])
                 elif(el2=="0"):
@@ -244,7 +268,7 @@ class almostDone(tornado.web.RequestHandler):
             print("Missing args", ex)
             self.render("almostDone.html", errorMsg = "notAllSet")
         else:
-            self.render("almostDone.html", errorMsg = "")
+            self.render("redirect.html")
 class defaultHandler(tornado.web.RequestHandler):
     def __init__(self, arg2, arg3):
         print("Called default handler")
