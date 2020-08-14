@@ -122,27 +122,42 @@ class updateCallback(tornado.web.RequestHandler):
         temp = ""
         finalData = webU(wantedDay)
 
+
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         global finalData, outify, weekdayL, outF, outFState
         self.render("main.html", data = outify, datum = weekdayL, roomData = outF, roomStates = outFState, sel = selected)
+
+class defaultHandler(tornado.web.RequestHandler):
+    def __init__(self, arg2, arg3):
+        print("Called default handler")
+        self.arg2 = arg2
+        self.arg3 = arg3
+
+    def get(self):
+        self.write("404 - my thing")
+    def request(self):
+        self.write("404 - my thing")
 
 class LoginPage(tornado.web.RequestHandler):
     def get(self):
         global finalData, outify, weekdayL, outF, outFState
         self.render("index.html", data = outify, datum = weekdayL, roomData = outF, roomStates = outFState, sel = selected)
 
+    def post(self):
+        
+        print(self.get_argument('email'))
+        self.write("Okay")
+
 def make_app():
-    settings = dict(
-        static_path=os.path.join(os.path.dirname(__file__), "static"),
-        template_path=os.path.join(os.path.dirname(__file__), "templates")
-    )
     data = "Test"
     return tornado.web.Application([
         (r"/main", MainHandler),
         (r"/update_kurse", updateCallback),
         (r"/", LoginPage),
-    ], static_path=os.path.join(os.path.dirname(__file__), "static"),template_path=os.path.join(os.path.dirname(__file__), "templates"))
+    ], static_path=os.path.join(os.path.dirname(__file__), "static"),
+    template_path=os.path.join(os.path.dirname(__file__), "templates"),
+    default_handler_class=defaultHandler)
 
 if __name__ == "__main__":
     io_loop = tornado.ioloop.IOLoop.current()
