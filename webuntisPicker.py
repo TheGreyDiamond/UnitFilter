@@ -1,4 +1,4 @@
-import webuntis, os, tornado.web, tornado.ioloop, logging, datetime, time, sqlite3, hashlib
+import webuntis, os, tornado.web, tornado.ioloop, logging, datetime, time, sqlite3, hashlib, re
 
 untisPasswort = 'Doruwiwilu1'
 
@@ -80,6 +80,19 @@ def createUser(e_mail, password):
         print("Creation failed!")
         return(False)
 
+def setFachKombo(email, fachs):
+    #try:
+        sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
+        mysqlData = 'INSERT INTO fachKombi (user, kombi, class_code) VALUES ("' + email + '", "' + str(fachs) + '", "");'
+        cursor = sqliteConnection.cursor()
+        ret = cursor.execute(mysqlData)
+        sqliteConnection.commit()
+        cursor.close()
+        print("Set new Fachkombo [DONE]")
+        return(True)
+    #except:
+    #    print("Creation failed!")
+    #    return(False)
 
 def checkUser(e_mail, password):
     
@@ -203,6 +216,35 @@ class MainHandler(tornado.web.RequestHandler):
         else:
             self.render("index.html", errorMsg = "")
 
+class almostDone(tornado.web.RequestHandler):
+    def get(self):
+        self.render("almostDone.html", errorMsg = "")
+    def post(self):
+        i = 1
+        args = []
+        try:
+            while i <=13:
+                args.append(self.get_argument("a" + str(i)))
+                i -=- 1
+            
+            print(args)
+            out = []
+            for el in args:
+                el2 = el.upper()
+                #print(len(re.findall("/(E\d)/", el2)))
+                if(re.search("(^E\d)", el2)):
+                    out.append(el2[0] + "5" + el2[1])
+                elif(el2=="0"):
+                    pass
+                else:
+                    out.append(el2)
+            usr = self.get_cookie("user")
+            setFachKombo(usr, out)
+        except Exception as ex:
+            print("Missing args", ex)
+            self.render("almostDone.html", errorMsg = "notAllSet")
+        else:
+            self.render("almostDone.html", errorMsg = "")
 class defaultHandler(tornado.web.RequestHandler):
     def __init__(self, arg2, arg3):
         print("Called default handler")
@@ -283,6 +325,7 @@ def make_app():
         (r"/", LoginPage),
         (r"/register", newAccountHandler),
         (r"/redirect", redirecter),
+        (r"/almost_done", almostDone),
     ], static_path=os.path.join(os.path.dirname(__file__), "static"),
     template_path=os.path.join(os.path.dirname(__file__), "templates"),
     default_handler_class=defaultHandler)
