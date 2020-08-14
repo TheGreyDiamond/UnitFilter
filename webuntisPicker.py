@@ -1,8 +1,10 @@
 import webuntis, os, tornado.web, tornado.ioloop, logging, datetime, time, sqlite3
 
+untisPasswort = 'Doruwiwilu1'
+
 se = webuntis.Session(
     username='JgstEF',
-    password='Doruwiwilu1',
+    password=untisPasswort,
     server='tritone.webuntis.com',
     school='gym_remscheid',
     useragent='Soeren spielt mit der API'
@@ -33,6 +35,32 @@ kurse = kursDict["soeren"] ## Defaults to soeren
 selected = "soeren"
 
 
+def initDB():
+    print("Starting DB init")
+    f = open("ready.lock", "w+")
+    li = f.readlines()
+    done = None
+    for el in li:
+        if("setup done" in el):
+            done = True
+            break
+        else:
+            print("Init started")
+            print(done)
+            f.write("setup done")
+            sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
+            mysqlCreateCode = '''CREATE TABLE `userdata` (
+	                        `id` INT NOT NULL AUTO_INCREMENT,
+	                        `e_mail` VARCHAR(255),
+	                        `password_hash` VARCHAR(255),
+	                        `class_code` VARCHAR(255),
+	                        PRIMARY KEY (`id`)
+                            );'''
+            cursor = sqliteConnection.cursor()
+            cursor.execute(mysqlCreateCode)
+            cursor.close()
+
+    f.close()
 
 def parseTimegrid(se):
     tiObj = {}
@@ -145,9 +173,39 @@ class LoginPage(tornado.web.RequestHandler):
         self.render("index.html", data = outify, datum = weekdayL, roomData = outF, roomStates = outFState, sel = selected)
 
     def post(self):
-        
-        print(self.get_argument('email'))
+        typeI = self.get_argument('type')
+        if(typeI == "login"):
+            email = self.get_argument('email')
+            password = self.get_argument('pass')
+            print("[AUTH] Type: LOGIN E-Mail:", email, "Password:", password)
         self.write("Okay")
+
+class newAccountHandler(tornado.web.RequestHandler):
+    def get(self):
+        global finalData, outify, weekdayL, outF, outFState
+        self.render("newAccount.html", data = outify, datum = weekdayL, roomData = outF, roomStates = outFState, sel = selected)
+
+    def post(self):
+        typeI = self.get_argument('type')
+        if(typeI == "register"):
+            email = self.get_argument('email')
+            password = self.get_argument('pass')
+            password2 = self.get_argument('pass2')
+            untisPasswortL = self.get_argument('untisPass')
+            errCode = []
+            if(untisPasswortL == untisPasswort):
+                untisOk = True
+                if(password == password2):
+                    passwordSame = True
+                else:
+                    errCode.append("PASS_UNSAME")
+            else:
+                errCode.append("PASS_UNTISWRONG")
+                untisOk = False
+            authStringInfo  = "[AUTH] Type: REGISTER E-Mail: " + email + " Password: " + password + " Password2: " + password2 + " Units password: " + str(untisPasswortL) + " ErrorCodes: " + str(errCode)
+            authStringInfo.encode("utf-8")
+            print(authStringInfo)
+        self.write(authStringInfo)
 
 def make_app():
     data = "Test"
@@ -155,11 +213,13 @@ def make_app():
         (r"/main", MainHandler),
         (r"/update_kurse", updateCallback),
         (r"/", LoginPage),
+        (r"/register", newAccountHandler),
     ], static_path=os.path.join(os.path.dirname(__file__), "static"),
     template_path=os.path.join(os.path.dirname(__file__), "templates"),
     default_handler_class=defaultHandler)
 
 if __name__ == "__main__":
+    initDB()
     io_loop = tornado.ioloop.IOLoop.current()
     app = make_app()
     app.listen(8888)

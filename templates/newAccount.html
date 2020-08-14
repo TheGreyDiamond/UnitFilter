@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Anmelden</title>
+	<title>Regeistrieren</title>
 	<meta charset="UTF-8") }}">
 	<meta name="viewport" content="width=device-width, initial-scale=1") }}">
 <!--===============================================================================================-->	
@@ -45,8 +45,8 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form" method="post">
-					<input type="hidden" id="type" name="type" value="login">
+				<form class="login100-form validate-form" method="post" action="/register">
+					<input type="hidden" id="type" name="type" value="register">
 					<span class="login100-form-title p-b-26">
 						Willkommen
 					</span>
@@ -67,11 +67,27 @@
 						<span class="focus-input100" data-placeholder="Password"></span>
 					</div>
 
+					<div class="wrap-input100 validate-input" data-validate="Enter password">
+						<span class="btn-show-pass">
+							<i class="zmdi zmdi-eye"></i>
+						</span>
+						<input class="input100" type="password" name="pass2">
+						<span class="focus-input100" data-placeholder="Password wiederholen"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Enter password">
+						<span class="btn-show-pass">
+							<i class="zmdi zmdi-eye"></i>
+						</span>
+						<input class="input100" type="password" name="untisPass">
+						<span class="focus-input100" data-placeholder="Untispasswort"></span>
+					</div>
+
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
 							<button class="login100-form-btn">
-								Login
+								Regeistrieren
 							</button>
 						</div>
 					</div>
@@ -81,8 +97,8 @@
 							Du hast noch keinen Account?
 						</span>-->
 
-						<a class="txt2" href="/register">
-							Einen neuen Account erstellen
+						<a class="txt2" href="/">
+							Anmelden
 						</a>
 					</div>
 				</form>
