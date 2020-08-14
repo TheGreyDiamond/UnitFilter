@@ -1,5 +1,6 @@
 import webuntis, os, tornado.web, tornado.ioloop, logging, datetime, time, sqlite3, hashlib, re
 
+
 untisPasswort = 'Doruwiwilu1'
 
 se = webuntis.Session(
@@ -68,7 +69,7 @@ def createUser(e_mail, password):
         hasher = hashlib.md5()
         passwordEncode = password.encode("utf-8")
         hasher.update(passwordEncode)
-        print(hasher.hexdigest())
+        #print(hasher.hexdigest())
         mysqlData = 'INSERT INTO userdata (e_mail, password_hash, class_code) VALUES ("' + e_mail + '", "' + hasher.hexdigest() + '", "");'
         cursor = sqliteConnection.cursor()
         ret = cursor.execute(mysqlData)
@@ -95,18 +96,21 @@ def setFachKombo(email, fachs):
     #    return(False)
 
 def getFachKombo(e_mail):
-    sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
-    mysqlData = 'SELECT kombi FROM fachKombi WHERE user="' + e_mail.strip("<").strip("'").strip('"') + '";'
-    cursor = sqliteConnection.cursor()
-    ret = cursor.execute(mysqlData)
-    record = cursor.fetchall()
-    cursor.close()
-    print(record[0][0])
-    proc = record[0][0]
-    proc = proc.strip("[").replace("]", "").replace("'", "").replace(" ", "")
-    proc = proc.split(",")
-    print(proc)
-    return(proc)
+    try:
+        sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
+        mysqlData = 'SELECT kombi FROM fachKombi WHERE user="' + e_mail.strip("<").strip("'").strip('"') + '";'
+        cursor = sqliteConnection.cursor()
+        ret = cursor.execute(mysqlData)
+        record = cursor.fetchall()
+        cursor.close()
+        print(record[0][0])
+        proc = record[0][0]
+        proc = proc.strip("[").replace("]", "").replace("'", "").replace(" ", "")
+        proc = proc.split(",")
+        print(proc)
+        return(proc)
+    except:
+        return(False)
 
 def checkUser(e_mail, password):
     
@@ -226,17 +230,21 @@ class MainHandler(tornado.web.RequestHandler):
     def get(self):
         global kurse, finalData, outify, weekdayL, outF, outFState, selected, rowRam, rowcount, temp
         if(self.get_cookie("user")):
-            kurse = getFachKombo(self.get_cookie("user"))
-            outify = []
-            weekdayL = ""
-            outF = []
-            outFState = []
-            rowRam = ""
-            rowcount = 0
-            temp = ""
-            selected = "custom"
-            finalData = webU(wantedDay)
-            self.render("main.html", data = outify, datum = weekdayL, roomData = outF, roomStates = outFState, sel = selected)
+            te = getFachKombo(self.get_cookie("user"))
+            if(te == False):
+                self.render("almostDone.html", errorMsg = "")
+            else:
+                kurse = te
+                outify = []
+                weekdayL = ""
+                outF = []
+                outFState = []
+                rowRam = ""
+                rowcount = 0
+                temp = ""
+                selected = "custom"
+                finalData = webU(wantedDay)
+                self.render("main.html", data = outify, datum = weekdayL, roomData = outF, roomStates = outFState, sel = selected)
         else:
             self.render("index.html", errorMsg = "")
 
