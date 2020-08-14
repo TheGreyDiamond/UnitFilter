@@ -293,6 +293,11 @@ class redirecter(tornado.web.RequestHandler):
     def get(self):
         self.render("redirect.html")
 
+class legal(tornado.web.RequestHandler):
+    def get(self):
+        self.render("legal.html")
+
+
 
 class LoginPage(tornado.web.RequestHandler):
     def get(self):
@@ -358,6 +363,7 @@ def make_app():
         (r"/register", newAccountHandler),
         (r"/redirect", redirecter),
         (r"/almost_done", almostDone),
+        (r"/legal", legal),
     ], static_path=os.path.join(os.path.dirname(__file__), "static"),
     template_path=os.path.join(os.path.dirname(__file__), "templates"),
     default_handler_class=defaultHandler)

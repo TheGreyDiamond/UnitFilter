@@ -72,7 +72,8 @@
 						Willkommen
 					</span>
 					<span class="login100-form-title p-b-48">
-						<i class="zmdi zmdi-font"></i>
+						<!--<i class="zmdi zmdi-font"></i>-->
+						UnitFilter
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
@@ -104,6 +105,12 @@
 						<span class="focus-input100" data-placeholder="Untispasswort"></span>
 					</div>
 
+					<div class="wrap-input100 validate-input" data-validate="Bitte zustimmen">
+						<input class="input100" type="checkbox" name="agree" value="Den Nutzungsbedingungen zustimmen?">
+						<!---->
+					</div>
+					
+
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
@@ -126,6 +133,10 @@
 			</div>
 		</div>
 	</div>
+	<div id="myCookieConsent">
+		<a id="cookieButton">Verstanden</a>
+		<div>Diese Website nutzt Cookies. <a href="/legal">Mehr erfahren</a></div>
+	</div>
 	
 <!--===============================================================================================-->
 	<script src="{{ static_url("vendor/jquery/jquery-3.2.1.min.js") }}"></script>
@@ -143,7 +154,45 @@
 	<script src="{{ static_url("vendor/countdowntime/countdowntime.js") }}"></script>
 <!--===============================================================================================-->
 	<script src="{{ static_url("js/main.js") }}"></script>
-	
+	<script>
+		// Cookie Compliancy BEGIN
+function GetCookie(name) {
+  var arg=name+"=";
+  var alen=arg.length;
+  var clen=document.cookie.length;
+  var i=0;
+  while (i<clen) {
+	var j=i+alen;
+	if (document.cookie.substring(i,j)==arg)
+	  return "here";
+	i=document.cookie.indexOf(" ",i)+1;
+	if (i==0) break;
+  }
+  return null;
+}
+function testFirstCookie(){
+	var offset = new Date().getTimezoneOffset();
+	if ((offset >= -180) && (offset <= 0)) { // European time zones
+		var visit=GetCookie("cookieCompliancyAccepted");
+		if (visit==null){
+		   $("#myCookieConsent").fadeIn(400);	// Show warning
+	   } else {
+			// Already accepted
+	   }		
+	}
+}
+$(document).ready(function(){
+    $("#cookieButton").click(function(){
+		console.log('Understood');
+		var expire=new Date();
+		expire=new Date(expire.getTime()+7776000000);
+		document.cookie="cookieCompliancyAccepted=here; expires="+expire+";path=/";
+        $("#myCookieConsent").hide(400);
+    });
+	testFirstCookie();
+});
+// Cookie Compliancy END
+	</script>
 
 </body>
 </html>
