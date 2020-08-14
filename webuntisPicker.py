@@ -50,11 +50,20 @@ def initDB():
     password_hash VARCHAR (255),
     class_code    VARCHAR (255)
 );'''
+
+        mysqlCreateCode2 = '''CREATE TABLE fachKombi (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    user        VARCHAR (255),
+    kombi VARCHAR (255),
+    class_code    VARCHAR (255)
+);'''
         cursor = sqliteConnection.cursor()
         cursor.execute(mysqlCreateCode)
+        cursor.execute(mysqlCreateCode2)
         cursor.close()
 
 def createUser(e_mail, password):
+    try:
         sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
         hasher = hashlib.md5()
         passwordEncode = password.encode("utf-8")
@@ -65,8 +74,37 @@ def createUser(e_mail, password):
         ret = cursor.execute(mysqlData)
         sqliteConnection.commit()
         cursor.close()
-        print("Created new user [DONE] Code:", ret)
+        print("Created new user [DONE]")
+        return(True)
+    except:
+        print("Creation failed!")
+        return(False)
 
+
+def checkUser(e_mail, password):
+    
+        sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
+        hasher = hashlib.md5()
+        passwordEncode = password.encode("utf-8")
+        hasher.update(passwordEncode)
+        mysqlData = 'SELECT password_hash FROM userdata WHERE e_mail="' + e_mail.strip("<").strip("'").strip('"') + '";'
+        cursor = sqliteConnection.cursor()
+
+        ret = cursor.execute(mysqlData)
+        record = cursor.fetchall()
+        if(record[0][0] == hasher.hexdigest()):
+            cursor.close()
+            return(True)
+        else:
+            cursor.close()
+            return(False)
+        #print(record[0][0])
+       
+
+        
+    
+    #    print("Usercheck failed!")
+     #   return(False)
 
 def parseTimegrid(se):
     tiObj = {}
@@ -160,7 +198,10 @@ class updateCallback(tornado.web.RequestHandler):
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         global finalData, outify, weekdayL, outF, outFState
-        self.render("main.html", data = outify, datum = weekdayL, roomData = outF, roomStates = outFState, sel = selected)
+        if(self.get_cookie("user")):
+            self.render("main.html", data = outify, datum = weekdayL, roomData = outF, roomStates = outFState, sel = selected)
+        else:
+            self.render("index.html", errorMsg = "")
 
 class defaultHandler(tornado.web.RequestHandler):
     def __init__(self, arg2, arg3):
@@ -173,10 +214,16 @@ class defaultHandler(tornado.web.RequestHandler):
     def request(self):
         self.write("404 - my thing")
 
+class redirecter(tornado.web.RequestHandler):
+
+    def get(self):
+        self.render("redirect.html")
+
+
 class LoginPage(tornado.web.RequestHandler):
     def get(self):
         global finalData, outify, weekdayL, outF, outFState
-        self.render("index.html", data = outify, datum = weekdayL, roomData = outF, roomStates = outFState, sel = selected)
+        self.render("index.html", errorMsg="")
 
     def post(self):
         typeI = self.get_argument('type')
@@ -184,12 +231,18 @@ class LoginPage(tornado.web.RequestHandler):
             email = self.get_argument('email')
             password = self.get_argument('pass')
             print("[AUTH] Type: LOGIN E-Mail:", email, "Password:", password)
-        self.write("Okay")
+            if(checkUser(email, password)):
+
+                self.set_cookie("user", email)
+                self.render("redirect.html")
+            else:
+                #self.write("Login fail")
+                self.render("index.html", errorMsg = "FAIL")
 
 class newAccountHandler(tornado.web.RequestHandler):
     def get(self):
         global finalData, outify, weekdayL, outF, outFState
-        self.render("newAccount.html", data = outify, datum = weekdayL, roomData = outF, roomStates = outFState, sel = selected)
+        self.render("newAccount.html", errorMsg = "")
 
     def post(self):
         typeI = self.get_argument('type')
@@ -203,16 +256,24 @@ class newAccountHandler(tornado.web.RequestHandler):
                 untisOk = True
                 if(password == password2):
                     passwordSame = True
-                    createUser(email, password)
+                    ret = createUser(email, password)
+                    if(ret == False):
+                        self.render("newAccount.html", errorMsg = "INTERNAL_FAIL")
+                    else:
+                        self.set_cookie("user", email)
+                        self.render("redirect.html")
                 else:
                     errCode.append("PASS_UNSAME")
+                    self.render("newAccount.html", errorMsg = "PASS_UNSAME")
             else:
                 errCode.append("PASS_UNTISWRONG")
+                self.render("newAccount.html", errorMsg = "PASS_UNTISWRONG")
                 untisOk = False
             authStringInfo  = "[AUTH] Type: REGISTER E-Mail: " + email + " Password: " + password + " Password2: " + password2 + " Units password: " + str(untisPasswortL) + " ErrorCodes: " + str(errCode)
             authStringInfo.encode("utf-8")
             print(authStringInfo)
-        self.write(authStringInfo)
+        
+        #self.write(authStringInfo)
 
 def make_app():
     data = "Test"
@@ -221,6 +282,7 @@ def make_app():
         (r"/update_kurse", updateCallback),
         (r"/", LoginPage),
         (r"/register", newAccountHandler),
+        (r"/redirect", redirecter),
     ], static_path=os.path.join(os.path.dirname(__file__), "static"),
     template_path=os.path.join(os.path.dirname(__file__), "templates"),
     default_handler_class=defaultHandler)
