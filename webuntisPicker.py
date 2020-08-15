@@ -127,7 +127,7 @@ def setFachKombo(usrCode, fachs):
         cursor.close()
         print("Set new Fachkombo [DONE]")
         return(True)
-    except:
+    except Exception as ex:
         print("Creation failed!")
         logging.warn("setFachKombo failed, error " + str(ex))
         return(False)
@@ -148,7 +148,7 @@ def getFachKombo(usrCode):
         proc = proc.split(",")
         #print(proc)
         return(proc)
-    except:
+    except Exception as ex:
         logging.warn("getFachKombo failed, error " + str(ex))
         return(False)
 
@@ -156,14 +156,14 @@ def getFachKombo(usrCode):
 def resolve_e_mail(usr_code):
     try:
         sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
-        mysqlData = 'SELECT e_mail FROM userdata WHERE usr_code="' + usrCode + '";'
+        mysqlData = 'SELECT e_mail FROM userdata WHERE usr_code="' + usr_code + '";'
         cursor = sqliteConnection.cursor()
         ret = cursor.execute(mysqlData)
         record = cursor.fetchall()
         cursor.close()
         proc = record[0][0]
         return(proc)
-    except:
+    except Exception as ex:
         logging.warn("resolve_e_mail failed, error " + str(ex))
         return(False)
 
@@ -332,9 +332,14 @@ class MainHandler(tornado.web.RequestHandler):
                      handOverData2.append(outFState)
                      handOverData.append(outF)
                      i-=-1
-                
+                usrMail = str(resolve_e_mail(self.get_cookie("user")))
+                usrMail = usrMail.encode("utf-8")
+                #print(usrMail)
+                result = hashlib.md5(usrMail)
+                dig = str(result.digest())
+                #result = hashlib.md5(resolve_e_mail(self.get_cookie("user").encode("utf-8"))) 
                 self.render("main.html", data=outify, datum=today,
-                            roomData=handOverData, roomStates=handOverData2, sel=selected, version = version)
+                            roomData=handOverData, roomStates=handOverData2, sel=selected, version = version, usrN = dig, mail=str(resolve_e_mail(self.get_cookie("user"))))
         else:
             self.render("index.html", errorMsg="")
 
@@ -380,6 +385,12 @@ class defaultHandler(tornado.web.RequestHandler):
 class changelogHandler(tornado.web.RequestHandler):
     def get(self):
         self.render("changelog.html")
+
+
+class logoutHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.clear_cookie("user")
+        self.render("logout.html")
 
 class redirecter(tornado.web.RequestHandler):
     def get(self):
@@ -454,7 +465,8 @@ def make_app():
         (r"/redirect", redirecter),
         (r"/almost_done", almostDone),
         (r"/legal", legal),
-        (r"/changelog", changelogHandler)
+        (r"/changelog", changelogHandler),
+        (r"/logout", logoutHandler)
     ], static_path=os.path.join(os.path.dirname(__file__), "static"),
         template_path=os.path.join(os.path.dirname(__file__), "templates"),
         default_handler_class=defaultHandler)

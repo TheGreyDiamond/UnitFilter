@@ -49,6 +49,10 @@
         location.reload();
     }
 </script>
+<div class="wrap-loginUsr" onclick="logout()">
+  <img class="imgCircle" src="https://www.gravatar.com/avatar/{{ usrN }}">
+       {{ mail }}
+</div>
 <div class="limiter">
   <div class="container-login100">
     <div class="wrap-loginDyn">
@@ -215,6 +219,14 @@ $(document).ready(function(){
 	testFirstCookie();
 });
 // Cookie Compliancy END
-	</script>
+  </script>
+  <script>
+    function logout() {
+      result = confirm("Möchten sie sich abmelden?");
+      if(result){
+        window.location.href = "/logout"
+      }
+    }
+    </script>
 </body>
 </html>
