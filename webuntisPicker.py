@@ -11,6 +11,7 @@ import re
 import random
 import string
 
+version = "1.2.1"
 
 untisPasswort = 'Doruwiwilu1'
 
@@ -22,7 +23,11 @@ se = webuntis.Session(
     useragent='Soeren spielt mit der API'
 )
 
-logging.basicConfig(level=logging.WARN)
+logging.basicConfig(level=logging.INFO,
+                    format='[%(asctime)s,%(msecs)d] %(name)s [%(levelname)s] %(message)s',
+                    datefmt='%H:%M:%S',
+                    filename="log.txt",
+                    filemode='a')
 
 
 outify = []
@@ -64,28 +69,27 @@ def get_random_alphanumeric_string():
 
 
 def initDB():
-    print("Starting DB init")
+    #print("Starting DB init")
+    logging.info("Started DB Init Function")
     try:
         f = open("ready.lock", "x")
     except FileExistsError:
-        print("No new setup")
+        #print("No new setup")
+        logging.info("No need for a new DB")
     else:
-        print("Init started")
+        logging.info("Creating DB")
         sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
         mysqlCreateCode = '''CREATE TABLE userdata (
-    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    e_mail        VARCHAR (255) UNIQUE,
-    password_hash VARCHAR (255),
-    usr_code    VARCHAR (255) UNIQUE
-);'''
+            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+            e_mail        VARCHAR (255) UNIQUE,
+            password_hash VARCHAR (255),
+            usr_code    VARCHAR (255) UNIQUE);'''
 
         mysqlCreateCode2 = '''CREATE TABLE fachKombi (
-    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    usr_code        VARCHAR (255),
-    kombi VARCHAR (255),
-    class_code    VARCHAR (255)
-);'''
-
+            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+            usr_code        VARCHAR (255),
+            kombi VARCHAR (255),
+            class_code    VARCHAR (255));'''
 
         cursor = sqliteConnection.cursor()
         cursor.execute(mysqlCreateCode)
@@ -94,40 +98,42 @@ def initDB():
 
 
 def createUser(e_mail, password):
-    # try:
-    sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
-    hasher = hashlib.md5()
-    passwordEncode = password.encode("utf-8")
-    hasher.update(passwordEncode)
-    # print(hasher.hexdigest())
-    rand = get_random_alphanumeric_string()
-    mysqlData = 'INSERT INTO userdata (e_mail, password_hash, usr_code) VALUES ("' + \
-        e_mail + '", "' + hasher.hexdigest() + '", "' + rand + '");'
-    cursor = sqliteConnection.cursor()
-    ret = cursor.execute(mysqlData)
-    sqliteConnection.commit()
-    cursor.close()
-    print("Created new user [DONE]")
-    return(True)
-    # except:
-    #    print("Creation failed!")
-    #    return(False)
+    try:
+        sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
+        hasher = hashlib.md5()
+        passwordEncode = password.encode("utf-8")
+        hasher.update(passwordEncode)
+        # print(hasher.hexdigest())
+        rand = get_random_alphanumeric_string()
+        mysqlData = 'INSERT INTO userdata (e_mail, password_hash, usr_code) VALUES ("' + \
+            e_mail + '", "' + hasher.hexdigest() + '", "' + rand + '");'
+        cursor = sqliteConnection.cursor()
+        ret = cursor.execute(mysqlData)
+        sqliteConnection.commit()
+        cursor.close()
+        print("Created new user [DONE]")
+        return(True)
+    except Exception as ex:
+        print("Creation failed!")
+        logging.warn("Usercreation failed, error " + str(ex))
+        return(False)
 
 
 def setFachKombo(usrCode, fachs):
-    # try:
-    sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
-    mysqlData = 'INSERT INTO fachKombi (usr_code, kombi, class_code) VALUES ("' + \
-        usrCode + '", "' + str(fachs) + '", "");'
-    cursor = sqliteConnection.cursor()
-    ret = cursor.execute(mysqlData)
-    sqliteConnection.commit()
-    cursor.close()
-    print("Set new Fachkombo [DONE]")
-    return(True)
-    # except:
-    #    print("Creation failed!")
-    #    return(False)
+    try:
+        sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
+        mysqlData = 'INSERT INTO fachKombi (usr_code, kombi, class_code) VALUES ("' + \
+            usrCode + '", "' + str(fachs) + '", "");'
+        cursor = sqliteConnection.cursor()
+        ret = cursor.execute(mysqlData)
+        sqliteConnection.commit()
+        cursor.close()
+        print("Set new Fachkombo [DONE]")
+        return(True)
+    except:
+        print("Creation failed!")
+        logging.warn("setFachKombo failed, error " + str(ex))
+        return(False)
 
 
 def getFachKombo(usrCode):
@@ -146,6 +152,7 @@ def getFachKombo(usrCode):
         print(proc)
         return(proc)
     except:
+        logging.warn("getFachKombo failed, error " + str(ex))
         return(False)
 
 
@@ -160,6 +167,7 @@ def resolve_e_mail(usr_code):
         proc = record[0][0]
         return(proc)
     except:
+        logging.warn("resolve_e_mail failed, error " + str(ex))
         return(False)
 
 
@@ -243,6 +251,7 @@ def work(row2, out):
 
 
 def webU(wantedDay=today):
+    logging.info("Updating table")
     print("Updating table...", end="")
     global outify, weekdayL, outF, outFState, rowRam
     with se.login() as s:
@@ -262,7 +271,7 @@ def webU(wantedDay=today):
         for time, row in table:
             work(row, out)
         work(row, out)
-    print("[DONE]")
+    logging.info("Table [DONE]")
     return(out)
 
 # Webserver
@@ -304,7 +313,7 @@ class MainHandler(tornado.web.RequestHandler):
                 selected = "custom"
                 finalData = webU(wantedDay)
                 self.render("main.html", data=outify, datum=weekdayL,
-                            roomData=outF, roomStates=outFState, sel=selected)
+                            roomData=outF, roomStates=outFState, sel=selected, version = version)
         else:
             self.render("index.html", errorMsg="")
 
@@ -446,5 +455,6 @@ if __name__ == "__main__":
     app = make_app()
     app.listen(8888)
     finalData = webU(wantedDay)
+    logging.info("Starting server")
     print("Starting server")
     tornado.ioloop.IOLoop.current().start()
