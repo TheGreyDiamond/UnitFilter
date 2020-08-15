@@ -11,7 +11,7 @@ import re
 import random
 import string
 
-version = "1.2.1"
+version = "1.2.2"
 
 untisPasswort = 'Doruwiwilu1'
 
@@ -69,12 +69,10 @@ def get_random_alphanumeric_string():
 
 
 def initDB():
-    #print("Starting DB init")
     logging.info("Started DB Init Function")
     try:
         f = open("ready.lock", "x")
     except FileExistsError:
-        #print("No new setup")
         logging.info("No need for a new DB")
     else:
         logging.info("Creating DB")
@@ -103,7 +101,6 @@ def createUser(e_mail, password):
         hasher = hashlib.md5()
         passwordEncode = password.encode("utf-8")
         hasher.update(passwordEncode)
-        # print(hasher.hexdigest())
         rand = get_random_alphanumeric_string()
         mysqlData = 'INSERT INTO userdata (e_mail, password_hash, usr_code) VALUES ("' + \
             e_mail + '", "' + hasher.hexdigest() + '", "' + rand + '");'
@@ -144,12 +141,12 @@ def getFachKombo(usrCode):
         ret = cursor.execute(mysqlData)
         record = cursor.fetchall()
         cursor.close()
-        print(record[0][0])
+        #print(record[0][0])
         proc = record[0][0]
         proc = proc.strip("[").replace("]", "").replace(
             "'", "").replace(" ", "")
         proc = proc.split(",")
-        print(proc)
+        #print(proc)
         return(proc)
     except:
         logging.warn("getFachKombo failed, error " + str(ex))
@@ -240,8 +237,13 @@ def work(row2, out):
                                 to += proc + " ?:" + period.code
                         else:
                             out += proc + " "
-                            out += str(period.rooms[0])
-                            to += proc + " " + str(period.rooms[0])
+                            try:
+                                out += str(period.rooms[0])
+                                to += proc + " " + str(period.rooms[0])
+                            except:
+                                out += "???"
+                                to += proc + " " + "???"
+                            
                             state = False
     elif rowcount >= 5:
         to += "-Mittagspause-"
@@ -252,7 +254,7 @@ def work(row2, out):
 
 def webU(wantedDay=today):
     logging.info("Updating table")
-    print("Updating table...", end="")
+    #print("Updating table...", end="")
     global outify, weekdayL, outF, outFState, rowRam
     with se.login() as s:
         timeGr = parseTimegrid(s)
@@ -274,8 +276,9 @@ def webU(wantedDay=today):
     logging.info("Table [DONE]")
     return(out)
 
-# Webserver
 
+
+# Webserver
 
 class updateCallback(tornado.web.RequestHandler):
     def get(self):
@@ -283,7 +286,7 @@ class updateCallback(tornado.web.RequestHandler):
         self.write("<script> window.close(); </script>")
         kurse = kursDict[self.get_argument("kurs")]
         selected = self.get_argument("kurs")
-        print("Changed selection", kurse)
+        #print("Changed selection", kurse)
         outify = []
         weekdayL = ""
         outF = []
@@ -311,9 +314,27 @@ class MainHandler(tornado.web.RequestHandler):
                 rowcount = 0
                 temp = ""
                 selected = "custom"
-                finalData = webU(wantedDay)
-                self.render("main.html", data=outify, datum=weekdayL,
-                            roomData=outF, roomStates=outFState, sel=selected, version = version)
+                handOverData = []
+                handOverData2 = []
+                i = 0
+                wantedDay = monday
+                while(i <= 4):
+                     outify = []
+                     weekdayL = ""
+                     outF = []
+                     outFState = []
+                     rowRam = ""
+                     rowcount = 0
+                     temp = ""
+                     selected = "custom"
+                     finalData = webU(wantedDay)
+                     wantedDay =  wantedDay + datetime.timedelta(days=1)
+                     handOverData2.append(outFState)
+                     handOverData.append(outF)
+                     i-=-1
+                
+                self.render("main.html", data=outify, datum=today,
+                            roomData=handOverData, roomStates=handOverData2, sel=selected, version = version)
         else:
             self.render("index.html", errorMsg="")
 
@@ -382,7 +403,7 @@ class LoginPage(tornado.web.RequestHandler):
         if(typeI == "login"):
             email = self.get_argument('email')
             password = self.get_argument('pass')
-            print("[AUTH] Type: LOGIN E-Mail:", email, "Password:", password)
+            #print("[AUTH] Type: LOGIN E-Mail:", email, "Password:", password)
             chkUser = checkUser(email, password)
             if(checkUser != False):
 
@@ -428,7 +449,7 @@ class newAccountHandler(tornado.web.RequestHandler):
                 " Password2: " + password2 + " Units password: " + \
                 str(untisPasswortL) + " ErrorCodes: " + str(errCode)
             authStringInfo.encode("utf-8")
-            print(authStringInfo)
+            #print(authStringInfo)
 
         # self.write(authStringInfo)
 
@@ -450,6 +471,7 @@ def make_app():
 
 
 if __name__ == "__main__":
+    logging.info("Starting system.")
     initDB()
     io_loop = tornado.ioloop.IOLoop.current()
     app = make_app()
