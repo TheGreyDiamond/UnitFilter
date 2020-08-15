@@ -124,8 +124,21 @@ def getFachKombo(usrCode):
     except:
         return(False)
 
+def resolve_e_mail(usr_code):
+    try:
+        sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
+        mysqlData = 'SELECT e_mail FROM userdata WHERE usr_code="' + usrCode + '";'
+        cursor = sqliteConnection.cursor()
+        ret = cursor.execute(mysqlData)
+        record = cursor.fetchall()
+        cursor.close()
+        proc = record[0][0]
+        return(proc)
+    except:
+        return(False)
+
+
 def checkUser(e_mail, password):
-    
         sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
         hasher = hashlib.md5()
         passwordEncode = password.encode("utf-8")
