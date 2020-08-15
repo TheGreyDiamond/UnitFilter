@@ -11,7 +11,7 @@ import re
 import random
 import string
 
-version = "1.2.2"
+version = "1.2.3"
 
 untisPasswort = 'Doruwiwilu1'
 
@@ -376,8 +376,6 @@ class defaultHandler(tornado.web.RequestHandler):
         # Use prepare() to handle all the HTTP methods
         self.set_status(404)
         self.render("404.html")
-        # self.finish()
-
 
 class changelogHandler(tornado.web.RequestHandler):
     def get(self):
@@ -387,11 +385,9 @@ class redirecter(tornado.web.RequestHandler):
     def get(self):
         self.render("redirect.html")
 
-
 class legal(tornado.web.RequestHandler):
     def get(self):
         self.render("legal.html")
-
 
 class LoginPage(tornado.web.RequestHandler):
     def get(self):
@@ -407,12 +403,10 @@ class LoginPage(tornado.web.RequestHandler):
             chkUser = checkUser(email, password)
             if(checkUser != False):
 
-                self.set_cookie("user", chkUser)  # usr_code
+                self.set_cookie("user", chkUser)
                 self.render("redirect.html")
             else:
-                #self.write("Login fail")
                 self.render("index.html", errorMsg="FAIL")
-
 
 class newAccountHandler(tornado.web.RequestHandler):
     def get(self):
@@ -449,10 +443,6 @@ class newAccountHandler(tornado.web.RequestHandler):
                 " Password2: " + password2 + " Units password: " + \
                 str(untisPasswortL) + " ErrorCodes: " + str(errCode)
             authStringInfo.encode("utf-8")
-            #print(authStringInfo)
-
-        # self.write(authStringInfo)
-
 
 def make_app():
     data = "Test"
