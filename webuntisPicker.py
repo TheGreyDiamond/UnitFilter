@@ -1,4 +1,15 @@
-import webuntis, os, tornado.web, tornado.ioloop, logging, datetime, time, sqlite3, hashlib, re, random, string
+import webuntis
+import os
+import tornado.web
+import tornado.ioloop
+import logging
+import datetime
+import time
+import sqlite3
+import hashlib
+import re
+import random
+import string
 
 
 untisPasswort = 'Doruwiwilu1'
@@ -24,7 +35,8 @@ finalData = ""
 
 # Time defintions
 today = datetime.date.today()
-monday = today - datetime.timedelta(days=today.weekday()) + datetime.timedelta(days=7)
+monday = today - \
+    datetime.timedelta(days=today.weekday()) + datetime.timedelta(days=7)
 friday = monday + datetime.timedelta(days=4) + datetime.timedelta(days=7)
 
 
@@ -32,20 +44,24 @@ friday = monday + datetime.timedelta(days=4) + datetime.timedelta(days=7)
 wantedDay = monday
 kursDict = {"soeren": ["CH2", "EK1", "IF2", "E52", "GE2", "KU1", "ER1", "C01", "D2", "M2", "PH1", "SP1"],
             "joshua": ["CH2", "PA2", "IF2", "E53", "L61", "MU1", "ER1", "C01", "D3", "M3", "GE3", "SP1"]}
-kurse = kursDict["soeren"] ## Defaults to soeren
+kurse = kursDict["soeren"]  # Defaults to soeren
 selected = "soeren"
+
 
 def get_random_alphanumeric_string():
     letters_count = 40
     digits_count = 10
-    sample_str = ''.join((random.choice(string.ascii_letters) for i in range(letters_count)))
-    sample_str += ''.join((random.choice(string.digits) for i in range(digits_count)))
+    sample_str = ''.join((random.choice(string.ascii_letters)
+                          for i in range(letters_count)))
+    sample_str += ''.join((random.choice(string.digits)
+                           for i in range(digits_count)))
 
     # Convert string to list and shuffle it to mix letters and digits
     sample_list = list(sample_str)
     random.shuffle(sample_list)
     final_string = ''.join(sample_list)
     return final_string
+
 
 def initDB():
     print("Starting DB init")
@@ -69,43 +85,50 @@ def initDB():
     kombi VARCHAR (255),
     class_code    VARCHAR (255)
 );'''
+
+
         cursor = sqliteConnection.cursor()
         cursor.execute(mysqlCreateCode)
         cursor.execute(mysqlCreateCode2)
         cursor.close()
 
+
 def createUser(e_mail, password):
-    #try:
-        sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
-        hasher = hashlib.md5()
-        passwordEncode = password.encode("utf-8")
-        hasher.update(passwordEncode)
-        #print(hasher.hexdigest())
-        rand = get_random_alphanumeric_string()
-        mysqlData = 'INSERT INTO userdata (e_mail, password_hash, usr_code) VALUES ("' + e_mail + '", "' + hasher.hexdigest() + '", "' + rand + '");'
-        cursor = sqliteConnection.cursor()
-        ret = cursor.execute(mysqlData)
-        sqliteConnection.commit()
-        cursor.close()
-        print("Created new user [DONE]")
-        return(True)
-    #except:
+    # try:
+    sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
+    hasher = hashlib.md5()
+    passwordEncode = password.encode("utf-8")
+    hasher.update(passwordEncode)
+    # print(hasher.hexdigest())
+    rand = get_random_alphanumeric_string()
+    mysqlData = 'INSERT INTO userdata (e_mail, password_hash, usr_code) VALUES ("' + \
+        e_mail + '", "' + hasher.hexdigest() + '", "' + rand + '");'
+    cursor = sqliteConnection.cursor()
+    ret = cursor.execute(mysqlData)
+    sqliteConnection.commit()
+    cursor.close()
+    print("Created new user [DONE]")
+    return(True)
+    # except:
     #    print("Creation failed!")
     #    return(False)
 
+
 def setFachKombo(usrCode, fachs):
-    #try:
-        sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
-        mysqlData = 'INSERT INTO fachKombi (usr_code, kombi, class_code) VALUES ("' + usrCode + '", "' + str(fachs) + '", "");'
-        cursor = sqliteConnection.cursor()
-        ret = cursor.execute(mysqlData)
-        sqliteConnection.commit()
-        cursor.close()
-        print("Set new Fachkombo [DONE]")
-        return(True)
-    #except:
+    # try:
+    sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
+    mysqlData = 'INSERT INTO fachKombi (usr_code, kombi, class_code) VALUES ("' + \
+        usrCode + '", "' + str(fachs) + '", "");'
+    cursor = sqliteConnection.cursor()
+    ret = cursor.execute(mysqlData)
+    sqliteConnection.commit()
+    cursor.close()
+    print("Set new Fachkombo [DONE]")
+    return(True)
+    # except:
     #    print("Creation failed!")
     #    return(False)
+
 
 def getFachKombo(usrCode):
     try:
@@ -117,12 +140,14 @@ def getFachKombo(usrCode):
         cursor.close()
         print(record[0][0])
         proc = record[0][0]
-        proc = proc.strip("[").replace("]", "").replace("'", "").replace(" ", "")
+        proc = proc.strip("[").replace("]", "").replace(
+            "'", "").replace(" ", "")
         proc = proc.split(",")
         print(proc)
         return(proc)
     except:
         return(False)
+
 
 def resolve_e_mail(usr_code):
     try:
@@ -139,35 +164,37 @@ def resolve_e_mail(usr_code):
 
 
 def checkUser(e_mail, password):
-        sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
-        hasher = hashlib.md5()
-        passwordEncode = password.encode("utf-8")
-        hasher.update(passwordEncode)
-        mysqlData = 'SELECT password_hash, usr_code FROM userdata WHERE e_mail="' + e_mail.strip("<").strip("'").strip('"') + '";'
-        cursor = sqliteConnection.cursor()
+    sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
+    hasher = hashlib.md5()
+    passwordEncode = password.encode("utf-8")
+    hasher.update(passwordEncode)
+    mysqlData = 'SELECT password_hash, usr_code FROM userdata WHERE e_mail="' + \
+        e_mail.strip("<").strip("'").strip('"') + '";'
+    cursor = sqliteConnection.cursor()
 
-        ret = cursor.execute(mysqlData)
-        record = cursor.fetchall()
-        if(record[0][0] == hasher.hexdigest()):
-            cursor.close()
-            # usr_code
-            return(record[0][1])
-        else:
-            cursor.close()
-            return(False)
-        #print(record[0][0])
-       
+    ret = cursor.execute(mysqlData)
+    record = cursor.fetchall()
+    if(record[0][0] == hasher.hexdigest()):
+        cursor.close()
+        # usr_code
+        return(record[0][1])
+    else:
+        cursor.close()
+        return(False)
+    # print(record[0][0])
 
-        
-    
     #    print("Usercheck failed!")
-     #   return(False)
+ #   return(False)
+
 
 def parseTimegrid(se):
     tiObj = {}
-    tiObj['startTime'] = ["".join(list(i.start.isoformat())[0:-3]) for i in se.timegrid_units()[0].time_units]
-    tiObj['endTime'] = ["".join(list(i.end.isoformat())[0:-3]) for i in se.timegrid_units()[0].time_units]
+    tiObj['startTime'] = ["".join(list(i.start.isoformat())[0:-3])
+                          for i in se.timegrid_units()[0].time_units]
+    tiObj['endTime'] = ["".join(list(i.end.isoformat())[0:-3])
+                        for i in se.timegrid_units()[0].time_units]
     return(tiObj)
+
 
 def work(row2, out):
     global rowcount, rowRam
@@ -175,7 +202,7 @@ def work(row2, out):
         row = rowRam
     else:
         row = row2
-    rowcount -=-1
+    rowcount -= -1
     to = ""
     state = None
     if rowcount != 5:
@@ -191,18 +218,18 @@ def work(row2, out):
                     if(proc in kurse):
                         if(period.code != None):
                             if(period.code == "cancelled"):
-                                out +="<s>"
+                                out += "<s>"
                                 out += proc
                                 try:
                                     to += proc + " " + str(period.rooms[0])
                                 except:
                                     to += proc + " " + str(period.rooms)
                                 state = True
-                                out +="</s>" 
+                                out += "</s>"
                             else:
                                 out += proc
                                 out += period.code + " "
-                                to += proc +  " ?:" + period.code
+                                to += proc + " ?:" + period.code
                         else:
                             out += proc + " "
                             out += str(period.rooms[0])
@@ -210,31 +237,37 @@ def work(row2, out):
                             state = False
     elif rowcount >= 5:
         to += "-Mittagspause-"
-    outF.append(to) 
+    outF.append(to)
     outFState.append(state)
     rowRam = row2
 
-def webU(wantedDay = today):
-    print("Updating table...", end = "")
+
+def webU(wantedDay=today):
+    print("Updating table...", end="")
     global outify, weekdayL, outF, outFState, rowRam
     with se.login() as s:
         timeGr = parseTimegrid(s)
         klasse = s.klassen().filter(name='EF')[0]
-        table = s.timetable(klasse=klasse, start=wantedDay, end=wantedDay).to_table()
-        weekdayL = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag"][wantedDay.weekday()]
+        table = s.timetable(klasse=klasse, start=wantedDay,
+                            end=wantedDay).to_table()
+        weekdayL = ["Montag", "Dienstag", "Mittwoch",
+                    "Donnerstag", "Freitag"][wantedDay.weekday()]
         out = ""
         times = []
         i = 0
         while i < len(timeGr["startTime"]):
-            outify.append(timeGr["startTime"][i] + " - " + timeGr["endTime"][i])
-            i-=-1
+            outify.append(timeGr["startTime"][i] +
+                          " - " + timeGr["endTime"][i])
+            i -= -1
         for time, row in table:
             work(row, out)
         work(row, out)
-    print("[DONE]")                           
+    print("[DONE]")
     return(out)
 
 # Webserver
+
+
 class updateCallback(tornado.web.RequestHandler):
     def get(self):
         global kurse, finalData, outify, weekdayL, outF, outFState, selected, rowRam, rowcount, temp
@@ -258,7 +291,7 @@ class MainHandler(tornado.web.RequestHandler):
         if(self.get_cookie("user")):
             te = getFachKombo(self.get_cookie("user"))
             if(te == False):
-                self.render("almostDone.html", errorMsg = "")
+                self.render("almostDone.html", errorMsg="")
             else:
                 kurse = te
                 outify = []
@@ -270,21 +303,24 @@ class MainHandler(tornado.web.RequestHandler):
                 temp = ""
                 selected = "custom"
                 finalData = webU(wantedDay)
-                self.render("main.html", data = outify, datum = weekdayL, roomData = outF, roomStates = outFState, sel = selected)
+                self.render("main.html", data=outify, datum=weekdayL,
+                            roomData=outF, roomStates=outFState, sel=selected)
         else:
-            self.render("index.html", errorMsg = "")
+            self.render("index.html", errorMsg="")
+
 
 class almostDone(tornado.web.RequestHandler):
     def get(self):
-        self.render("almostDone.html", errorMsg = "")
+        self.render("almostDone.html", errorMsg="")
+
     def post(self):
         i = 1
         args = []
         try:
-            while i <=13:
+            while i <= 13:
                 args.append(self.get_argument("a" + str(i)))
-                i -=- 1
-            
+                i -= - 1
+
             # print(args)
             out = []
             for el in args:
@@ -292,7 +328,7 @@ class almostDone(tornado.web.RequestHandler):
                 # print(len(re.findall("(^E\d)", el2)))
                 if(re.search("(^E\d)", el2)):
                     out.append(el2[0] + "5" + el2[1])
-                elif(el2=="0"):
+                elif(el2 == "0"):
                     pass
                 else:
                     out.append(el2)
@@ -300,25 +336,31 @@ class almostDone(tornado.web.RequestHandler):
             setFachKombo(usr, out)
         except Exception as ex:
             print("Missing args", ex)
-            self.render("almostDone.html", errorMsg = "notAllSet")
+            self.render("almostDone.html", errorMsg="notAllSet")
         else:
             self.render("redirect.html")
+
+
 class defaultHandler(tornado.web.RequestHandler):
     def prepare(self):
         # Use prepare() to handle all the HTTP methods
         self.set_status(404)
         self.render("404.html")
-        self.finish()
+        # self.finish()
+
+
+class changelogHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render("changelog.html")
 
 class redirecter(tornado.web.RequestHandler):
-
     def get(self):
         self.render("redirect.html")
+
 
 class legal(tornado.web.RequestHandler):
     def get(self):
         self.render("legal.html")
-
 
 
 class LoginPage(tornado.web.RequestHandler):
@@ -335,16 +377,17 @@ class LoginPage(tornado.web.RequestHandler):
             chkUser = checkUser(email, password)
             if(checkUser != False):
 
-                self.set_cookie("user", chkUser)    ## usr_code
+                self.set_cookie("user", chkUser)  # usr_code
                 self.render("redirect.html")
             else:
                 #self.write("Login fail")
-                self.render("index.html", errorMsg = "FAIL")
+                self.render("index.html", errorMsg="FAIL")
+
 
 class newAccountHandler(tornado.web.RequestHandler):
     def get(self):
         global finalData, outify, weekdayL, outF, outFState
-        self.render("newAccount.html", errorMsg = "")
+        self.render("newAccount.html", errorMsg="")
 
     def post(self):
         typeI = self.get_argument('type')
@@ -360,22 +403,26 @@ class newAccountHandler(tornado.web.RequestHandler):
                     passwordSame = True
                     ret = createUser(email, password)
                     if(ret == False):
-                        self.render("newAccount.html", errorMsg = "INTERNAL_FAIL")
+                        self.render("newAccount.html",
+                                    errorMsg="INTERNAL_FAIL")
                     else:
                         self.set_cookie("user", email)
                         self.render("redirect.html")
                 else:
                     errCode.append("PASS_UNSAME")
-                    self.render("newAccount.html", errorMsg = "PASS_UNSAME")
+                    self.render("newAccount.html", errorMsg="PASS_UNSAME")
             else:
                 errCode.append("PASS_UNTISWRONG")
-                self.render("newAccount.html", errorMsg = "PASS_UNTISWRONG")
+                self.render("newAccount.html", errorMsg="PASS_UNTISWRONG")
                 untisOk = False
-            authStringInfo  = "[AUTH] Type: REGISTER E-Mail: " + email + " Password: " + password + " Password2: " + password2 + " Units password: " + str(untisPasswortL) + " ErrorCodes: " + str(errCode)
+            authStringInfo = "[AUTH] Type: REGISTER E-Mail: " + email + " Password: " + password + \
+                " Password2: " + password2 + " Units password: " + \
+                str(untisPasswortL) + " ErrorCodes: " + str(errCode)
             authStringInfo.encode("utf-8")
             print(authStringInfo)
-        
-        #self.write(authStringInfo)
+
+        # self.write(authStringInfo)
+
 
 def make_app():
     data = "Test"
@@ -387,9 +434,11 @@ def make_app():
         (r"/redirect", redirecter),
         (r"/almost_done", almostDone),
         (r"/legal", legal),
+        (r"/changelog", changelogHandler)
     ], static_path=os.path.join(os.path.dirname(__file__), "static"),
-    template_path=os.path.join(os.path.dirname(__file__), "templates"),
-    default_handler_class=defaultHandler)
+        template_path=os.path.join(os.path.dirname(__file__), "templates"),
+        default_handler_class=defaultHandler)
+
 
 if __name__ == "__main__":
     initDB()
