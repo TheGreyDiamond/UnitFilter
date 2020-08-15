@@ -1,4 +1,4 @@
-import webuntis, os, tornado.web, tornado.ioloop, logging, datetime, time, sqlite3, hashlib, re
+import webuntis, os, tornado.web, tornado.ioloop, logging, datetime, time, sqlite3, hashlib, re, random, string
 
 
 untisPasswort = 'Doruwiwilu1'
@@ -35,6 +35,17 @@ kursDict = {"soeren": ["CH2", "EK1", "IF2", "E52", "GE2", "KU1", "ER1", "C01", "
 kurse = kursDict["soeren"] ## Defaults to soeren
 selected = "soeren"
 
+def get_random_alphanumeric_string():
+    letters_count = 40
+    digits_count = 10
+    sample_str = ''.join((random.choice(string.ascii_letters) for i in range(letters_count)))
+    sample_str += ''.join((random.choice(string.digits) for i in range(digits_count)))
+
+    # Convert string to list and shuffle it to mix letters and digits
+    sample_list = list(sample_str)
+    random.shuffle(sample_list)
+    final_string = ''.join(sample_list)
+    return final_string
 
 def initDB():
     print("Starting DB init")
@@ -47,14 +58,14 @@ def initDB():
         sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
         mysqlCreateCode = '''CREATE TABLE userdata (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    e_mail        VARCHAR (255),
+    e_mail        VARCHAR (255) UNIQUE,
     password_hash VARCHAR (255),
-    class_code    VARCHAR (255)
+    usr_code    VARCHAR (255) UNIQUE
 );'''
 
         mysqlCreateCode2 = '''CREATE TABLE fachKombi (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    user        VARCHAR (255),
+    usr_code        VARCHAR (255),
     kombi VARCHAR (255),
     class_code    VARCHAR (255)
 );'''
@@ -64,27 +75,28 @@ def initDB():
         cursor.close()
 
 def createUser(e_mail, password):
-    try:
+    #try:
         sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
         hasher = hashlib.md5()
         passwordEncode = password.encode("utf-8")
         hasher.update(passwordEncode)
         #print(hasher.hexdigest())
-        mysqlData = 'INSERT INTO userdata (e_mail, password_hash, class_code) VALUES ("' + e_mail + '", "' + hasher.hexdigest() + '", "");'
+        rand = get_random_alphanumeric_string()
+        mysqlData = 'INSERT INTO userdata (e_mail, password_hash, usr_code) VALUES ("' + e_mail + '", "' + hasher.hexdigest() + '", "' + rand + '");'
         cursor = sqliteConnection.cursor()
         ret = cursor.execute(mysqlData)
         sqliteConnection.commit()
         cursor.close()
         print("Created new user [DONE]")
         return(True)
-    except:
-        print("Creation failed!")
-        return(False)
+    #except:
+    #    print("Creation failed!")
+    #    return(False)
 
-def setFachKombo(email, fachs):
+def setFachKombo(usrCode, fachs):
     #try:
         sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
-        mysqlData = 'INSERT INTO fachKombi (user, kombi, class_code) VALUES ("' + email + '", "' + str(fachs) + '", "");'
+        mysqlData = 'INSERT INTO fachKombi (usr_code, kombi, class_code) VALUES ("' + usrCode + '", "' + str(fachs) + '", "");'
         cursor = sqliteConnection.cursor()
         ret = cursor.execute(mysqlData)
         sqliteConnection.commit()
@@ -95,10 +107,10 @@ def setFachKombo(email, fachs):
     #    print("Creation failed!")
     #    return(False)
 
-def getFachKombo(e_mail):
+def getFachKombo(usrCode):
     try:
         sqliteConnection = sqlite3.connect('SQL_LITE_userData.db')
-        mysqlData = 'SELECT kombi FROM fachKombi WHERE user="' + e_mail.strip("<").strip("'").strip('"') + '";'
+        mysqlData = 'SELECT kombi FROM fachKombi WHERE usr_code="' + usrCode + '";'
         cursor = sqliteConnection.cursor()
         ret = cursor.execute(mysqlData)
         record = cursor.fetchall()
@@ -118,14 +130,15 @@ def checkUser(e_mail, password):
         hasher = hashlib.md5()
         passwordEncode = password.encode("utf-8")
         hasher.update(passwordEncode)
-        mysqlData = 'SELECT password_hash FROM userdata WHERE e_mail="' + e_mail.strip("<").strip("'").strip('"') + '";'
+        mysqlData = 'SELECT password_hash, usr_code FROM userdata WHERE e_mail="' + e_mail.strip("<").strip("'").strip('"') + '";'
         cursor = sqliteConnection.cursor()
 
         ret = cursor.execute(mysqlData)
         record = cursor.fetchall()
         if(record[0][0] == hasher.hexdigest()):
             cursor.close()
-            return(True)
+            # usr_code
+            return(record[0][1])
         else:
             cursor.close()
             return(False)
@@ -310,9 +323,10 @@ class LoginPage(tornado.web.RequestHandler):
             email = self.get_argument('email')
             password = self.get_argument('pass')
             print("[AUTH] Type: LOGIN E-Mail:", email, "Password:", password)
-            if(checkUser(email, password)):
+            chkUser = checkUser(email, password)
+            if(checkUser != False):
 
-                self.set_cookie("user", email)
+                self.set_cookie("user", chkUser)    ## usr_code
                 self.render("redirect.html")
             else:
                 #self.write("Login fail")
