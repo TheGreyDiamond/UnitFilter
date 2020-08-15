@@ -190,13 +190,18 @@ iframe {
   -o-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
   -ms-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
 }
+@media (min-width: 400px) {
 .wrap-loginDyn {
-  width: 50%;
+    width: 60%;
+  
+ 
   background: #fff;
   border-radius: 10px;
   overflow-y: hidden;
   overflow-x: scroll;
   padding: 77px 55px 33px 55px;
+  /*@media (max-width: 399px) { padding: 40px 55px 33px 55px; };*/
+  
 
   box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
@@ -204,7 +209,27 @@ iframe {
   -o-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
   -ms-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
 }
+}
 
+@media (max-width: 400px) { 
+  .wrap-loginDyn {
+    width: 90%;
+  
+ 
+    background: #fff;
+    border-radius: 10px;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    padding: 20px 45px 33px 45px;
+    
+
+    box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+    -o-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+    -ms-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+}
+ }
 
 /*------------------------------------------------------------------
 [ Form ]*/
