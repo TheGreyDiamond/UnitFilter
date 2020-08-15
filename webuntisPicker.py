@@ -304,15 +304,11 @@ class almostDone(tornado.web.RequestHandler):
         else:
             self.render("redirect.html")
 class defaultHandler(tornado.web.RequestHandler):
-    def __init__(self, arg2, arg3):
-        print("Called default handler")
-        self.arg2 = arg2
-        self.arg3 = arg3
-
-    def get(self):
-        self.write("404 - my thing")
-    def request(self):
-        self.write("404 - my thing")
+    def prepare(self):
+        # Use prepare() to handle all the HTTP methods
+        self.set_status(404)
+        self.render("404.html")
+        self.finish()
 
 class redirecter(tornado.web.RequestHandler):
 
