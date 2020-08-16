@@ -29,19 +29,48 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
 <!--===============================================================================================-->
 </head>
-<body>
+<body onresize="triangle()">
 	<script>
-		const pattern = trianglify({
-		  cellSize: 100,
-		  width: 3840,
-		  height: 2160,
-		colorSpace: 'lab',
-	  colorFunction: trianglify.colorFunctions.interpolateLinear(0.5),
-	  //xColors: ['#67001f', '#b2182b', '#d6604d', '#f4a582', '#fddbc7', '#ffffff', '#e0e0e0', '#bababa', '#878787', '#4d4d4d', '#1a1a1a'],
-	  //yColors: ['#FFF']
-		})
-		document.body.appendChild(pattern.toCanvas())
-	  </script>
+    function triangle(){
+      try {
+
+        toDel = document.getElementsByTagName("canvas")
+        i = 0
+        while(i <= toDel.length){
+          toDel[i].remove()
+          i++;
+        }
+      }catch(e){
+      console.log("Removal of canvas failed")
+    }
+
+        const pattern = trianglify({
+          cellSize: 100,
+          width: window.innerWidth,
+          height: window.innerHeight,
+          /*
+          width: 3840,
+          height: 2160,*/
+        colorSpace: 'lab',
+        colorFunction: trianglify.colorFunctions.interpolateLinear(0.5),
+        //xColors: ['#67001f', '#b2182b', '#d6604d', '#f4a582', '#fddbc7', '#ffffff', '#e0e0e0', '#bababa', '#878787', '#4d4d4d', '#1a1a1a'],
+        //yColors: ['#FFF']
+        })
+        document.body.appendChild(pattern.toCanvas())
+    
+    }
+    triangle()
+    
+
+    
+
+    function to(url){
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", url, false ); // false for synchronous request
+        xmlHttp.send( null );
+        location.reload();
+    }
+</script>
 
 	<div class="limiter">
 		<div class="container-login100">
@@ -51,11 +80,12 @@
 					<span class="login100-form-title p-b-26">
 						Changelog
 					</span>
-					<i class="fas fa-tools"></i>    <b>Version 1.2.4</b>  Gravatarbild repariert<br>
-					<i class="fas fa-cube"></i>     <b>Version 1.2.3</b>  Multiday view<br>
-					<i class="fas fa-dice-d20"></i> <b>Version 1.2.2</b>  Leistung wurde verbessert<br>
-                    <i class="fas fa-plus"></i>     <b>Version 1.2.1</b>  Ordentliches Logging wurde hinzugef&uuml;gt<br>
-					<i class="fas fa-plus"></i>     <b>Version 1.2.0</b>  Changelog wurde hinzugef&uuml;gt<br>
+					<i class="fas fa-dice-d20"></i> <b>Version 1.2.5</b>  Hintergrundbild wird beim resizing erneuert   <br>
+					<i class="fas fa-tools"></i>    <b>Version 1.2.4</b>  Gravatarbild repariert                        <br>
+					<i class="fas fa-cube"></i>     <b>Version 1.2.3</b>  Multiday view(Beta)                           <br>
+					<i class="fas fa-dice-d20"></i> <b>Version 1.2.2</b>  Leistung wurde verbessert                     <br>
+                    <i class="fas fa-plus"></i>     <b>Version 1.2.1</b>  Ordentliches Logging wurde hinzugef&uuml;gt   <br>
+					<i class="fas fa-plus"></i>     <b>Version 1.2.0</b>  Changelog wurde hinzugef&uuml;gt              <br>
 					<a class="txt1" href="https://app.pipefy.com/public/form/Tu7W94Ej">Fehler melden</a>
 				</form>
 			</div>
