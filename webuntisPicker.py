@@ -11,7 +11,7 @@ import re
 import random
 import string
 
-version = "1.2.3"
+version = "1.2.4"
 
 untisPasswort = 'Doruwiwilu1'
 
@@ -128,7 +128,7 @@ def setFachKombo(usrCode, fachs):
         print("Set new Fachkombo [DONE]")
         return(True)
     except Exception as ex:
-        print("Creation failed!")
+        print("Creation failed!", ex)
         logging.warn("setFachKombo failed, error " + str(ex))
         return(False)
 
@@ -336,7 +336,7 @@ class MainHandler(tornado.web.RequestHandler):
                 usrMail = usrMail.encode("utf-8")
                 #print(usrMail)
                 result = hashlib.md5(usrMail)
-                dig = str(result.digest())
+                dig = str(result.hexdigest())
                 #result = hashlib.md5(resolve_e_mail(self.get_cookie("user").encode("utf-8"))) 
                 self.render("main.html", data=outify, datum=today,
                             roomData=handOverData, roomStates=handOverData2, sel=selected, version = version, usrN = dig, mail=str(resolve_e_mail(self.get_cookie("user"))))
