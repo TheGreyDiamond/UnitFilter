@@ -179,12 +179,15 @@ def checkUser(e_mail, password):
 
     ret = cursor.execute(mysqlData)
     record = cursor.fetchall()
-    if(record[0][0] == hasher.hexdigest()):
-        cursor.close()
-        # usr_code
-        return(record[0][1])
-    else:
-        cursor.close()
+    try:
+        if(record[0][0] == hasher.hexdigest()):
+            cursor.close()
+            # usr_code
+            return(record[0][1])
+        else:
+            cursor.close()
+            return(False)
+    except:
         return(False)
     # print(record[0][0])
 
