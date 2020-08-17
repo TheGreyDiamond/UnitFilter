@@ -317,6 +317,29 @@ iframe {
   padding: 0 5px;
 }
 
+.input100Smol {
+  font-family: Poppins-Regular;
+  font-size: 15px;
+  color: #555555;
+  line-height: 1.2;
+
+  /*display: block;*/
+  width: 5%;
+  height: 45px;
+  background: transparent;
+  padding: 0 5px;
+}
+
+.focus-input100Smol {
+  position: absolute;
+  display: block;
+  width: 20%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
 /*---------------------------------------------*/ 
 .focus-input100 {
   position: absolute;
@@ -648,3 +671,55 @@ background: #ffba55;
   background: #fda016;
 color: #000;
 }
+
+
+
+
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #3e8e41;
+}
+
+#myInput {
+  box-sizing: border-box;
+  background-position: 14px 12px;
+  background-repeat: no-repeat;
+  font-size: 16px;
+  padding: 14px 20px 12px 45px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+}
+
+#myInput:focus {outline: 3px solid #ddd;}
+
+.dropdown {
+  position: relative;
+  /*display: inline-block;*/
+}
+
+.dropdown-content {
+  background-color: #f6f6f6;
+  min-width: 230px;
+  overflow: auto;
+  border: 1px solid #ddd;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}

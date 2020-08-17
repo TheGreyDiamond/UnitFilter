@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>UnitFilter - Neuer Account</title>
-	<meta charset="UTF-8") }}">
+	<title>UnitFilter - Fast fertig</title>
+	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1") }}">
 <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="{{ static_url("images/icons/favicon.ico") }}"/>
@@ -70,102 +70,104 @@
         location.reload();
     }
 </script>
-	  {% if errorMsg == "PASS_UNSAME" %}
-	  <div class="alert">
-		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-		<strong>Ooops!</strong> Die eingegebenen Passw&ouml;rter sind nicht gleich.
-	  </div>
-	  {% end %}
-
-	  {% if errorMsg == "PASS_UNTISWRONG" %}
-	  <div class="alert">
-		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-		<strong>Ooops!</strong> Das eingegebene Untispasswort ist falsch.
-	  </div>
-	  {% end %}
-
-	  {% if errorMsg == "INTERNAL_FAIL" %}
-	  <div class="alert">
-		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-		<strong>Ooops!</strong> Es gab einen internen Fehler.
-	  </div>
-	  {% end %}
-
-
+{% if errorMsg == "notAllSet" %}
+<div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+  <strong>Ooops!</strong> Bitte <strong>alle</strong> Felder ausf&uuml;llen!
+</div>
+{% end %}
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form" method="post" action="/register">
-					<input type="hidden" id="type" name="type" value="register">
+				<form class="login100-form validate-form" method="post" action="/almost_done">
+					<input type="hidden" id="type" name="type" value="login">
 					<span class="login100-form-title p-b-26">
-						Willkommen
+						Fast fertig!
 					</span>
 					<span class="login100-form-title p-b-48">
-						<!--<i class="zmdi zmdi-font"></i>-->
-						UnitFilter
+						<i class="zmdi zmdi-font"></i>
+					</span>
+					<span class="txt1">
+						Im letzten Schritt muss noch die F&auml;cherkombi angegeben werden. Es muss nur der Fachname (z.B. SW1) angegeben werden.
 					</span>
 
-					<div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
-						<input class="input100" type="text" name="email">
-						<span class="focus-input100" data-placeholder="Email"></span>
+					<div class="wrap-input100">
+						<input class="input100" type="text" name="a1">
+						<span class="focus-input100" data-placeholder="1. Fach"></span>
 					</div>
 
-					<div class="wrap-input100 validate-input" data-validate="Enter password">
-						<span class="btn-show-pass">
-							<i class="zmdi zmdi-eye"></i>
-						</span>
-						<input class="input100" type="password" name="pass">
-						<span class="focus-input100" data-placeholder="Password"></span>
+					<div class="wrap-input100">
+						<input class="input100" type="text" name="a2">
+						<span class="focus-input100" data-placeholder="2. Fach"></span>
 					</div>
 
-					<div class="wrap-input100 validate-input" data-validate="Enter password">
-						<span class="btn-show-pass">
-							<i class="zmdi zmdi-eye"></i>
-						</span>
-						<input class="input100" type="password" name="pass2">
-						<span class="focus-input100" data-placeholder="Password wiederholen"></span>
+					<div class="wrap-input100">
+						<input class="input100" type="text" name="a3">
+						<span class="focus-input100" data-placeholder="3. Fach"></span>
 					</div>
 
-					<div class="wrap-input100 validate-input" data-validate="Enter password">
-						<span class="btn-show-pass">
-							<i class="zmdi zmdi-eye"></i>
-						</span>
-						<input class="input100" type="password" name="untisPass">
-						<span class="focus-input100" data-placeholder="Untispasswort"></span>
+					<div class="wrap-input100">
+						<input class="input100" type="text" name="a4">
+						<span class="focus-input100" data-placeholder="4. Fach"></span>
 					</div>
-
-					<div class="wrap-input100 validate-input" data-validate="Bitte zustimmen">
-						<label for="agree">Den Nutzungsbedingungen zustimmen?</label>
-						<input class="input100" type="checkbox" name="agree" value="Den Nutzungsbedingungen zustimmen?" require>
-						<!---->
+					<div class="wrap-input100">
+						<input class="input100" type="text" name="a5">
+						<span class="focus-input100" data-placeholder="5. Fach"></span>
 					</div>
-					
+					<div class="wrap-input100">
+						<input class="input100" type="text" name="a6">
+						<span class="focus-input100" data-placeholder="6. Fach"></span>
+					</div>
+					<div class="wrap-input100">
+						<input class="input100" type="text" name="a7">
+						<span class="focus-input100" data-placeholder="7. Fach"></span>
+					</div>
+					<div class="wrap-input100">
+						<input class="input100" type="text" name="a8">
+						<span class="focus-input100" data-placeholder="8. Fach"></span>
+					</div>
+					<div class="wrap-input100">
+						<input class="input100" type="text" name="a9">
+						<span class="focus-input100" data-placeholder="9. Fach"></span>
+					</div>
+					<div class="wrap-input100">
+						<input class="input100" type="text" name="a10">
+						<span class="focus-input100" data-placeholder="10. Fach"></span>
+					</div>
+					<div class="wrap-input100">
+						<input class="input100" type="text" name="a11">
+						<span class="focus-input100" data-placeholder="11. Fach"></span>
+					</div>
+					<div class="wrap-input100">
+						<input class="input100" type="text" name="a12">
+						<span class="focus-input100" data-placeholder="12. Fach"></span>
+					</div>
+					<div class="wrap-input100">
+						<input class="input100" type="text" name="a13">
+						<span class="focus-input100" data-placeholder="13. Fach"></span>
+					</div>
 
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
 							<button class="login100-form-btn">
-								Regeistrieren
+								Login
 							</button>
 						</div>
 					</div>
 
-					<div class="text-center p-t-115">
-						<!--<span class="txt1">
+					<!--<div class="text-center p-t-115">
+						<span class="txt1">
 							Du hast noch keinen Account?
-						</span>-->
+						</span>
 
-						<a class="txt2" href="/">
-							Anmelden
+						<a class="txt2" href="/register">
+							Einen neuen Account erstellen
 						</a>
-					</div>
+					</div>-->
 				</form>
 			</div>
 		</div>
-	</div>
-	<div id="myCookieConsent">
-		<a id="cookieButton">Verstanden</a>
-		<div>Diese Website nutzt Cookies. <a href="/legal">Mehr erfahren</a></div>
 	</div>
 	
 <!--===============================================================================================-->
@@ -184,45 +186,7 @@
 	<script src="{{ static_url("vendor/countdowntime/countdowntime.js") }}"></script>
 <!--===============================================================================================-->
 	<script src="{{ static_url("js/main.js") }}"></script>
-	<script>
-		// Cookie Compliancy BEGIN
-function GetCookie(name) {
-  var arg=name+"=";
-  var alen=arg.length;
-  var clen=document.cookie.length;
-  var i=0;
-  while (i<clen) {
-	var j=i+alen;
-	if (document.cookie.substring(i,j)==arg)
-	  return "here";
-	i=document.cookie.indexOf(" ",i)+1;
-	if (i==0) break;
-  }
-  return null;
-}
-function testFirstCookie(){
-	var offset = new Date().getTimezoneOffset();
-	if ((offset >= -180) && (offset <= 0)) { // European time zones
-		var visit=GetCookie("cookieCompliancyAccepted");
-		if (visit==null){
-		   $("#myCookieConsent").fadeIn(400);	// Show warning
-	   } else {
-			// Already accepted
-	   }		
-	}
-}
-$(document).ready(function(){
-    $("#cookieButton").click(function(){
-		console.log('Understood');
-		var expire=new Date();
-		expire=new Date(expire.getTime()+7776000000);
-		document.cookie="cookieCompliancyAccepted=here; expires="+expire+";path=/";
-        $("#myCookieConsent").hide(400);
-    });
-	testFirstCookie();
-});
-// Cookie Compliancy END
-	</script>
+	
 
 </body>
 </html>

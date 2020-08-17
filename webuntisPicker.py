@@ -188,10 +188,6 @@ def checkUser(e_mail, password):
             return(False)
     except:
         return(False)
-    # print(record[0][0])
-
-    #    print("Usercheck failed!")
- #   return(False)
 
 
 def parseTimegrid(se):
