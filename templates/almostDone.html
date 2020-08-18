@@ -25,7 +25,8 @@
       <script src='https://unpkg.com/trianglify@^4/dist/trianglify.bundle.js'></script>
       <!--===============================================================================================-->
       <link rel="stylesheet" type="text/css" href="{{ static_url("css/util.css") }}">
-      <link rel="stylesheet" type="text/css" href="{{ static_url("css/main.css") }}">
+	  <link rel="stylesheet" type="text/css" href="{{ static_url("css/main.css") }}">
+	  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
       <!--===============================================================================================-->
    </head>
    <body onresize="triangle()">
@@ -59,10 +60,7 @@
          
          }
          triangle()
-         
-         
-         
-         
+
          function to(url){
              var xmlHttp = new XMLHttpRequest();
              xmlHttp.open( "GET", url, false ); // false for synchronous request
@@ -88,16 +86,16 @@
                   <i class="zmdi zmdi-font"></i>
                   </span>
                   <span class="txt1">
-                  Im letzten Schritt muss noch die F&auml;cherkombi angegeben werden. Es muss nur der Fachname (z.B. SW1) angegeben werden.
+                  Im letzten Schritt muss noch die F&auml;cherkombi angegeben werden. 
                   </span>
                   <div class="dropdown">
                      <div id="myDropdown" class="dropdown-content show">
-                        <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-                        <!--<a onclick ="addFach('1')">Biologie</a>-->
+                        <input type="text" placeholder="Suchen.." id="myInput" onkeyup="filterFunction()">
                      </div>
                   </div>
                   <script>
-                     allFaecher = ["Biologie","Chemie","chinesisch","Deutsch","Englisch","Erdkunde","Evangelisch","Französisch","Geschichte","Informatik","Katholisch","Kunst","Latein","Mathe","Musik","Philosophie","Physik","Pädagogik","SoWi","Spanisch0","Spanisch8","Sport"]
+                     allFaecher = ["Biologie","Chemie","Chinesisch","Deutsch","Englisch","Erdkunde","Evangelisch","Französisch","Geschichte","Informatik","Katholisch","Kunst","Latein","Mathe","Musik","Philosophie","Physik","Pädagogik","SoWi","Spanisch0","Spanisch8","Sport"]
+                     VTFs = ["Englisch", "Mathe", "Spanisch8"]
                      i = 0
                      li = document.getElementById("myDropdown")
                      
@@ -112,7 +110,19 @@
                      </div>-->
                   <br>
                   <br>
-                  <div id="myFachs"> </div>
+                  <table>
+                     <thead>
+                        <tr>
+                           <th>Fachname</th>
+                           <th>Kursnummer</th>
+                           <th>VTF</th>
+                           <th>Entfernen</th>
+                        </tr>
+                     </thead>
+                     <tbody id="myFachs">
+
+                     </tbody>
+                  </table>
                   <div class="container-login100-form-btn">
                      <div class="wrap-login100-form-btn">
                         <div class="login100-form-bgbtn"></div>
@@ -124,20 +134,62 @@
                   <script>
                      function arrayContains(needle, arrhaystack)
                      	{
-                     					return (arrhaystack.indexOf(needle) > -1);
-                     }
+                     		return (arrhaystack.indexOf(needle) > -1);
+                     	}
+
                      var faecher = []
+
+                     function updateTable(){
+                        if(faecher.length < 13){
+                           var temp = document.getElementById("myFachs")
+                           temp.innerHTML = ""
+                           i = 0
+                           while(i < faecher.length){
+                              inp = "<tr><td> " + resolveName(faecher[i]) + "</td><td><input type=\"number\" placeholder=\"Kursnummer\" max=5 min=1 required></td>"
+                              if(arrayContains(resolveName(faecher[i]), VTFs)){
+                                 inp += "<td><input type=\"checkbox\"></td>"
+                              }else{
+                                 inp += "<td><input type=\"checkbox\" disabled></td>"
+                              }
+                              inp +="<td onclick=\"removeItemAndUpdate('" + faecher[i] + "')\"><i class=\"fas fa-trash\"></i></td></tr>"
+                              temp.innerHTML = temp.innerHTML + inp
+                              i++
+                           }
+                        }else{
+                           alert("Es wurde die maximal Anzahl an Kursen erreicht!")
+                        }
+                        
+                     }
+
+                     function removeItemOnce(arr, value) {
+                        var index = arr.indexOf(value);
+                        if (index > -1) {
+                           arr.splice(index, 1);
+                        }
+                        return arr;
+                     }
+
+                     function removeItemAndUpdate(value){
+                        removeItemOnce(faecher, value)
+                        updateTable()
+                     }
+
                      function addFach(name) {
-                     	var temp = document.getElementById("myFachs")
+                     	//var temp = document.getElementById("myFachs")
                      	document.getElementById("myInput").value = "";
                      	filterFunction()
                      	if(!arrayContains(name, faecher)){
-                     		temp.innerHTML = temp.innerHTML + " " + name
-                     		faecher.push(name)
+                     		//temp.innerHTML = temp.innerHTML + "<tr><td> " + name + "</td><td><i class=\"fas fa-trash\"></i></td></tr>"
+                           faecher.push(name)
+                           updateTable()
                      	}
-                     	
-                     
                      }
+                     
+                     function resolveName(id){
+                        return(allFaecher[id])
+                     }
+                     
+
                      function filterFunction() {
                        var input, filter, ul, li, a, i;
                        input = document.getElementById("myInput");
