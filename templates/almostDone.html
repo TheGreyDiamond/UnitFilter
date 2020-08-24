@@ -113,6 +113,9 @@
          <div class="container-login100 hide" id="page2">
             <div class="wrap-loginDyn">
                <form class="login100-form validate-form" method="post" action="/almost_done">
+
+                  
+                  <input type="hidden" id="data" name="data" value="unset">
                   <input type="hidden" id="type" name="type" value="login">
                   <span class="login100-form-title p-b-26">
                   Fast fertig!
@@ -166,6 +169,18 @@
                      school = -1
                      classesSel = -1
 
+                     function updateSubmitData(){
+                        var dataField = document.getElementById("data");
+                        dataString = "";
+                        dataString += school + "." + classesSel + ";";
+                        i = 0;
+                        while(i < faecher.length){
+                           dataString += faecher[i] + "_"
+                           i++;
+                        }
+                        dataField.value = dataString
+                     }
+
                      function updatePage(){
                         p0 = document.getElementById("page0")
                         p1 = document.getElementById("page1")
@@ -214,6 +229,7 @@
 
                      function updateTable()
                      {
+                        updateSubmitData()
                         if(faecher.length <= 13){
                            var temp = document.getElementById("myFachs")
                            temp.innerHTML = ""
@@ -246,6 +262,7 @@
                      }
 
                      function removeItemAndUpdate(value){
+                        updateSubmitData();
                         removeItemOnce(faecher, value)
                         dictName = school + "." + classesSel
                         ru = rules[dictName]
@@ -254,9 +271,10 @@
                      }
 
                      function addFach(name) {
+                        updateSubmitData();
                         dictName = school + "." + classesSel
                         ru = rules[dictName]
-                        console.log(ru)
+                        //console.log(ru)
                         i = 0
                         
                         /*while(i < ru.length){
@@ -280,7 +298,7 @@
                      		//temp.innerHTML = temp.innerHTML + "<tr><td> " + name + "</td><td><i class=\"fas fa-trash\"></i></td></tr>"
                            faecher.push(name)
                            forrbidden.push(ru[parseInt(name)])
-                           console.log(forrbidden)
+                           //console.log(forrbidden)
                            updateTable()
                      	}
                         }else{

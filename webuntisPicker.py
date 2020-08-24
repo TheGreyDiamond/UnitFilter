@@ -383,21 +383,26 @@ class almostDone(tornado.web.RequestHandler):
         i = 1
         args = []
         try:
-            while i <= 13:
-                args.append(self.get_argument("a" + str(i)))
-                i -= - 1
+            out = []
+            data = self.get_argument("data")
+
+            
+
+            #while i <= 13:
+            #    args.append(self.get_argument("a" + str(i)))
+            #    i -= - 1
 
             # print(args)
-            out = []
-            for el in args:
-                el2 = el.upper()
-                # print(len(re.findall("(^E\d)", el2)))
-                if(re.search("(^E\d)", el2)):
-                    out.append(el2[0] + "5" + el2[1])
-                elif(el2 == "0"):
-                    pass
-                else:
-                    out.append(el2)
+            
+            #for el in args:
+            #    el2 = el.upper()
+            #    # print(len(re.findall("(^E\d)", el2)))
+            #    if(re.search("(^E\d)", el2)):
+            #        out.append(el2[0] + "5" + el2[1])
+            #    elif(el2 == "0"):
+            #        pass
+            #    else:
+            #        out.append(el2)
             usr = self.get_cookie("user")
             setFachKombo(usr, out)
         except Exception as ex:
