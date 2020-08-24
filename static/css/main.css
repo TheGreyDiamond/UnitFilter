@@ -739,3 +739,7 @@ td, th {
 tr:nth-child(even) {
   background-color: #dddddd;
 }
+
+.hide {
+  display: none;
+}

@@ -75,7 +75,42 @@
       </div>
       {% end %}
       <div class="limiter">
-         <div class="container-login100">
+         <div class="container-login100" id="page0">
+            <div class="wrap-login100">
+               <span class="login100-form-title p-b-26">
+                  Fast fertig!
+                  </span>
+                  <span class="txt1">
+                     Bitte eine Schule ausw&auml;hlen.
+                  </span>
+                  <div class="dropdown">
+                     <div id="myDropdown2" class="dropdown-content show">
+                        <input type="text" placeholder="Suchen.." id="myInput2" onkeyup="filterFunction2()">
+                        <a onclick = "selectSchool('school1');">R&ouml;ntgen-Gymnasium Remscheid</a>
+                     </div>
+                  </div>
+
+               </div>
+         </div>
+         <div class="container-login100 hide" id="page1">
+            <div class="wrap-login100">
+               <span class="login100-form-title p-b-26">
+                  Fast fertig!
+                  </span>
+                  <span class="txt1">
+                     Bitte eine Klase ausw&auml;hlen.
+                  </span>
+                  <div class="dropdown">
+                     <div id="myDropdown2" class="dropdown-content show" name="listy1">
+                        <input type="text" placeholder="Suchen.." id="myInput2" onkeyup="filterFunction2()">
+                        <!--<a onclick = "selectSchool('school1');">R&ouml;ntgen-Gymnasium Remscheid</a>-->
+                     </div>
+                  </div>
+
+               </div>
+         </div>
+
+         <div class="container-login100 hide" id="page2">
             <div class="wrap-loginDyn">
                <form class="login100-form validate-form" method="post" action="/almost_done">
                   <input type="hidden" id="type" name="type" value="login">
@@ -93,17 +128,6 @@
                         <input type="text" placeholder="Suchen.." id="myInput" onkeyup="filterFunction()">
                      </div>
                   </div>
-                  <script>
-                     allFaecher = ["Biologie","Chemie","Chinesisch","Deutsch","Englisch","Erdkunde","Evangelisch","Französisch","Geschichte","Informatik","Katholisch","Kunst","Latein","Mathe","Musik","Philosophie","Physik","Pädagogik","SoWi","Spanisch0","Spanisch8","Sport"]
-                     VTFs = ["Englisch", "Mathe", "Spanisch8"]
-                     i = 0
-                     li = document.getElementById("myDropdown")
-                     
-                     while(i < allFaecher.length){
-                     	li.innerHTML = li.innerHTML + "<a onclick =\"addFach('" + i + "')\">" + allFaecher[i] + "</a>"
-                     	i++
-                     }
-                  </script>
                   <!--<div class="wrap-input100">
                      <input class="input100" type="text" name="a1">
                      <span class="focus-input100" data-placeholder="1. Fach"></span>
@@ -132,14 +156,63 @@
                      </div>
                   </div>
                   <script>
+                     var faecher = []
+                     var page = 0;
+                     allFaecherBySchool = {"school1.EF":["Biologie","Chemie","Chinesisch","Deutsch","Englisch","Erdkunde","Evangelisch","Französisch","Geschichte","Informatik","Katholisch","Kunst","Latein","Mathe","Musik","Philosophie","Physik","Pädagogik","SoWi","Spanisch0","Spanisch8","Sport"]}
+                     rules = {"school1.EF":[{19:20}, {20:19}, {10:6}, {6:10}]}
+                     VTFs = ["Englisch", "Mathe", "Spanisch8"]
+                     classes = {"school1":["EF"]}
+                     school = -1
+                     classesSel = -1
+
+                     function updatePage(){
+                        p0 = document.getElementById("page0")
+                        p1 = document.getElementById("page1")
+                        p2 = document.getElementById("page2")
+                        if(page == 1){
+                           p0.classList.add("hide")
+                           p1.classList.remove("hide")
+                        }
+                        if(page == 2){
+                           p1.classList.add("hide")
+                           p2.classList.remove("hide")
+                        }
+                     }
+
+
+                     function selectClasses(classes1){
+                        classesSel = classes1;
+                        page = 2
+                        i = 0
+                        dictName = school + "." + classes1
+                        li = document.getElementById("myDropdown")
+                        
+                        while(i < allFaecherBySchool[dictName].length){
+                     	   li.innerHTML = li.innerHTML + "<a onclick =\"addFach('" + i + "')\">" + allFaecherBySchool[dictName][i] + "</a>"
+                     	   i++
+                        }
+                        updatePage()
+                     }
+                     function selectSchool(school1){
+                        page = 1
+                        school = school1
+                        console.log(classes[school1])
+                        el = document.getElementsByName("listy1")[0]
+                        i = 0
+                        while(i < classes[school1].length){
+                           el.innerHTML+="<a onclick = \"selectClasses('" + classes[school1][i] + "');\">" + classes[school1][i] + "</a>"
+                           i++
+                        }
+                        updatePage()
+                     }
+
                      function arrayContains(needle, arrhaystack)
                      	{
                      		return (arrhaystack.indexOf(needle) > -1);
                      	}
 
-                     var faecher = []
-
-                     function updateTable(){
+                     function updateTable()
+                     {
                         if(faecher.length <= 13){
                            var temp = document.getElementById("myFachs")
                            temp.innerHTML = ""
@@ -147,9 +220,11 @@
                            while(i < faecher.length){
                               inp = "<tr><td> " + resolveName(faecher[i]) + "</td><td><input type=\"number\" placeholder=\"Kursnummer\" max=5 min=1 required></td>"
                               if(arrayContains(resolveName(faecher[i]), VTFs)){
-                                 inp += "<td><input type=\"checkbox\"></td>"
+                                 inp += "<td><input type=\"checkbox\">"
+                                 inp += "<input type=\"number\" placeholder=\"Kursnummer\" max=4 min=1></td>"
                               }else{
-                                 inp += "<td><input type=\"checkbox\" disabled></td>"
+                                 inp += "<td><input type=\"checkbox\" disabled>"
+                                 inp += "<input type=\"number\" placeholder=\"Kursnummer\" max=4 min=1 disabled></td>"
                               }
                               inp +="<td onclick=\"removeItemAndUpdate('" + faecher[i] + "')\"><i class=\"fas fa-trash\"></i></td></tr>"
                               temp.innerHTML = temp.innerHTML + inp
@@ -175,6 +250,21 @@
                      }
 
                      function addFach(name) {
+                        dictName = school + "." + classesSel
+                        ru = rules[dictName]
+                        i = 0
+                        
+                        while(i < ru.length){
+                           console.log(ru[i][parseInt(name)], arrayContains(ru[i][parseInt(name)], faecher))
+                           /*if(arrayContains(ru[i][name], faecher)){
+                              console.log("WONT WORK")
+                           }else{
+                              console.log(faecher, ru[i][name])
+                           }*/
+                           
+                           //if(ru[i][name])
+                           i++
+                        }
                      	//var temp = document.getElementById("myFachs")
                      	document.getElementById("myInput").value = "";
                      	filterFunction()
@@ -186,7 +276,8 @@
                      }
                      
                      function resolveName(id){
-                        return(allFaecher[id])
+                        dictName = school + "." + classesSel
+                        return(allFaecherBySchool[dictName][id])
                      }
                      
 
@@ -195,6 +286,22 @@
                        input = document.getElementById("myInput");
                        filter = input.value.toUpperCase();
                        div = document.getElementById("myDropdown");
+                       a = div.getElementsByTagName("a");
+                       for (i = 0; i < a.length; i++) {
+                     	txtValue = a[i].textContent || a[i].innerText;
+                     	if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                     	  a[i].style.display = "";
+                     	} else {
+                     	  a[i].style.display = "none";
+                     	}
+                       }
+                     }
+
+                     function filterFunction2() {
+                       var input, filter, ul, li, a, i;
+                       input = document.getElementById("myInput2");
+                       filter = input.value.toUpperCase();
+                       div = document.getElementById("myDropdown2");
                        a = div.getElementsByTagName("a");
                        for (i = 0; i < a.length; i++) {
                      	txtValue = a[i].textContent || a[i].innerText;
