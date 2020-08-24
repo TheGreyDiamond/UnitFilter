@@ -13,6 +13,8 @@ import string
 
 version = "1.2.5"
 
+schoolData = {"school1": ["EF"]}
+
 untisPasswort = 'Doruwiwilu1'
 
 se = webuntis.Session(
@@ -386,7 +388,14 @@ class almostDone(tornado.web.RequestHandler):
             out = []
             data = self.get_argument("data")
 
-            
+            parts = data.split(";")  # First part is school info, seconds is actual class info
+            klasseSel = parts[0].split(".")[1]
+            schuleSel = parts[0].split(".")[0]
+            if(klasseSel in schoolData[schuleSel]):
+                ## Klasse ist okay
+                pass
+            else:
+                print("Fehlerhafte klasse ausgewählt")
 
             #while i <= 13:
             #    args.append(self.get_argument("a" + str(i)))
@@ -404,7 +413,7 @@ class almostDone(tornado.web.RequestHandler):
             #    else:
             #        out.append(el2)
             usr = self.get_cookie("user")
-            setFachKombo(usr, out)
+            #########                                                   setFachKombo(usr, out)
         except Exception as ex:
             print("Missing args", ex)
             self.render("almostDone.html", errorMsg="notAllSet")
