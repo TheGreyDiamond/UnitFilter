@@ -8,14 +8,6 @@
 		},
 		{
 			"path": "..\\..\\ArtNetColorPicker\\static\\res"
-		},
-		{
-			"name": "200824-183831-nodemcu-32s",
-			"path": "C:\\Users\\Soeren\\Documents\\PlatformIO\\Projects\\200824-183831-nodemcu-32s"
-		},
-		{
-			"name": "OledThermometer2",
-			"path": "C:\\Users\\Soeren\\Documents\\PlatformIO\\Projects\\OledThermometer2"
 		}
 	],
 	"settings": {}
