@@ -1,7 +1,24 @@
-from flask import Flask
+from flask import Flask, redirect
+import webuntis
 
-app = Flask(__name__)
+app = Flask("UnitFilter")
 
 @app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
+def root():
+    return redirect("/login")
+
+@app.route("/login")
+def login():
+    return "login page"
+
+@app.route("/register")
+def register():
+    return "Register page"
+
+@app.route("/timetable")
+def timetable():
+    return "The Timetable"
+
+
+if __name__ == '__main__':
+    app.run(port=8888)
