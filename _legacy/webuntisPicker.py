@@ -13,16 +13,16 @@ import string
 
 version = "1.2.5"
 
-schoolData = {"school1": ["EF"]}
+schoolData = {"school1": ["K1"]}
 
-untisPasswort = 'Doruwiwilu1'
+untisPasswort = '7B3MVaR9'
 
 se = webuntis.Session(
-    username='JgstEF',
+    username='K1',
     password=untisPasswort,
-    server='tritone.webuntis.com',
-    school='gym_remscheid',
-    useragent='Soeren spielt mit der API'
+    server='cissa.webuntis.com',
+    school='hg heidelberg',
+    useragent='Xilef spielt mit der API'
 )
 
 logging.basicConfig(level=logging.INFO,
@@ -113,7 +113,7 @@ def createUser(e_mail, password):
         return(True)
     except Exception as ex:
         print("Creation failed!")
-        logging.warn("Usercreation failed, error " + str(ex))
+        logging.warning("Usercreation failed, error " + str(ex))
         return(False)
 
 
@@ -130,7 +130,7 @@ def setFachKombo(usrCode, fachs):
         return(True)
     except Exception as ex:
         print("Creation failed!", ex)
-        logging.warn("setFachKombo failed, error " + str(ex))
+        logging.warning("setFachKombo failed, error " + str(ex))
         return(False)
 
 
@@ -150,7 +150,7 @@ def getFachKombo(usrCode):
         #print(proc)
         return(proc)
     except Exception as ex:
-        logging.warn("getFachKombo failed, error " + str(ex))
+        logging.warning("getFachKombo failed, error " + str(ex))
         return(False)
 
 
@@ -165,7 +165,7 @@ def resolve_e_mail(usr_code):
         proc = record[0][0]
         return(proc)
     except Exception as ex:
-        logging.warn("resolve_e_mail failed, error " + str(ex))
+        logging.warning("resolve_e_mail failed, error " + str(ex))
         return(False)
 
 
@@ -281,7 +281,7 @@ def webU(wantedDay=today):
     global outify, weekdayL, outF, outFState, rowRam
     with se.login() as s:
         timeGr = parseTimegrid(s)
-        klasse = s.klassen().filter(name='EF')[0]
+        klasse = s.klassen().filter(name='K1')[0]
         table = s.timetable(klasse=klasse, start=wantedDay,
                             end=wantedDay).to_table()
         idDict = {}
@@ -413,7 +413,7 @@ class almostDone(tornado.web.RequestHandler):
             #    else:
             #        out.append(el2)
             usr = self.get_cookie("user")
-            #########                                                   setFachKombo(usr, out)
+            setFachKombo(usr, out)
         except Exception as ex:
             print("Missing args", ex)
             self.render("almostDone.html", errorMsg="notAllSet")

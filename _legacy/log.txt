@@ -1,0 +1,317 @@
+[21:41:59,989] root [INFO] Starting system.
+[21:41:59,989] root [INFO] Started DB Init Function
+[21:41:59,990] root [INFO] Creating DB
+[21:42:00,478] root [INFO] Updating table
+[21:42:00,823] webuntis [ERROR] {'jsonrpc': '2.0', 'id': '2021-09-26 21:42:00.478251', 'error': {'message': 'bad credentials', 'code': -8504}}
+[21:44:36,432] root [INFO] Starting system.
+[21:44:36,432] root [INFO] Started DB Init Function
+[21:44:36,432] root [INFO] No need for a new DB
+[21:44:36,438] root [INFO] Updating table
+[21:45:38,604] root [INFO] Starting system.
+[21:45:38,604] root [INFO] Started DB Init Function
+[21:45:38,604] root [INFO] No need for a new DB
+[21:45:38,609] root [INFO] Updating table
+[21:45:39,75] root [INFO] Starting server
+[21:46:16,65] tornado.access [INFO] 200 GET / (::1) 6.50ms
+[21:46:16,249] tornado.access [INFO] 200 GET /static/vendor/bootstrap/css/bootstrap.min.css?v=dff5d441860d7d93d01d95e210932c252b53e0cbb4677eceb66e9afc696868983bc0e14f33c739030ad6a0e4fba22ed2c22c7fa6786104d4f837db8ced058c9f (::1) 140.02ms
+[21:46:16,250] tornado.access [INFO] 200 GET /static/fonts/font-awesome-4.7.0/css/font-awesome.min.css?v=97149632c15eb33690273abfa78636ad0471999363e11bf59ca61a4de32444e6f299db3b80d52b2e9437c645ec235fa8d3b8c20dcc350dbb9e175f12b3849a64 (::1) 0.50ms
+[21:46:16,253] tornado.access [INFO] 200 GET /static/fonts/iconic/css/material-design-iconic-font.min.css?v=ad142d178576c2d02f5eca2ee22500b369171e2dcb8fd344ef1251efb0c4ec61ecc6063d4535b2f77773317803206f13a224530f8e55b0335d4e251a80e15e64 (::1) 1.50ms
+[21:46:16,253] tornado.access [INFO] 200 GET /static/vendor/animate/animate.css?v=c8a8a7fd2fb0793981faa0cd80ed876b58e0959784662360cc65b523f88d0a3c25067c00f3db353d2d432013c4d2b9a81cfd42e41aaba0fefc9581598883c958 (::1) 2.00ms
+[21:46:16,254] tornado.access [INFO] 200 GET /static/vendor/css-hamburgers/hamburgers.min.css?v=4f516690bbd6348c66188e4bd5c75d4dccf631c18846d7b94253302043dfe982e8308c238b2ce77ebb3a7788548d4b1a6185e643ea469f0af68dfc2fab656bdb (::1) 2.50ms
+[21:46:16,254] tornado.access [INFO] 200 GET /static/vendor/animsition/css/animsition.min.css?v=5c2594f51064510cdb3ea0551960249e310f5bc8c0dd66d7d108a28ff5aea57e5def3788921630380f13b494add8a15884305d5a2c0ce2f4d6a9ba5ba9978578 (::1) 2.50ms
+[21:46:16,255] tornado.access [INFO] 200 GET /static/vendor/select2/select2.min.css?v=c1cc2e691688b833c8b2c089cb02c001ce6b2c8994259ecca845ad527eb63068f184e9b2a6b4db5068f70178f21bb90adff1d1b12938efad75581f841e5a9bd2 (::1) 1.00ms
+[21:46:16,256] tornado.access [INFO] 200 GET /static/vendor/daterangepicker/daterangepicker.css?v=efaefb62e2601a88c6e5e01f96ced108489125fcd7c8239b86fdc0dc28cca2d9f53a1702fb3ffcf8bd5f84fdeb32ae8cd28f76348ff97ce7b0daf3ddc6a0626c (::1) 0.50ms
+[21:46:16,259] tornado.access [INFO] 200 GET /static/css/util.css?v=eaa2dbd9504a869ff9cbf5af327c9b349740ae7b3f53e104d52807c51a682e6e62da02fbfbade50f3e00898fc743a206b3b9175299ed8d740e482608fba9d3bf (::1) 0.50ms
+[21:46:16,261] tornado.access [INFO] 200 GET /static/css/main.css?v=ef825e76e559cfdc21318143c1a7e1696127527cfa043b628bd40085823479bc2fbd1327476ffa7359f641de8fd4a36fe4cba9b18d002ce9e39ba7dd9e8eb1a0 (::1) 1.00ms
+[21:46:16,262] tornado.access [INFO] 200 GET /static/vendor/jquery/jquery-3.2.1.min.js?v=20da3fe171c075635ef82f8de57644c7a50be45eb1207d96a51b5eadeaac17ee830b5058d87e88501e20ec41ef897f65cec26a0380eaf49698c6eaa5981d8483 (::1) 1.00ms
+[21:46:16,262] tornado.access [INFO] 200 GET /static/vendor/animsition/js/animsition.min.js?v=7493937ccc8470c67541ac129355f363b26ffef085d95e04a6d2f4bb339052b62ea9f5a7ef3b6c2e4ec3eb7e9499ce37942a7c75bb278f92c103de151c266f7f (::1) 1.00ms
+[21:46:16,265] tornado.access [INFO] 200 GET /static/vendor/bootstrap/js/popper.js?v=7a15a10765e3a123b738c4076994662775aa02e26e21e7cb913698e4aff7d5e233b2e87aad2e7fa93544f783e25e99605638da77fbd48f4e72c1d1c862569e55 (::1) 0.50ms
+[21:46:16,267] tornado.access [INFO] 200 GET /static/vendor/bootstrap/js/bootstrap.min.js?v=fc4dee4e72f2c78e7e5d8d9a46d64ceca6f078fd08207f19e1f1eab01292580c5428b234978b0091edd1993f729e3fbc16d9bc4b99f82e8adc144b952131c0ed (::1) 1.00ms
+[21:46:16,271] tornado.access [INFO] 200 GET /static/vendor/select2/select2.min.js?v=d375e1b556eb63d254b10f002528d791a96469adfbeb450af55015a168816152b7f3e6a4251a438e97aabe8d4d045a7ea9b8d563dd5e7dd746d5f1bc6a6b7d95 (::1) 1.00ms
+[21:46:16,272] tornado.access [INFO] 200 GET /static/vendor/daterangepicker/moment.min.js?v=bd4a1e9d3cf65df12c9657c4d2d76b48e1cef3932b2a8205b77c58a039280d145e2c95b20313eb10c8e2bd70f7f47f531afdd8690c1701e04b811a87408cf5be (::1) 0.50ms
+[21:46:16,273] tornado.access [INFO] 200 GET /static/vendor/daterangepicker/daterangepicker.js?v=68c7876cd2e22bd164e42153fdab6624a9b5082c28272bf37f951f86b2745cce6767da6ef1524edcfaf54a74076d330000708b15d35b4ab9f22e6e7cd26a10bb (::1) 0.50ms
+[21:46:16,274] tornado.access [INFO] 200 GET /static/vendor/countdowntime/countdowntime.js?v=58d9f45b79c90b5a751372f10b5163cf48091766725c5a88a4f7d03eee156f597030bce19ec99c9d03a26afd0fb8277a78173bd95197e5ec16cb5f1185c19322 (::1) 0.50ms
+[21:46:16,275] tornado.access [INFO] 200 GET /static/js/main.js?v=1bf052af852960475aa9efee8ffdf48bf4846ce53dff58b50656efefcf16b33b6b33c69820cef822508a8009df08fd4e085ff670ce73f651287b0d12e9793ccc (::1) 0.50ms
+[21:46:17,195] tornado.access [INFO] 200 GET /static/fonts/poppins/Poppins-Bold.ttf (::1) 1.50ms
+[21:46:17,197] tornado.access [INFO] 200 GET /static/fonts/poppins/Poppins-Regular.ttf (::1) 1.00ms
+[21:46:17,198] tornado.access [INFO] 200 GET /static/fonts/iconic/fonts/Material-Design-Iconic-Font.woff2?v=2.2.0 (::1) 0.50ms
+[21:46:17,199] tornado.access [INFO] 200 GET /static/fonts/poppins/Poppins-Medium.ttf (::1) 1.50ms
+[21:46:17,260] tornado.access [INFO] 200 GET /static/images/icons/favicon.ico?v=8012a5d8fadefa58cc95c88398799b64c2588be2297b333fe8904e6850793b442451b4d89a11e841309d4cd5439c11ada9ba4c943852c1ea438eb6cbf01e9cd9 (::1) 1.00ms
+[21:46:32,208] tornado.access [INFO] 304 GET / (::1) 0.50ms
+[21:46:32,387] tornado.access [INFO] 200 GET /static/images/icons/favicon.ico?v=8012a5d8fadefa58cc95c88398799b64c2588be2297b333fe8904e6850793b442451b4d89a11e841309d4cd5439c11ada9ba4c943852c1ea438eb6cbf01e9cd9 (::1) 0.50ms
+[21:46:33,577] tornado.access [INFO] 304 GET / (::1) 0.50ms
+[21:46:33,723] tornado.access [INFO] 200 GET /static/images/icons/favicon.ico?v=8012a5d8fadefa58cc95c88398799b64c2588be2297b333fe8904e6850793b442451b4d89a11e841309d4cd5439c11ada9ba4c943852c1ea438eb6cbf01e9cd9 (::1) 1.00ms
+[21:46:34,320] tornado.access [INFO] 304 GET / (::1) 1.00ms
+[21:46:34,464] tornado.access [INFO] 200 GET /static/images/icons/favicon.ico?v=8012a5d8fadefa58cc95c88398799b64c2588be2297b333fe8904e6850793b442451b4d89a11e841309d4cd5439c11ada9ba4c943852c1ea438eb6cbf01e9cd9 (::1) 1.00ms
+[21:46:34,848] tornado.access [INFO] 304 GET / (::1) 0.50ms
+[21:46:34,982] tornado.access [INFO] 200 GET /static/images/icons/favicon.ico?v=8012a5d8fadefa58cc95c88398799b64c2588be2297b333fe8904e6850793b442451b4d89a11e841309d4cd5439c11ada9ba4c943852c1ea438eb6cbf01e9cd9 (::1) 0.50ms
+[21:46:35,277] tornado.access [INFO] 304 GET / (::1) 0.50ms
+[21:46:35,418] tornado.access [INFO] 200 GET /static/images/icons/favicon.ico?v=8012a5d8fadefa58cc95c88398799b64c2588be2297b333fe8904e6850793b442451b4d89a11e841309d4cd5439c11ada9ba4c943852c1ea438eb6cbf01e9cd9 (::1) 0.50ms
+[21:46:35,637] tornado.access [INFO] 304 GET / (::1) 0.50ms
+[21:46:35,795] tornado.access [INFO] 200 GET /static/images/icons/favicon.ico?v=8012a5d8fadefa58cc95c88398799b64c2588be2297b333fe8904e6850793b442451b4d89a11e841309d4cd5439c11ada9ba4c943852c1ea438eb6cbf01e9cd9 (::1) 0.50ms
+[21:46:36,81] tornado.access [INFO] 304 GET / (::1) 0.50ms
+[21:46:36,209] tornado.access [INFO] 200 GET /static/images/icons/favicon.ico?v=8012a5d8fadefa58cc95c88398799b64c2588be2297b333fe8904e6850793b442451b4d89a11e841309d4cd5439c11ada9ba4c943852c1ea438eb6cbf01e9cd9 (::1) 1.00ms
+[21:46:36,486] tornado.access [INFO] 304 GET / (::1) 0.50ms
+[21:46:36,619] tornado.access [INFO] 200 GET /static/images/icons/favicon.ico?v=8012a5d8fadefa58cc95c88398799b64c2588be2297b333fe8904e6850793b442451b4d89a11e841309d4cd5439c11ada9ba4c943852c1ea438eb6cbf01e9cd9 (::1) 1.00ms
+[21:46:36,823] tornado.access [INFO] 304 GET / (::1) 0.50ms
+[21:46:36,949] tornado.access [INFO] 200 GET /static/images/icons/favicon.ico?v=8012a5d8fadefa58cc95c88398799b64c2588be2297b333fe8904e6850793b442451b4d89a11e841309d4cd5439c11ada9ba4c943852c1ea438eb6cbf01e9cd9 (::1) 1.00ms
+[21:46:41,805] tornado.access [INFO] 200 GET /register (::1) 2.50ms
+[21:47:08,951] tornado.access [INFO] 200 POST /register (::1) 402.09ms
+[21:47:09,87] root [WARNING] getFachKombo failed, error list index out of range
+[21:47:09,91] tornado.access [INFO] 200 GET /main (::1) 5.00ms
+[21:49:13,697] tornado.access [INFO] 200 POST /almost_done (::1) 1.00ms
+[21:49:13,844] root [WARNING] getFachKombo failed, error list index out of range
+[21:49:13,845] tornado.access [INFO] 304 GET /main (::1) 1.00ms
+[21:49:24,132] tornado.access [INFO] 304 GET / (::1) 1.00ms
+[21:49:28,469] tornado.access [INFO] 200 POST / (::1) 1.00ms
+[21:49:28,611] root [WARNING] getFachKombo failed, error list index out of range
+[21:49:28,612] tornado.access [INFO] 304 GET /main (::1) 2.00ms
+[21:49:35,359] tornado.access [INFO] 200 POST /almost_done (::1) 1.00ms
+[21:49:35,511] root [WARNING] getFachKombo failed, error list index out of range
+[21:49:35,512] tornado.access [INFO] 304 GET /main (::1) 1.00ms
+[21:49:47,418] tornado.access [WARNING] 404 GET /table (::1) 1.00ms
+[21:49:47,440] tornado.access [INFO] 200 GET /static/css/style.css?v=7c1dee135fbe5e1ce1b2016ed6f9009085ab9d1f4d4414c552141bb727a5bcc5dcedc0f57598629a8d1dcb3cd31b8183963d5af80e6241a2e86e89e29f195b94 (::1) 1.00ms
+[21:49:47,557] tornado.access [INFO] 200 GET /static/img/bg.jpg (::1) 2.00ms
+[21:49:47,630] tornado.access [WARNING] 404 GET /favicon.ico (::1) 0.50ms
+[21:49:51,518] root [WARNING] getFachKombo failed, error list index out of range
+[21:49:51,519] tornado.access [INFO] 304 GET /main (::1) 1.00ms
+[21:49:51,721] tornado.access [INFO] 304 GET /static/fonts/poppins/Poppins-Bold.ttf (::1) 0.50ms
+[21:49:51,721] tornado.access [INFO] 304 GET /static/fonts/poppins/Poppins-Regular.ttf (::1) 0.50ms
+[21:49:59,313] tornado.access [INFO] 200 GET /changelog (::1) 2.50ms
+[21:50:04,956] tornado.access [WARNING] 404 GET /timetable (::1) 0.50ms
+[21:50:14,559] tornado.access [WARNING] 404 GET /kurse (::1) 0.50ms
+[21:50:38,77] tornado.access [INFO] 200 GET /update_kurse (::1) 0.00ms
+[21:50:48,519] tornado.access [INFO] 200 GET /redirect (::1) 0.50ms
+[21:50:48,666] root [WARNING] getFachKombo failed, error list index out of range
+[21:50:48,666] tornado.access [INFO] 304 GET /main (::1) 1.00ms
+[21:50:55,208] tornado.access [INFO] 200 GET /almost_done (::1) 1.00ms
+[21:51:05,615] tornado.access [INFO] 200 GET / (::1) 1.00ms
+[21:51:05,764] tornado.access [INFO] 304 GET /static/fonts/poppins/Poppins-Medium.ttf (::1) 0.50ms
+[21:51:09,146] tornado.access [INFO] 200 POST / (::1) 1.00ms
+[21:51:09,294] root [WARNING] getFachKombo failed, error list index out of range
+[21:51:09,295] tornado.access [INFO] 304 GET /main (::1) 1.00ms
+[21:51:20,778] tornado.access [INFO] 200 POST /almost_done (::1) 1.00ms
+[21:51:20,931] root [WARNING] getFachKombo failed, error list index out of range
+[21:51:20,932] tornado.access [INFO] 304 GET /main (::1) 1.50ms
+[21:51:47,412] tornado.access [INFO] 200 GET / (::1) 1.00ms
+[21:51:51,442] tornado.application [ERROR] Uncaught exception POST / (::1)
+HTTPServerRequest(protocol='http', host='localhost:8888', method='POST', uri='/', version='HTTP/1.1', remote_ip='::1')
+Traceback (most recent call last):
+  File "C:\Users\XilefTech\.pyenv\pyenv-win\versions\3.9.6\lib\site-packages\tornado\web.py", line 1702, in _execute
+    result = method(*self.path_args, **self.path_kwargs)
+  File "d:\Git\UnitFilter\webuntisPicker.py", line 462, in post
+    self.set_cookie("user", chkUser)
+  File "C:\Users\XilefTech\.pyenv\pyenv-win\versions\3.9.6\lib\site-packages\tornado\web.py", line 622, in set_cookie
+    value = escape.native_str(value)
+  File "C:\Users\XilefTech\.pyenv\pyenv-win\versions\3.9.6\lib\site-packages\tornado\escape.py", line 228, in to_unicode
+    raise TypeError("Expected bytes, unicode, or None; got %r" % type(value))
+TypeError: Expected bytes, unicode, or None; got <class 'bool'>
+[21:51:51,444] tornado.access [ERROR] 500 POST / (::1) 2.50ms
+[21:52:38,737] tornado.access [INFO] 200 POST / (::1) 1.50ms
+[21:52:38,892] root [WARNING] getFachKombo failed, error list index out of range
+[21:52:38,892] tornado.access [INFO] 304 GET /main (::1) 1.50ms
+[21:52:39,31] tornado.access [INFO] 304 GET /static/fonts/poppins/Poppins-Bold.ttf (::1) 0.50ms
+[21:52:39,389] tornado.access [INFO] 304 GET /static/fonts/poppins/Poppins-Regular.ttf (::1) 1.00ms
+[21:52:40,862] tornado.access [INFO] 304 GET /static/fonts/poppins/Poppins-Medium.ttf (::1) 0.50ms
+[21:52:46,451] tornado.access [INFO] 200 POST /almost_done (::1) 0.50ms
+[21:52:46,586] root [WARNING] getFachKombo failed, error list index out of range
+[21:52:46,587] tornado.access [INFO] 304 GET /main (::1) 1.50ms
+[21:52:57,99] tornado.access [INFO] 200 POST /almost_done (::1) 1.00ms
+[21:52:57,257] root [WARNING] getFachKombo failed, error list index out of range
+[21:52:57,257] tornado.access [INFO] 304 GET /main (::1) 1.50ms
+[21:53:08,262] tornado.access [WARNING] 404 GET /static/vendor/bootstrap/js/popper.js.map (::1) 0.50ms
+[21:53:08,352] tornado.access [INFO] 200 GET /static/vendor/bootstrap/css/bootstrap.min.css.map (::1) 2.50ms
+[21:54:03,848] tornado.access [INFO] 200 POST /almost_done (::1) 0.50ms
+[21:54:04,1] root [WARNING] getFachKombo failed, error list index out of range
+[21:54:04,2] tornado.access [INFO] 304 GET /main (::1) 1.00ms
+[21:56:15,472] root [INFO] Starting system.
+[21:56:15,472] root [INFO] Started DB Init Function
+[21:56:15,472] root [INFO] No need for a new DB
+[21:56:15,477] root [INFO] Updating table
+[21:56:15,931] root [INFO] Starting server
+[21:56:22,598] tornado.access [INFO] 200 GET / (::1) 7.00ms
+[21:56:27,54] tornado.access [INFO] 200 POST / (::1) 3.50ms
+[21:56:27,192] root [WARNING] getFachKombo failed, error list index out of range
+[21:56:27,196] tornado.access [INFO] 200 GET /main (::1) 4.50ms
+[21:56:38,250] tornado.access [INFO] 200 POST /almost_done (::1) 1.00ms
+[21:56:38,364] root [WARNING] getFachKombo failed, error list index out of range
+[21:56:38,365] tornado.access [INFO] 304 GET /main (::1) 1.00ms
+[21:57:32,916] root [INFO] Starting system.
+[21:57:32,916] root [INFO] Started DB Init Function
+[21:57:32,917] root [INFO] No need for a new DB
+[21:57:32,922] root [INFO] Updating table
+[21:57:33,428] root [INFO] Starting server
+[21:57:45,882] root [WARNING] getFachKombo failed, error list index out of range
+[21:57:45,889] tornado.access [INFO] 304 GET /main (::1) 8.00ms
+[21:57:46,223] tornado.access [INFO] 200 GET /static/images/icons/favicon.ico?v=8012a5d8fadefa58cc95c88398799b64c2588be2297b333fe8904e6850793b442451b4d89a11e841309d4cd5439c11ada9ba4c943852c1ea438eb6cbf01e9cd9 (::1) 134.52ms
+[21:57:52,453] tornado.access [INFO] 200 POST /almost_done (::1) 2.50ms
+[21:57:52,610] root [WARNING] getFachKombo failed, error list index out of range
+[21:57:52,610] tornado.access [INFO] 304 GET /main (::1) 1.00ms
+[21:58:57,336] tornado.access [INFO] 200 GET / (::1) 3.00ms
+[21:59:00,160] tornado.access [WARNING] 404 GET /static/vendor/bootstrap/js/popper.js.map (::1) 0.50ms
+[21:59:00,174] tornado.access [INFO] 200 GET /static/vendor/bootstrap/css/bootstrap.min.css.map (::1) 2.00ms
+[21:59:11,19] tornado.access [INFO] 200 POST / (::1) 1.50ms
+[21:59:11,190] root [WARNING] getFachKombo failed, error list index out of range
+[21:59:11,191] tornado.access [INFO] 304 GET /main (::1) 1.50ms
+[21:59:11,243] tornado.access [INFO] 200 GET /static/vendor/bootstrap/css/bootstrap.min.css.map (::1) 1.00ms
+[21:59:11,385] tornado.access [INFO] 200 GET /static/vendor/bootstrap/css/bootstrap.min.css.map (::1) 1.50ms
+[21:59:11,409] tornado.access [WARNING] 404 GET /static/vendor/bootstrap/js/popper.js.map (::1) 0.50ms
+[21:59:38,571] tornado.access [INFO] 200 POST /almost_done (::1) 0.50ms
+[21:59:38,728] root [WARNING] getFachKombo failed, error list index out of range
+[21:59:38,729] tornado.access [INFO] 304 GET /main (::1) 1.50ms
+[21:59:38,784] tornado.access [INFO] 200 GET /static/vendor/bootstrap/css/bootstrap.min.css.map (::1) 1.50ms
+[21:59:38,914] tornado.access [INFO] 200 GET /static/vendor/bootstrap/css/bootstrap.min.css.map (::1) 1.50ms
+[21:59:39,231] tornado.access [WARNING] 404 GET /static/vendor/bootstrap/js/popper.js.map (::1) 1.00ms
+[22:06:17,856] tornado.access [INFO] 200 POST /almost_done (::1) 1.00ms
+[22:06:17,958] tornado.access [INFO] 200 GET /static/vendor/bootstrap/css/bootstrap.min.css.map (::1) 1.00ms
+[22:06:18,57] root [WARNING] getFachKombo failed, error list index out of range
+[22:06:18,57] tornado.access [INFO] 304 GET /main (::1) 1.00ms
+[22:06:18,180] tornado.access [INFO] 200 GET /static/vendor/bootstrap/css/bootstrap.min.css.map (::1) 1.50ms
+[22:06:18,267] tornado.access [INFO] 304 GET /static/fonts/poppins/Poppins-Bold.ttf (::1) 1.00ms
+[22:06:18,759] tornado.access [WARNING] 404 GET /static/vendor/bootstrap/js/popper.js.map (::1) 0.50ms
+[22:06:18,760] tornado.access [INFO] 304 GET /static/fonts/poppins/Poppins-Regular.ttf (::1) 1.50ms
+[22:10:10,561] tornado.access [INFO] 200 GET /almost_done (::1) 1.00ms
+[22:10:10,660] tornado.access [INFO] 200 GET /static/vendor/bootstrap/css/bootstrap.min.css.map (::1) 1.00ms
+[22:10:11,501] tornado.access [INFO] 304 GET /static/fonts/poppins/Poppins-Bold.ttf (::1) 0.50ms
+[22:10:11,502] tornado.access [INFO] 304 GET /static/fonts/poppins/Poppins-Regular.ttf (::1) 0.50ms
+[22:10:11,580] tornado.access [WARNING] 404 GET /static/vendor/bootstrap/js/popper.js.map (::1) 0.50ms
+[22:10:15,192] tornado.access [INFO] 304 GET /static/fonts/poppins/Poppins-Medium.ttf (::1) 1.00ms
+[22:10:19,64] tornado.access [INFO] 200 POST /almost_done (::1) 1.00ms
+[22:10:19,150] tornado.access [INFO] 200 GET /static/vendor/bootstrap/css/bootstrap.min.css.map (::1) 1.50ms
+[22:10:19,249] root [WARNING] getFachKombo failed, error list index out of range
+[22:10:19,250] tornado.access [INFO] 304 GET /main (::1) 1.50ms
+[22:10:19,392] tornado.access [INFO] 200 GET /static/vendor/bootstrap/css/bootstrap.min.css.map (::1) 1.50ms
+[22:10:19,482] tornado.access [WARNING] 404 GET /static/vendor/bootstrap/js/popper.js.map (::1) 0.50ms
+[22:12:15,608] root [INFO] Starting system.
+[22:12:15,609] root [INFO] Started DB Init Function
+[22:12:15,609] root [INFO] No need for a new DB
+[22:12:15,615] root [INFO] Updating table
+[22:12:16,211] root [INFO] Starting server
+[22:12:24,383] root [WARNING] getFachKombo failed, error list index out of range
+[22:12:24,389] tornado.access [INFO] 304 GET /main (::1) 7.00ms
+[22:12:24,614] tornado.access [INFO] 200 GET /static/vendor/bootstrap/css/bootstrap.min.css.map (::1) 141.52ms
+[22:12:24,615] tornado.access [WARNING] 404 GET /static/vendor/bootstrap/js/popper.js.map (::1) 0.50ms
+[22:12:24,617] tornado.access [INFO] 200 GET /static/images/icons/favicon.ico?v=8012a5d8fadefa58cc95c88398799b64c2588be2297b333fe8904e6850793b442451b4d89a11e841309d4cd5439c11ada9ba4c943852c1ea438eb6cbf01e9cd9 (::1) 1.00ms
+[22:12:30,235] tornado.access [INFO] 200 POST /almost_done (::1) 41.51ms
+[22:12:30,321] tornado.access [INFO] 200 GET /static/vendor/bootstrap/css/bootstrap.min.css.map (::1) 1.50ms
+[22:12:30,418] root [INFO] Updating table
+[22:12:30,906] root [INFO] Updating table
+[22:12:31,209] root [INFO] Updating table
+[22:12:31,510] root [INFO] Updating table
+[22:12:31,824] root [INFO] Updating table
+[22:12:32,91] tornado.access [INFO] 200 GET /main (::1) 1673.92ms
+[22:12:32,121] tornado.access [INFO] 200 GET /static/main.css?v=893b9908349d3300765264225e8a0a6b4380885dd3c6fe15270267f6d1322239e5c5c85beda130c6c7e3253cde91bcc9c82f5220ad273a9ee88505323600b6d8 (::1) 1.50ms
+[22:12:32,177] tornado.access [INFO] 200 GET /static/vendor/bootstrap/css/bootstrap.min.css.map (::1) 1.50ms
+[22:12:32,247] tornado.access [WARNING] 404 GET /static/vendor/bootstrap/js/popper.js.map (::1) 0.50ms
+[22:12:49,108] tornado.access [INFO] 200 GET / (192.168.178.58) 2.50ms
+[22:15:32,301] root [INFO] Updating table
+[22:15:32,803] root [INFO] Updating table
+[22:15:33,288] root [INFO] Updating table
+[22:15:33,937] root [INFO] Updating table
+[22:15:34,259] root [INFO] Updating table
+[22:15:34,580] tornado.access [INFO] 304 GET /main (::1) 2279.46ms
+[22:15:34,728] tornado.access [INFO] 304 GET /static/fonts/poppins/Poppins-Regular.ttf (::1) 0.50ms
+[22:15:34,782] tornado.access [INFO] 200 GET /static/images/icons/favicon.ico?v=8012a5d8fadefa58cc95c88398799b64c2588be2297b333fe8904e6850793b442451b4d89a11e841309d4cd5439c11ada9ba4c943852c1ea438eb6cbf01e9cd9 (::1) 1.00ms
+[22:15:55,198] tornado.access [INFO] 200 GET /logout (::1) 2.50ms
+[22:15:55,350] tornado.access [INFO] 200 GET / (::1) 0.50ms
+[22:15:55,532] tornado.access [INFO] 304 GET /static/fonts/poppins/Poppins-Bold.ttf (::1) 1.00ms
+[22:15:55,533] tornado.access [INFO] 304 GET /static/fonts/poppins/Poppins-Medium.ttf (::1) 1.00ms
+[22:15:59,659] tornado.access [INFO] 200 POST / (::1) 1.50ms
+[22:15:59,806] root [INFO] Updating table
+[22:16:00,252] root [INFO] Updating table
+[22:16:00,603] root [INFO] Updating table
+[22:16:00,891] root [INFO] Updating table
+[22:16:01,218] root [INFO] Updating table
+[22:16:01,487] tornado.access [INFO] 304 GET /main (::1) 1681.52ms
+[22:16:05,45] root [INFO] Updating table
+[22:16:05,336] root [INFO] Updating table
+[22:16:05,638] root [INFO] Updating table
+[22:16:05,936] root [INFO] Updating table
+[22:16:06,247] root [INFO] Updating table
+[22:16:06,527] tornado.access [INFO] 200 GET /main (::1) 1482.98ms
+[22:16:06,556] tornado.access [INFO] 200 GET /static/vendor/bootstrap/css/bootstrap.min.css?v=dff5d441860d7d93d01d95e210932c252b53e0cbb4677eceb66e9afc696868983bc0e14f33c739030ad6a0e4fba22ed2c22c7fa6786104d4f837db8ced058c9f (::1) 1.00ms
+[22:16:06,558] tornado.access [INFO] 200 GET /static/fonts/font-awesome-4.7.0/css/font-awesome.min.css?v=97149632c15eb33690273abfa78636ad0471999363e11bf59ca61a4de32444e6f299db3b80d52b2e9437c645ec235fa8d3b8c20dcc350dbb9e175f12b3849a64 (::1) 1.00ms
+[22:16:06,559] tornado.access [INFO] 200 GET /static/vendor/select2/select2.min.css?v=c1cc2e691688b833c8b2c089cb02c001ce6b2c8994259ecca845ad527eb63068f184e9b2a6b4db5068f70178f21bb90adff1d1b12938efad75581f841e5a9bd2 (::1) 1.00ms
+[22:16:06,561] tornado.access [INFO] 200 GET /static/fonts/iconic/css/material-design-iconic-font.min.css?v=ad142d178576c2d02f5eca2ee22500b369171e2dcb8fd344ef1251efb0c4ec61ecc6063d4535b2f77773317803206f13a224530f8e55b0335d4e251a80e15e64 (::1) 2.00ms
+[22:16:06,562] tornado.access [INFO] 200 GET /static/vendor/animate/animate.css?v=c8a8a7fd2fb0793981faa0cd80ed876b58e0959784662360cc65b523f88d0a3c25067c00f3db353d2d432013c4d2b9a81cfd42e41aaba0fefc9581598883c958 (::1) 2.50ms
+[22:16:06,562] tornado.access [INFO] 200 GET /static/vendor/css-hamburgers/hamburgers.min.css?v=4f516690bbd6348c66188e4bd5c75d4dccf631c18846d7b94253302043dfe982e8308c238b2ce77ebb3a7788548d4b1a6185e643ea469f0af68dfc2fab656bdb (::1) 2.50ms
+[22:16:06,563] tornado.access [INFO] 200 GET /static/vendor/animsition/css/animsition.min.css?v=5c2594f51064510cdb3ea0551960249e310f5bc8c0dd66d7d108a28ff5aea57e5def3788921630380f13b494add8a15884305d5a2c0ce2f4d6a9ba5ba9978578 (::1) 2.50ms
+[22:16:06,564] tornado.access [INFO] 200 GET /static/css/util.css?v=eaa2dbd9504a869ff9cbf5af327c9b349740ae7b3f53e104d52807c51a682e6e62da02fbfbade50f3e00898fc743a206b3b9175299ed8d740e482608fba9d3bf (::1) 1.00ms
+[22:16:06,565] tornado.access [INFO] 200 GET /static/vendor/daterangepicker/daterangepicker.css?v=efaefb62e2601a88c6e5e01f96ced108489125fcd7c8239b86fdc0dc28cca2d9f53a1702fb3ffcf8bd5f84fdeb32ae8cd28f76348ff97ce7b0daf3ddc6a0626c (::1) 0.50ms
+[22:16:06,568] tornado.access [INFO] 200 GET /static/css/main.css?v=ef825e76e559cfdc21318143c1a7e1696127527cfa043b628bd40085823479bc2fbd1327476ffa7359f641de8fd4a36fe4cba9b18d002ce9e39ba7dd9e8eb1a0 (::1) 0.50ms
+[22:16:06,569] tornado.access [INFO] 200 GET /static/main.css?v=893b9908349d3300765264225e8a0a6b4380885dd3c6fe15270267f6d1322239e5c5c85beda130c6c7e3253cde91bcc9c82f5220ad273a9ee88505323600b6d8 (::1) 0.50ms
+[22:16:06,581] tornado.access [INFO] 200 GET /static/vendor/jquery/jquery-3.2.1.min.js?v=20da3fe171c075635ef82f8de57644c7a50be45eb1207d96a51b5eadeaac17ee830b5058d87e88501e20ec41ef897f65cec26a0380eaf49698c6eaa5981d8483 (::1) 0.50ms
+[22:16:06,587] tornado.access [INFO] 200 GET /static/vendor/animsition/js/animsition.min.js?v=7493937ccc8470c67541ac129355f363b26ffef085d95e04a6d2f4bb339052b62ea9f5a7ef3b6c2e4ec3eb7e9499ce37942a7c75bb278f92c103de151c266f7f (::1) 0.50ms
+[22:16:06,591] tornado.access [INFO] 200 GET /static/vendor/bootstrap/js/popper.js?v=7a15a10765e3a123b738c4076994662775aa02e26e21e7cb913698e4aff7d5e233b2e87aad2e7fa93544f783e25e99605638da77fbd48f4e72c1d1c862569e55 (::1) 1.00ms
+[22:16:06,596] tornado.access [INFO] 200 GET /static/vendor/bootstrap/js/bootstrap.min.js?v=fc4dee4e72f2c78e7e5d8d9a46d64ceca6f078fd08207f19e1f1eab01292580c5428b234978b0091edd1993f729e3fbc16d9bc4b99f82e8adc144b952131c0ed (::1) 0.50ms
+[22:16:06,600] tornado.access [INFO] 200 GET /static/vendor/select2/select2.min.js?v=d375e1b556eb63d254b10f002528d791a96469adfbeb450af55015a168816152b7f3e6a4251a438e97aabe8d4d045a7ea9b8d563dd5e7dd746d5f1bc6a6b7d95 (::1) 0.50ms
+[22:16:06,606] tornado.access [INFO] 200 GET /static/vendor/daterangepicker/moment.min.js?v=bd4a1e9d3cf65df12c9657c4d2d76b48e1cef3932b2a8205b77c58a039280d145e2c95b20313eb10c8e2bd70f7f47f531afdd8690c1701e04b811a87408cf5be (::1) 1.00ms
+[22:16:06,610] tornado.access [INFO] 200 GET /static/vendor/daterangepicker/daterangepicker.js?v=68c7876cd2e22bd164e42153fdab6624a9b5082c28272bf37f951f86b2745cce6767da6ef1524edcfaf54a74076d330000708b15d35b4ab9f22e6e7cd26a10bb (::1) 1.00ms
+[22:16:06,614] tornado.access [INFO] 200 GET /static/vendor/countdowntime/countdowntime.js?v=58d9f45b79c90b5a751372f10b5163cf48091766725c5a88a4f7d03eee156f597030bce19ec99c9d03a26afd0fb8277a78173bd95197e5ec16cb5f1185c19322 (::1) 0.50ms
+[22:16:06,618] tornado.access [INFO] 200 GET /static/js/main.js?v=1bf052af852960475aa9efee8ffdf48bf4846ce53dff58b50656efefcf16b33b6b33c69820cef822508a8009df08fd4e085ff670ce73f651287b0d12e9793ccc (::1) 0.50ms
+[22:16:06,704] tornado.access [INFO] 200 GET /static/fonts/poppins/Poppins-Regular.ttf (::1) 0.50ms
+[22:16:06,740] tornado.access [INFO] 200 GET /static/images/icons/favicon.ico?v=8012a5d8fadefa58cc95c88398799b64c2588be2297b333fe8904e6850793b442451b4d89a11e841309d4cd5439c11ada9ba4c943852c1ea438eb6cbf01e9cd9 (::1) 0.50ms
+[22:16:19,100] root [INFO] Starting system.
+[22:16:19,100] root [INFO] Started DB Init Function
+[22:16:19,100] root [INFO] No need for a new DB
+[22:16:19,105] root [INFO] Updating table
+[22:16:19,577] root [INFO] Starting server
+[22:16:21,810] root [INFO] Updating table
+[22:16:22,121] root [INFO] Updating table
+[22:16:22,419] root [INFO] Updating table
+[22:16:22,719] root [INFO] Updating table
+[22:16:23,171] root [INFO] Updating table
+[22:16:23,461] tornado.access [INFO] 304 GET /main (::1) 1651.57ms
+[22:16:23,801] tornado.access [INFO] 200 GET /static/images/icons/favicon.ico?v=8012a5d8fadefa58cc95c88398799b64c2588be2297b333fe8904e6850793b442451b4d89a11e841309d4cd5439c11ada9ba4c943852c1ea438eb6cbf01e9cd9 (::1) 147.03ms
+[22:16:25,467] root [INFO] Updating table
+[22:16:25,792] root [INFO] Updating table
+[22:16:26,91] root [INFO] Updating table
+[22:16:26,411] root [INFO] Updating table
+[22:16:26,723] root [INFO] Updating table
+[22:16:26,997] tornado.access [INFO] 304 GET /main (::1) 1530.53ms
+[22:16:27,154] tornado.access [INFO] 200 GET /static/images/icons/favicon.ico?v=8012a5d8fadefa58cc95c88398799b64c2588be2297b333fe8904e6850793b442451b4d89a11e841309d4cd5439c11ada9ba4c943852c1ea438eb6cbf01e9cd9 (::1) 0.50ms
+[18:23:45,533] root [INFO] Updating table
+[18:23:46,110] root [INFO] Updating table
+[18:23:46,346] root [INFO] Updating table
+[18:23:46,703] root [INFO] Updating table
+[18:23:46,991] root [INFO] Updating table
+[18:23:47,255] tornado.access [INFO] 304 GET /main (::1) 1729.70ms
+[18:23:47,336] tornado.access [INFO] 200 GET /static/vendor/jquery/jquery-3.2.1.min.js?v=20da3fe171c075635ef82f8de57644c7a50be45eb1207d96a51b5eadeaac17ee830b5058d87e88501e20ec41ef897f65cec26a0380eaf49698c6eaa5981d8483 (::1) 1.00ms
+[18:23:47,342] tornado.access [INFO] 200 GET /static/vendor/animsition/js/animsition.min.js?v=7493937ccc8470c67541ac129355f363b26ffef085d95e04a6d2f4bb339052b62ea9f5a7ef3b6c2e4ec3eb7e9499ce37942a7c75bb278f92c103de151c266f7f (::1) 0.50ms
+[18:23:47,345] tornado.access [INFO] 200 GET /static/vendor/bootstrap/js/popper.js?v=7a15a10765e3a123b738c4076994662775aa02e26e21e7cb913698e4aff7d5e233b2e87aad2e7fa93544f783e25e99605638da77fbd48f4e72c1d1c862569e55 (::1) 0.50ms
+[18:23:47,349] tornado.access [INFO] 200 GET /static/vendor/bootstrap/js/bootstrap.min.js?v=fc4dee4e72f2c78e7e5d8d9a46d64ceca6f078fd08207f19e1f1eab01292580c5428b234978b0091edd1993f729e3fbc16d9bc4b99f82e8adc144b952131c0ed (::1) 1.00ms
+[18:23:47,354] tornado.access [INFO] 200 GET /static/vendor/select2/select2.min.js?v=d375e1b556eb63d254b10f002528d791a96469adfbeb450af55015a168816152b7f3e6a4251a438e97aabe8d4d045a7ea9b8d563dd5e7dd746d5f1bc6a6b7d95 (::1) 1.00ms
+[18:23:47,359] tornado.access [INFO] 200 GET /static/vendor/daterangepicker/moment.min.js?v=bd4a1e9d3cf65df12c9657c4d2d76b48e1cef3932b2a8205b77c58a039280d145e2c95b20313eb10c8e2bd70f7f47f531afdd8690c1701e04b811a87408cf5be (::1) 0.50ms
+[18:23:47,364] tornado.access [INFO] 200 GET /static/vendor/daterangepicker/daterangepicker.js?v=68c7876cd2e22bd164e42153fdab6624a9b5082c28272bf37f951f86b2745cce6767da6ef1524edcfaf54a74076d330000708b15d35b4ab9f22e6e7cd26a10bb (::1) 1.00ms
+[18:23:47,367] tornado.access [INFO] 200 GET /static/vendor/countdowntime/countdowntime.js?v=58d9f45b79c90b5a751372f10b5163cf48091766725c5a88a4f7d03eee156f597030bce19ec99c9d03a26afd0fb8277a78173bd95197e5ec16cb5f1185c19322 (::1) 0.50ms
+[18:23:47,370] tornado.access [INFO] 200 GET /static/js/main.js?v=1bf052af852960475aa9efee8ffdf48bf4846ce53dff58b50656efefcf16b33b6b33c69820cef822508a8009df08fd4e085ff670ce73f651287b0d12e9793ccc (::1) 0.50ms
+[18:23:47,476] tornado.access [INFO] 200 GET /static/fonts/poppins/Poppins-Regular.ttf (::1) 1.50ms
+[18:23:47,761] tornado.access [INFO] 200 GET /static/images/icons/favicon.ico?v=8012a5d8fadefa58cc95c88398799b64c2588be2297b333fe8904e6850793b442451b4d89a11e841309d4cd5439c11ada9ba4c943852c1ea438eb6cbf01e9cd9 (::1) 0.50ms
+[18:57:18,859] root [INFO] Updating table
+[18:57:19,456] root [INFO] Updating table
+[18:57:19,759] root [INFO] Updating table
+[18:57:20,61] root [INFO] Updating table
+[18:57:20,389] root [INFO] Updating table
+[18:57:20,730] tornado.access [INFO] 304 GET /main (::1) 1871.09ms
+[18:57:20,983] tornado.access [INFO] 200 GET /static/images/icons/favicon.ico?v=8012a5d8fadefa58cc95c88398799b64c2588be2297b333fe8904e6850793b442451b4d89a11e841309d4cd5439c11ada9ba4c943852c1ea438eb6cbf01e9cd9 (::1) 1.00ms
+[22:19:34,343] tornado.access [INFO] 200 GET / (192.168.178.58) 4.00ms
+[13:31:13,689] root [INFO] Starting system.
+[13:31:13,689] root [INFO] Started DB Init Function
+[13:31:13,689] root [INFO] No need for a new DB
+[13:31:13,695] root [INFO] Updating table
+[13:31:14,71] webuntis [ERROR] {'jsonrpc': '2.0', 'id': '2021-09-28 13:31:13.695300', 'error': {'message': 'Benutzer ist gesperrt', 'code': -8998}}
+[14:58:43,673] root [INFO] Starting system.
+[14:58:43,673] root [INFO] Started DB Init Function
+[14:58:43,673] root [INFO] No need for a new DB
+[14:58:43,679] root [INFO] Updating table
+[14:58:44,63] webuntis [ERROR] {'jsonrpc': '2.0', 'id': '2021-09-28 14:58:43.680311', 'error': {'message': 'Benutzer ist gesperrt', 'code': -8998}}
+[19:49:25,967] root [INFO] Starting system.
+[19:49:25,968] root [INFO] Started DB Init Function
+[19:49:25,968] root [INFO] No need for a new DB
+[19:49:25,973] root [INFO] Updating table
+[19:49:26,244] webuntis [ERROR] {'jsonrpc': '2.0', 'id': '2021-09-28 19:49:25.973520', 'error': {'message': 'Benutzer ist gesperrt', 'code': -8998}}
+[19:56:38,951] root [INFO] Starting system.
+[19:56:38,951] root [INFO] Started DB Init Function
+[19:56:38,951] root [INFO] No need for a new DB
+[19:56:38,956] root [INFO] Updating table
+[19:56:39,136] webuntis [ERROR] {'jsonrpc': '2.0', 'id': '2021-09-28 19:56:38.956750', 'error': {'message': 'Benutzer ist gesperrt', 'code': -8998}}
