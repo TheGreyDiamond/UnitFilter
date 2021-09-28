@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>Register page</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Please login</h1>
+      <br>
+      <form action="" method="post">
+        <input type="text"      placeholder="E-Mail"        name="email"            value="{{request.form.email}}">
+        <input type="password"  placeholder="Password"      name="password"         value="{{request.form.password}}">
+        <input type="text"      placeholder="School"        name="school"           value="{{request.form.school}}">
+        <input type="text"      placeholder="Class"         name="class"            value="{{request.form.class}}">
+        <input type="password"  placeholder="ClassPassword" name="classPassword"    value="{{request.form.class_password}}">
+        <input class="btn btn-default" type="submit" value="Login">
+      </form>
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
+    </div>
+  </body>
+</html>

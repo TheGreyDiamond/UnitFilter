@@ -39,7 +39,22 @@ def login():
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
-    return "Register page"
+    error = None
+
+    if request.method == 'POST':
+        database = sqlite3.connect(databaseName)
+        cur = database.cursor()
+
+        email = request.form['email']
+        password = request.form['password']
+        school = request.form['school']
+        userclass = request.form['class']
+        classPass = request.form['class_password']
+
+
+        ## do stuff
+
+    return render_template('register.html', error=error)
 
 @app.route("/timetable")
 def timetable():
@@ -55,6 +70,7 @@ def initDB():
         e_mail          VARCHAR (255) UNIQUE,
         password_hash   VARCHAR (255),
         subjects        VARCHAR (255),
+        school          VARCHAR (255),
         class_code      VARCHAR (255),
         class_password  VARCHAR (255));'''
 
