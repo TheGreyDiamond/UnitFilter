@@ -5,7 +5,8 @@ import webuntis
 
 app = Flask("UnitFilter")
 databaseName = 'database.db'
-database, cur = 0
+database = 0
+cur = 0
 
 @app.route("/")
 def root():
@@ -16,9 +17,12 @@ def login():
     error = None
 
     if request.method == 'POST':
+        database = sqlite3.connect(databaseName)
+        cur = database.cursor()
+
         email = request.form['email']
         password = request.form['password']
-        
+
         if email in cur.execute('SELECT e_mail FROM userdata'):
             ## correct username
             if password == cur.execute('SELECT password_has FROM userdata WHERE e_mail="{email}"'):
@@ -61,8 +65,9 @@ def initDB():
 
 
 if __name__ == '__main__':
-    global database, cur
     initDB()
+
     database = sqlite3.connect(databaseName)
     cur = database.cursor()
+
     app.run(port=8888)
