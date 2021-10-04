@@ -32,14 +32,14 @@ def login():
                 ## wrong password
                 error = 'Invalid Password. Please try again.'
         else:
-            ## incorrect username
-            error = 'Invalid Username. Please try again.'
+            ## incorrect email
+            error = 'Invalid Email-Address. Please try again.'
 
     return render_template('login.html', error=error)
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
-    error = None
+    error = ''
 
     if request.method == 'POST':
         database = sqlite3.connect(databaseName)
@@ -51,7 +51,19 @@ def register():
         userclass = request.form['class']
         classPass = request.form['class_password']
 
+        if email in cur.execute('SELECT e_mail FROM userdata'):
+            error.append('Email-Adress already used. Please use a different one\n')
+        
+        if school not in cur.execute('SELECT school FROM schooldata'):
+            error.append('School not found. Please try again\n')
 
+        if userclass not in cur.execute('SELECT class FROM schooldata WHERE school={school}'):
+            error.append('Class not found or not supported\n')
+        elif classPass not in cur.execute('SELECT password FROM schooldata WHERE school={school} AND class={class}'):
+            error.append('Invalid Password\n')
+        else:
+            # valid class credentials
+            # toastbrot mit annanas drauf
         ## do stuff
 
     return render_template('register.html', error=error)
@@ -65,7 +77,7 @@ def initDB():
     logging.info("Initializing database...")
 
     connection = sqlite3.connect(databaseName)
-    createTableCode = '''CREATE TABLE IF NOT EXISTS userdata (
+    createUserdataTableCode = '''CREATE TABLE IF NOT EXISTS userdata (
         id              INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
         e_mail          VARCHAR (255) UNIQUE,
         password_hash   VARCHAR (255),
@@ -73,9 +85,16 @@ def initDB():
         school          VARCHAR (255),
         class_code      VARCHAR (255),
         class_password  VARCHAR (255));'''
+    
+    createSchoolsTableCode = '''CREATE TABLE IF NOT EXISTS schooldata (
+        id              INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        school          VARCHAR (255),
+        class   VARCHAR (255),
+        password        VARCHAR (255));'''
 
     cursor = connection.cursor()
-    cursor.execute(createTableCode)
+    cursor.execute(createUserdataTableCode)
+    cursor.execute(createSchoolsTableCode)
     connection.commit()
     cursor.close()
 
