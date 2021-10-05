@@ -71,6 +71,11 @@ def register():
 
     return render_template('register.html', error=error)
 
+@app.route('/updateCourseSelection')
+def updateCourseSelection():
+    return 'nothing here yet'
+
+
 @app.route("/timetable")
 def timetable():
     return "The Timetable"
