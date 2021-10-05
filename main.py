@@ -47,6 +47,7 @@ def register():
 
         email = request.form['email']
         password = request.form['password']
+        password2 = request.form['repeat_password']
         school = request.form['school']
         classCode = request.form['class']
         classPass = request.form['class_password']
@@ -57,16 +58,17 @@ def register():
         if school not in cur.execute('SELECT school FROM schooldata'):
             error += 'School not found\n'
         
-            error += 'School not found. Please try again\n'
+        if password != password2:
+            error += 'Passwords don\'t match\n'
 
         if classCode not in cur.execute(f'SELECT class FROM schooldata WHERE school={school}'):
             error += 'Class not found or not supported\n'
         elif classPass not in cur.execute(f'SELECT password FROM schooldata WHERE school={school} AND class={classCode}'):
             error += 'Invalid Password\n'
 
-            # check for password security
-            if len(password) < 6:
-                error += 'Your password needs to be at least 6 characters long'
+        # check for password security
+        if len(password) < 6:
+            error += 'Your password needs to be at least 6 characters long'
 
     return render_template('register.html', error=error)
 
