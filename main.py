@@ -1,20 +1,29 @@
-from flask import Flask, redirect, render_template, request
+from flask import Flask, redirect, render_template, request, session
 import logging
 import sqlite3
 import hashlib
 import webuntis
 
 app = Flask("UnitFilter")
+app.secret_key = b'~p\xbc\xd9\x1b\x84\xdd\xe9-w\xd4ma\xe8GZK\xe3\x18foP\x9d\xe0C\x87\xb3\x06&\x1a\xad+'
+
 databaseName = 'database.db'
 database = 0
 cur = 0
 
 @app.route("/")
 def root():
+    ## check if user is already logged in and redirect to timetable if that is the case
+    if 'username' in session:
+        return redirect("/timetable")
     return redirect("/login")
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
+    ## check if user is already logged in and redirect to timetable if that is the case
+    if 'username' in session:
+        return redirect("/timetable")
+
     error = None
 
     if request.method == 'POST':
@@ -36,6 +45,9 @@ def login():
             if hasher.hexdigest() in cur.fetchall()[0]:
                 ## correct password/credentials
                 cur.execute(f'SELECT id FROM userdata WHERE e_mail="{email}";')
+                session['userID'] = cur.fetchall()[0][0]
+                session['username'] = email
+
                 return redirect("/timetable")
             else:
                 ## wrong password
@@ -46,8 +58,17 @@ def login():
 
     return render_template('login.html', error=error)
 
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect("/login")
+
 @app.route("/register", methods=['GET', 'POST'])
 def register():
+    ## check if user is already logged in and redirect to timetable if that is the case
+    if 'username' in session:
+        return redirect("/timetable")
+
     error = ''
 
     if request.method == 'POST':
@@ -107,6 +128,10 @@ def updateCourseSelection():
 
 @app.route("/timetable")
 def timetable():
+    ## check if user is not already logged in and redirect to timetable if that is the case
+    if 'username' not in session:
+        return redirect("/login")
+
     return "The Timetable"
 
 
