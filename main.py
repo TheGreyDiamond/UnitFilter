@@ -1,6 +1,7 @@
 from flask import Flask, redirect, render_template, request
 import logging
 import sqlite3
+import hashlib
 import webuntis
 
 app = Flask("UnitFilter")
@@ -70,6 +71,20 @@ def register():
         if len(password) < 6:
             error += 'Your password needs to be at least 6 characters long'
 
+        # toastbrot mit annanas drauf
+        # if no errors, save user and redirect to subject selection
+        if error == '':
+            hasher = hashlib.md5()
+            hasher.update(password.encode('utf-8'))
+            passwordhash = hasher.hexdigest()
+            cur.execute(f'''INSERT INTO userdata (e_mail, password_hash, school, class_code, class_password)
+                        VALUES ({email}, {passwordhash}, {school}, {classCode}, {classPass})''')
+            database.commit()
+            cur.close()
+            print(f'Created new user with email-address "{email}"')
+
+            return redirect('/updateCourseSelection')
+
     return render_template('register.html', error=error)
 
 @app.route('/updateCourseSelection')
@@ -98,7 +113,7 @@ def initDB():
     createSchoolsTableCode = '''CREATE TABLE IF NOT EXISTS schooldata (
         id              INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
         school          VARCHAR (255),
-        class   VARCHAR (255),
+        class           VARCHAR (255),
         password        VARCHAR (255));'''
 
     cursor = connection.cursor()
