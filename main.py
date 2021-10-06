@@ -84,22 +84,22 @@ def register():
 
         cur.execute('SELECT e_mail FROM userdata;')
         if email in cur.fetchall():
-            error += 'Email-Adress already used\n'
+            error += 'Email-Adress already used<br>'
         
         cur.execute('SELECT school FROM schooldata;')
         if school not in cur.fetchall()[0]:
-            error += 'School not found\n'
+            error += 'School not found<br>'
         
         if password != password2:
-            error += 'Passwords don\'t match\n'
+            error += 'Passwords don\'t match<br>'
 
         cur.execute(f'SELECT class FROM schooldata WHERE school="{school}";')
         if not any(classCode in i for i in cur.fetchall()):
-            error += 'Class not found or not supported\n'
+            error += 'Class not found or not supported<br>'
         else:
             cur.execute(f'SELECT password FROM schooldata WHERE school="{school}" AND class="{classCode}";')
             if classPass not in cur.fetchall()[0]:
-                error += 'Invalid Class Password\n'
+                error += 'Invalid Class Password<br>'
 
         # check for password security
         if len(password) < 6:
