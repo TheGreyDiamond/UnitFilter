@@ -4,12 +4,12 @@ import config
 
 databaseName = config.databaseName
 
-adminpage = Blueprint('adminpage', __name__, template_folder='templates')
+adminpage = Blueprint('adminpage', __name__, template_folder='templates/admin')
 
 
 @adminpage.route("/admin")
 def adminIndex():
-    return render_template('admin.html')
+    return render_template('index.html')
 
 
 @adminpage.route("/admin/users")
@@ -45,4 +45,3 @@ def addClass():
     
     return render_template('addClass.html', message=None)
 
-    return render_template('register.html', message=None)
