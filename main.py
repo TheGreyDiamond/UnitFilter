@@ -2,12 +2,12 @@ from flask import Flask, redirect, render_template, request, session
 import logging
 import sqlite3
 import hashlib
+import config
 import webuntis
 
 app = Flask("UnitFilter")
 app.secret_key = b'~p\xbc\xd9\x1b\x84\xdd\xe9-w\xd4ma\xe8GZK\xe3\x18foP\x9d\xe0C\x87\xb3\x06&\x1a\xad+'
-
-databaseName = 'database.db'
+databaseName = config.databaseName
 database = 0
 cur = 0
 
