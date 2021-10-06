@@ -171,7 +171,5 @@ if __name__ == '__main__':
     print(cur.fetchall())
     cur.execute('select * from userdata')
     print(cur.fetchall())
-    #cur.execute('INSERT INTO schooldata (server, school, class, password) VALUES ("cissa", "hg heidelberg", "K1", "7B3MVaR9");')
-    #database.commit()
 
     app.run(port=8888)
