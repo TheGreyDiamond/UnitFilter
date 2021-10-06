@@ -13,10 +13,7 @@ cur = 0
 
 @app.route("/")
 def root():
-    ## check if user is already logged in and redirect to timetable if that is the case
-    if 'username' in session:
-        return redirect("/timetable")
-    return redirect("/login")
+    return render_template('index.html')
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
