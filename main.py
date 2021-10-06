@@ -4,7 +4,7 @@ import sqlite3
 import hashlib
 import webuntis
 
-app = Flask("UnitFilter")
+app = Flask("UnitFilter", static_url_path='/', static_folder='static')
 app.secret_key = b'~p\xbc\xd9\x1b\x84\xdd\xe9-w\xd4ma\xe8GZK\xe3\x18foP\x9d\xe0C\x87\xb3\x06&\x1a\xad+'
 
 databaseName = 'database.db'

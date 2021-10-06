@@ -1,23 +1,110 @@
-<html>
-  <head>
-    <title>Register page</title>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Please Register</h1>
-      <br>
-      <form action="" method="post">
-        <input type="text"      placeholder="E-Mail"        name="email"            value="{{ request.form.email }}">
-        <input type="password"  placeholder="Password"      name="password"         value="{{ request.form.password }}">
-        <input type="password"  placeholder="Password"      name="repeat_password"  value="{{ request.form.repeat_password }}">
-        <input type="text"      placeholder="School"        name="school"           value="{{ request.form.school }}">
-        <input type="text"      placeholder="Class"         name="class"            value="{{ request.form.class }}">
-        <input type="password"  placeholder="Class-Password" name="class_password"  value="{{ request.form.class_password }}">
-        <input class="btn btn-default" type="submit" value="Register">
-      </form>
-      {% if error %}
-        <p class="error"><strong>Error:</strong> {{ error }}
-      {% endif %}
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>UnitFilter - Register</title>
+  <meta name="description" content="A simple HTML5 Template for new projects.">
+  <meta name="author" content="TheGreydiamond and XilefTech">
+
+  <meta property="og:title" content="UnitFilter - Register">
+  <meta property="og:type" content="website">
+
+  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <link rel="stylesheet" href="css/tailwind.css">
+  <link rel="stylesheet" href="css/main.css">
+
+</head>
+
+<body class="dark:bg-gray-800 h-screen overflow-hidden flex items-center justify-center" onresize="trinagle">
+
+  
+  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex-none flex-col w-4/12">
+    <form action="" method="post">
+    <div class="mb-4">
+      <label class="block text-grey-darker text-sm font-bold mb-2" for="email">
+        E-Mail
+      </label>
+      <input class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker" id="email" type="text" placeholder="john.doe@example.com" name="email" value="{{ request.form.email }}">
     </div>
-  </body>
+    <div class="mb-6">
+      <label class="block text-grey-darker text-sm font-bold mb-2" for="password">
+        Password
+      </label>
+      <input class="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3" id="password" name="password" type="password" placeholder="Your Password" value="{{ request.form.password }}">
+
+      <label class="block text-grey-darker text-sm font-bold mb-2" for="repeat_password">
+        Password (repeat)
+      </label>
+      <input class="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3" id="repeat_password" name="repeat_password" type="password" placeholder="Your Password" value="">
+
+      <label class="block text-grey-darker text-sm font-bold mb-2" for="school">
+        School:
+      </label>
+      <input class="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3" id="school" name="school" type="text" placeholder="Your School" value="">
+
+      <label class="block text-grey-darker text-sm font-bold mb-2" for="class">
+        Class:
+      </label>
+      <input class="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3" id="class" name="class" type="text" placeholder="Your Class" value="">
+
+      <label class="block text-grey-darker text-sm font-bold mb-2" for="class_password">
+        Class Password:
+      </label>
+      <input class="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3" id="class_password" name="class_password" type="text" placeholder="Your Class password" value="">
+
+
+      {% if error %}
+      <p class="text-red text-xs">{{ error }}</p>
+     {% endif %}
+    </div>
+    <div class="flex items-center justify-between">
+      <input  class="bg-gray-400 border-solid border-gray-900 hover:bg-green-900 font-bold py-2 px-4 hover:text-white rounded transition duration-500 ease-in-out" type="submit" value="Create account">
+      
+      
+    </div>
+  </form>
+</div>
+
+</div>
+<script src='https://unpkg.com/trianglify@^4/dist/trianglify.bundle.js'></script>
+
+<script>
+  function triangle(){
+    try {
+
+      toDel = document.getElementsByTagName("canvas")
+      i = 0
+      while(i <= toDel.length){
+        toDel[i].remove()
+        i++;
+      }
+    }catch(e){
+    console.log("Removal of canvas failed")
+  }
+
+      const pattern = trianglify({
+        cellSize: 100,
+        width: window.innerWidth,
+        height: window.innerHeight,
+        /*
+        width: 3840,
+        height: 2160,*/
+      colorSpace: 'lab',
+      colorFunction: trianglify.colorFunctions.interpolateLinear(0.5),
+      //xColors: ['#67001f', '#b2182b', '#d6604d', '#f4a582', '#fddbc7', '#ffffff', '#e0e0e0', '#bababa', '#878787', '#4d4d4d', '#1a1a1a'],
+      //yColors: ['#FFF']
+      })
+      document.body.appendChild(pattern.toCanvas())
+  
+  }
+triangle()
+</script>
+
+</body>
 </html>
