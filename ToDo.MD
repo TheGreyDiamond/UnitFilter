@@ -3,3 +3,4 @@
 - [ ] Subject selection flow
 - [ ] AUTH: Password forget
 - [ ] Theme support
+- [ ] HOUSEKEEPING: Update Readme
