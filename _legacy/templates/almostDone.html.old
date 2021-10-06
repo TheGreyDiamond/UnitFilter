@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>UnitFilter - Fast fertig</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1") }}">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="{{ static_url("images/icons/favicon.ico") }}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ static_url("vendor/bootstrap/css/bootstrap.min.css") }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ static_url("fonts/font-awesome-4.7.0/css/font-awesome.min.css") }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ static_url("fonts/iconic/css/material-design-iconic-font.min.css") }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ static_url("vendor/animate/animate.css") }}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{{ static_url("vendor/css-hamburgers/hamburgers.min.css") }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ static_url("vendor/animsition/css/animsition.min.css") }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ static_url("vendor/select2/select2.min.css") }}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{{ static_url("vendor/daterangepicker/daterangepicker.css") }}">
+	<script src='https://unpkg.com/trianglify@^4/dist/trianglify.bundle.js'></script>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ static_url("css/util.css") }}">
+	<link rel="stylesheet" type="text/css" href="{{ static_url("css/main.css") }}">
+<!--===============================================================================================-->
+</head>
+<body onresize="triangle()">
+	<script>
+    function triangle(){
+      try {
+
+        toDel = document.getElementsByTagName("canvas")
+        i = 0
+        while(i <= toDel.length){
+          toDel[i].remove()
+          i++;
+        }
+      }catch(e){
+      console.log("Removal of canvas failed")
+    }
+
+        const pattern = trianglify({
+          cellSize: 100,
+          width: window.innerWidth,
+          height: window.innerHeight,
+          /*
+          width: 3840,
+          height: 2160,*/
+        colorSpace: 'lab',
+        colorFunction: trianglify.colorFunctions.interpolateLinear(0.5),
+        //xColors: ['#67001f', '#b2182b', '#d6604d', '#f4a582', '#fddbc7', '#ffffff', '#e0e0e0', '#bababa', '#878787', '#4d4d4d', '#1a1a1a'],
+        //yColors: ['#FFF']
+        })
+        document.body.appendChild(pattern.toCanvas())
+    
+    }
+    triangle()
+    
+
+    
+
+    function to(url){
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", url, false ); // false for synchronous request
+        xmlHttp.send( null );
+        location.reload();
+    }
+</script>
+{% if errorMsg == "notAllSet" %}
+<div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+  <strong>Ooops!</strong> Bitte <strong>alle</strong> Felder ausf&uuml;llen!
+</div>
+{% end %}
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form" method="post" action="/almost_done">
+					<input type="hidden" id="type" name="type" value="login">
+					<span class="login100-form-title p-b-26">
+						Fast fertig!
+					</span>
+					<span class="login100-form-title p-b-48">
+						<i class="zmdi zmdi-font"></i>
+					</span>
+					<span class="txt1">
+						Im letzten Schritt muss noch die F&auml;cherkombi angegeben werden. Es muss nur der Fachname (z.B. SW1) angegeben werden.
+					</span>
+
+					<div class="wrap-input100">
+						<input class="input100" type="text" name="a1">
+						<span class="focus-input100" data-placeholder="1. Fach"></span>
+					</div>
+
+					<div class="wrap-input100">
+						<input class="input100" type="text" name="a2">
+						<span class="focus-input100" data-placeholder="2. Fach"></span>
+					</div>
+
+					<div class="wrap-input100">
+						<input class="input100" type="text" name="a3">
+						<span class="focus-input100" data-placeholder="3. Fach"></span>
+					</div>
+
+					<div class="wrap-input100">
+						<input class="input100" type="text" name="a4">
+						<span class="focus-input100" data-placeholder="4. Fach"></span>
+					</div>
+					<div class="wrap-input100">
+						<input class="input100" type="text" name="a5">
+						<span class="focus-input100" data-placeholder="5. Fach"></span>
+					</div>
+					<div class="wrap-input100">
+						<input class="input100" type="text" name="a6">
+						<span class="focus-input100" data-placeholder="6. Fach"></span>
+					</div>
+					<div class="wrap-input100">
+						<input class="input100" type="text" name="a7">
+						<span class="focus-input100" data-placeholder="7. Fach"></span>
+					</div>
+					<div class="wrap-input100">
+						<input class="input100" type="text" name="a8">
+						<span class="focus-input100" data-placeholder="8. Fach"></span>
+					</div>
+					<div class="wrap-input100">
+						<input class="input100" type="text" name="a9">
+						<span class="focus-input100" data-placeholder="9. Fach"></span>
+					</div>
+					<div class="wrap-input100">
+						<input class="input100" type="text" name="a10">
+						<span class="focus-input100" data-placeholder="10. Fach"></span>
+					</div>
+					<div class="wrap-input100">
+						<input class="input100" type="text" name="a11">
+						<span class="focus-input100" data-placeholder="11. Fach"></span>
+					</div>
+					<div class="wrap-input100">
+						<input class="input100" type="text" name="a12">
+						<span class="focus-input100" data-placeholder="12. Fach"></span>
+					</div>
+					<div class="wrap-input100">
+						<input class="input100" type="text" name="a13">
+						<span class="focus-input100" data-placeholder="13. Fach"></span>
+					</div>
+
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn">
+								Login
+							</button>
+						</div>
+					</div>
+
+					<!--<div class="text-center p-t-115">
+						<span class="txt1">
+							Du hast noch keinen Account?
+						</span>
+
+						<a class="txt2" href="/register">
+							Einen neuen Account erstellen
+						</a>
+					</div>-->
+				</form>
+			</div>
+		</div>
+	</div>
+	
+<!--===============================================================================================-->
+	<script src="{{ static_url("vendor/jquery/jquery-3.2.1.min.js") }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ static_url("vendor/animsition/js/animsition.min.js") }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ static_url("vendor/bootstrap/js/popper.js") }}"></script>
+	<script src="{{ static_url("vendor/bootstrap/js/bootstrap.min.js") }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ static_url("vendor/select2/select2.min.js") }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ static_url("vendor/daterangepicker/moment.min.js") }}"></script>
+	<script src="{{ static_url("vendor/daterangepicker/daterangepicker.js") }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ static_url("vendor/countdowntime/countdowntime.js") }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ static_url("js/main.js") }}"></script>
+	
+
+</body>
+</html>

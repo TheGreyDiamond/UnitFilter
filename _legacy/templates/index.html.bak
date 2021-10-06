@@ -1,0 +1,168 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ static_url("main.css") }}">
+    <title>Webuntis</title>
+</head>
+
+<body>
+  <script>
+    function to(url){
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", url, false ); // false for synchronous request
+        xmlHttp.send( null );
+        location.reload();
+    }
+</script>
+    <table class="tg">
+        <thead>
+          <tr>
+            <th class="tg-0pky"></th>
+            {% if datum == "Montag" %}
+            <th class="tg-0pky th-highLight">Montag</th>
+            {% else %}
+            <th class="tg-0pky">Montag</th>
+            {% end %}
+
+            {% if datum == "Dienstag" %}
+            <th class="tg-0pky th-highLight">Dienstag</th>
+            {% else %}
+            <th class="tg-0pky">Dienstag</th>
+            {% end %}
+
+            {% if datum == "Mittwoch" %}
+            <th class="tg-0pky th-highLight">Mittwoch</th>
+            {% else %}
+            <th class="tg-0pky">Mittwoch</th>
+            {% end %}
+
+            {% if datum == "Donnerstag" %}
+            <th class="tg-0pky th-highLight">Donnerstag</th>
+            {% else %}
+            <th class="tg-0pky">Donnerstag</th>
+            {% end %}
+
+            {% if datum == "Freitag" %}
+            <th class="tg-0pky th-highLight">Freitag</th>
+            {% else %}
+            <th class="tg-0pky">Freitag</th>
+            {% end %}
+
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tg-0pky">{{data[0] }}</td>
+            {% try %}
+            {% if roomStates[0] == True %}
+                <td class="tg-0pky"><s>{{ roomData[0] }}</s></td>
+            {% else %}
+                <td class="tg-0pky">{{ roomData[0] }}</td>
+            {% end %}
+            {% except %}
+            {% end %}
+          </tr>
+
+          <tr>
+            <td class="tg-0pky">{{ data[1] }}<br></td>
+            {% try %}
+            {% if roomStates[1] == True %}
+                <td class="tg-0pky"><s>{{ roomData[1] }}</s></td>
+            {% else %}
+                <td class="tg-0pky">{{ roomData[1] }}</td>
+            {% end %}
+            {% except %}
+            {% end %}
+          </tr>
+
+          <tr>
+            <td class="tg-0pky">{{ data[2] }}<br></td>
+            {% try %}
+            {% if roomStates[2] == True %}
+                <td class="tg-0pky"><s>{{ roomData[2] }}</s></td>
+            {% else %}
+                <td class="tg-0pky">{{ roomData[2] }}</td>
+            {% end %}
+            {% except %}
+            {% end %}
+          </tr>
+          <tr>
+            <td class="tg-0pky">{{ data[3] }}<br></td>
+            {% try %}
+            {% if roomStates[3] == True %}
+                <td class="tg-0pky"><s>{{ roomData[3] }}</s></td>
+            {% else %}
+                <td class="tg-0pky">{{ roomData[3] }}</td>
+            {% end %}
+            {% except %}
+            {% end %}
+          </tr>
+          <tr>
+            <td class="tg-0pky">{{ data[4] }}<br></td>
+            {% try %}
+            {% if roomStates[4] == True %}
+                <td class="tg-0pky"><s>{{ roomData[4] }}</s></td>
+            {% else %}
+                <td class="tg-0pky">{{ roomData[4] }}</td>
+            {% end %}
+            {% except %}
+            {% end %}
+          </tr>
+          <tr>
+            <td class="tg-0pky">{{ data[5] }}<br></td>
+            {% try %}
+            {% if roomStates[5] == True %}
+                <td class="tg-0pky"><s>{{ roomData[5] }}</s></td>
+            {% else %}
+                <td class="tg-0pky">{{ roomData[5] }}</td>
+            {% end %}
+            {% except %}
+            {% end %}
+          </tr>
+          <tr>
+            <td class="tg-0pky">{{ data[6] }}<br></td>
+            {% try %}
+            {% if roomStates[6] == True %}
+                <td class="tg-0pky"><s>{{ roomData[6] }}</s></td>
+            {% else %}
+                <td class="tg-0pky">{{ roomData[6] }}</td>
+            {% end %}
+            {% except %}
+            {% end %}
+          </tr>
+          <tr>
+            <td class="tg-0pky">{{ data[7] }}<br></td>
+            {% try %}
+            {% if roomStates[7] == True %}
+                <td class="tg-0pky"><s>{{ roomData[7] }}</s></td>
+            {% else %}
+                <td class="tg-0pky">{{ roomData[7] }}</td>
+            {% end %}
+            {% except %}
+            {% end %}
+          </tr>
+          
+        </tbody>
+        </table>
+        <form action="/update_kurse">
+            </br>
+          <label for="kurs">Kursblock w&auml;hlen:</label>
+          <select name="kurs" id="kurs" value={{ sel }}>
+            <option value="" selected disabled>Bitte w&auml;hlen</option>
+            <option value="soeren">Soeren</option>
+            <option value="joshua">Joshua</option>
+          </select>
+          <br><br>
+        </form>
+        <button onclick="handleClick()">Anwenden</button>
+        <script>
+          function handleClick(){
+            drop = document.getElementById("kurs")
+            to("/update_kurse?kurs=" + drop.value)
+            window.reload()
+          }
+        </script>
+</body>
+
+</html>
