@@ -42,5 +42,7 @@ def addClass():
             return render_template('addClass.html', message="Success")
         except Exception as e:
             return render_template('addClass.html', message=e)
+    
+    return render_template('addClass.html', message=None)
 
     return render_template('register.html', message=None)
