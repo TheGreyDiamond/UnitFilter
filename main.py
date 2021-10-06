@@ -1,4 +1,6 @@
 from flask import Flask, redirect, render_template, request, session
+from api import api
+from admin import adminpage
 import logging
 import sqlite3
 import hashlib
@@ -6,7 +8,10 @@ import config
 import webuntis
 
 app = Flask("UnitFilter")
+app.register_blueprint(api)
+app.register_blueprint(adminpage)
 app.secret_key = b'~p\xbc\xd9\x1b\x84\xdd\xe9-w\xd4ma\xe8GZK\xe3\x18foP\x9d\xe0C\x87\xb3\x06&\x1a\xad+'
+
 databaseName = config.databaseName
 database = 0
 cur = 0
@@ -134,57 +139,7 @@ def timetable():
 
     return "The Timetable"
 
-@app.route("/admin")
-def adminIndex():
-    return render_template('admin.html')
 
-@app.route("/admin/classes")
-def classes():
-    return render_template('classes.html')
-
-@app.route("/api/getAllClasses")
-def getAllClasses():
-    database = sqlite3.connect(databaseName)
-    cur = database.cursor()
-    cur.execute("SELECT * FROM schooldata")
-    return str(cur.fetchall())
-
-@app.route("/admin/addClass", methods=['GET', 'POST'])
-def addClass():
-    if request.method == 'POST':
-        try:
-            database = sqlite3.connect(databaseName)
-            cur = database.cursor()
-
-            server = request.form['email']
-            school = request.form['password']
-            classname = request.form['repeat_password']
-            password = request.form['school']
-
-            cur.execute(f'''INSERT INTO schooldata (server, school, school, class, password)
-                        VALUES ("{server}", "{school}", "{classname}", "{password}");''')
-            database.commit()
-            cur.close()
-            
-            return render_template('addClass.html', message="Success")
-        except Exception as e:
-            return render_template('addClass.html', message=e)
-
-    return render_template('register.html', message=None)
-
-@app.route("/admin/users")
-def users():
-    return render_template('users.html')
-
-@app.route("/api/getAllUsers")
-def getAllUsers():
-    database = sqlite3.connect(databaseName)
-    cur = database.cursor()
-
-    cur.execute("SELECT * FROM userdata")
-    userdata = cur.fetchall()
-
-    return str(userdata)
 
 def initDB():
     logging.info("Initializing database...")
