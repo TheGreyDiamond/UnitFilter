@@ -15,7 +15,7 @@ version = "1.2.5"
 
 schoolData = {"school1": ["K1"]}
 
-untisPasswort = '7B3MVaR9'
+untisPasswort = '*****'
 
 se = webuntis.Session(
     username='K1',
