@@ -4,7 +4,7 @@ import config
 
 databaseName = config.databaseName
 
-api = Blueprint('api', __name__, template_folder='templates')
+api = Blueprint('api', __name__, template_folder='templates/api')
 
 
 @api.route("/api/getAllClasses")
