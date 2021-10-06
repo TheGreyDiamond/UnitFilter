@@ -138,7 +138,18 @@ def timetable():
 def adminIndex():
     return render_template('admin.html')
 
-@app.route("/admin/addClass")
+@app.route("/admin/classes")
+def classes():
+    return render_template('classes.html')
+
+@app.route("/api/getAllClasses")
+def getAllClasses():
+    database = sqlite3.connect(databaseName)
+    cur = database.cursor()
+    cur.execute("SELECT * FROM schooldata")
+    return str(cur.fetchall())
+
+@app.route("/admin/addClass", methods=['GET', 'POST'])
 def addClass():
     if request.method == 'POST':
         try:
