@@ -161,6 +161,20 @@ def addClass():
 
     return render_template('register.html', message=None)
 
+@app.route("/admin/users")
+def users():
+    return render_template('users.html')
+
+@app.route("/api/getAllUsers")
+def getAllUsers():
+    database = sqlite3.connect(databaseName)
+    cur = database.cursor()
+
+    cur.execute("SELECT * FROM userdata")
+    userdata = cur.fetchall()
+
+    return str(userdata)
+
 def initDB():
     logging.info("Initializing database...")
 
