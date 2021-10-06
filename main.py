@@ -138,7 +138,7 @@ def timetable():
 def adminIndex():
     return render_template('admin.html')
 
-@app.route("admin/addClass")
+@app.route("/admin/addClass")
 def addClass():
     if request.method == 'POST':
         try:
