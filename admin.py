@@ -39,7 +39,7 @@ def addClass():
             database.commit()
             cur.close()
             
-            return render_template('addClass.html', message="Success")
+            return render_template('classes.html', message="Successfully added class")
         except Exception as e:
             return render_template('addClass.html', message=e)
     
