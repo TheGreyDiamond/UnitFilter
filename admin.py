@@ -9,7 +9,7 @@ adminpage = Blueprint('adminpage', __name__, template_folder='templates/admin')
 
 @adminpage.route("/admin")
 def adminIndex():
-    return render_template('index.html')
+    return render_template('admin.html')
 
 
 @adminpage.route("/admin/users")
@@ -29,10 +29,10 @@ def addClass():
             database = sqlite3.connect(databaseName)
             cur = database.cursor()
 
-            server = request.form['email']
-            school = request.form['password']
-            classname = request.form['repeat_password']
-            password = request.form['school']
+            server = request.form['server']
+            school = request.form['school']
+            classname = request.form['classname']
+            password = request.form['password']
 
             cur.execute(f'''INSERT INTO schooldata (server, school, school, class, password)
                         VALUES ("{server}", "{school}", "{classname}", "{password}");''')
