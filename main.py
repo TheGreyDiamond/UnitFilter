@@ -7,7 +7,7 @@ import hashlib
 import config
 import webuntis
 
-app = Flask("UnitFilter")
+app = Flask("UnitFilter", static_url_path='/', static_folder='static')
 app.register_blueprint(api)
 app.register_blueprint(adminpage)
 app.secret_key = b'~p\xbc\xd9\x1b\x84\xdd\xe9-w\xd4ma\xe8GZK\xe3\x18foP\x9d\xe0C\x87\xb3\x06&\x1a\xad+'
@@ -18,10 +18,7 @@ cur = 0
 
 @app.route("/")
 def root():
-    ## check if user is already logged in and redirect to timetable if that is the case
-    if 'username' in session:
-        return redirect("/timetable")
-    return redirect("/login")
+    return render_template('index.html')
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():

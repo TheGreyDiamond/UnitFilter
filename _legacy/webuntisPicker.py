@@ -18,11 +18,11 @@ schoolData = {"school1": ["K1"]}
 untisPasswort = '*****'
 
 se = webuntis.Session(
-    username='K1',
+    username='**',
     password=untisPasswort,
-    server='cissa.webuntis.com',
-    school='hg heidelberg',
-    useragent='Xilef spielt mit der API'
+    server='*.webuntis.com',
+    school='***',
+    useragent='**** API'
 )
 
 logging.basicConfig(level=logging.INFO,
@@ -258,7 +258,7 @@ def parseTimegrid(se):
 #    global outify, weekdayL, outF, outFState, rowRam
 #    with se.login() as s:
 #        timeGr = parseTimegrid(s)
-#        klasse = s.klassen().filter(name='EF')[0]
+#        klasse = s.klassen().filter(name='**')[0]
 #        table = s.timetable(klasse=klasse, start=wantedDay,
 #                            end=wantedDay).to_table()
 #        weekdayL = ["Montag", "Dienstag", "Mittwoch",
@@ -281,7 +281,7 @@ def webU(wantedDay=today):
     global outify, weekdayL, outF, outFState, rowRam
     with se.login() as s:
         timeGr = parseTimegrid(s)
-        klasse = s.klassen().filter(name='K1')[0]
+        klasse = s.klassen().filter(name='**')[0]
         table = s.timetable(klasse=klasse, start=wantedDay,
                             end=wantedDay).to_table()
         idDict = {}
