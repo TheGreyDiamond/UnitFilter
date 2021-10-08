@@ -1,0 +1,6 @@
+- [ ] AUTH: Permissions
+- [ ] Timetable loading / filtering
+- [ ] Subject selection flow
+- [ ] AUTH: Password forget
+- [ ] Theme support
+- [ ] HOUSEKEEPING: Update Readme
