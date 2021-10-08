@@ -145,7 +145,6 @@ def timetable():
     return "The Timetable"
 
 
-
 def initDB():
     logging.info("Initializing database...")
 
