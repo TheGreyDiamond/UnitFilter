@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <title>Add a Class to database</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Please put in data</h1>
+      <br>
+      <form action="" method="post">
+        <input type="text"      placeholder="e.g. cissa"    name="server"       value="{{ request.form.server }}">
+        <input type="text"      placeholder="School"        name="school"       value="{{ request.form.school }}">
+        <input type="text"      placeholder="10a"           name="classname"    value="{{ request.form.classname }}">
+        <input type="password"  placeholder="Password"      name="password"       value="{{ request.form.password }}">
+        <input class="btn btn-default" type="submit" value="AddClass">
+      </form>
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
+    </div>
+  </body>
+</html>

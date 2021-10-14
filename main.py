@@ -1,13 +1,18 @@
 from flask import Flask, redirect, render_template, request, session
+from api import api
+from admin import adminpage
 import logging
 import sqlite3
 import hashlib
+import config
 import webuntis
 
 app = Flask("UnitFilter", static_url_path='/', static_folder='static')
+app.register_blueprint(api)
+app.register_blueprint(adminpage)
 app.secret_key = b'~p\xbc\xd9\x1b\x84\xdd\xe9-w\xd4ma\xe8GZK\xe3\x18foP\x9d\xe0C\x87\xb3\x06&\x1a\xad+'
 
-databaseName = 'database.db'
+databaseName = config.databaseName
 database = 0
 cur = 0
 
@@ -81,22 +86,22 @@ def register():
 
         cur.execute('SELECT e_mail FROM userdata;')
         if email in cur.fetchall():
-            error += 'Email-Adress already used\n'
+            error += 'Email-Adress already used<br>'
         
         cur.execute('SELECT school FROM schooldata;')
         if school not in cur.fetchall()[0]:
-            error += 'School not found\n'
+            error += 'School not found<br>'
         
         if password != password2:
-            error += 'Passwords don\'t match\n'
+            error += 'Passwords don\'t match<br>'
 
         cur.execute(f'SELECT class FROM schooldata WHERE school="{school}";')
         if not any(classCode in i for i in cur.fetchall()):
-            error += 'Class not found or not supported\n'
+            error += 'Class not found or not supported<br>'
         else:
             cur.execute(f'SELECT password FROM schooldata WHERE school="{school}" AND class="{classCode}";')
             if classPass not in cur.fetchall()[0]:
-                error += 'Invalid Class Password\n'
+                error += 'Invalid Class Password<br>'
 
         # check for password security
         if len(password) < 6:
@@ -122,12 +127,17 @@ def register():
 def updateCourseSelection():
     return 'nothing here yet'
 
-
 @app.route("/timetable")
 def timetable():
     ## check if user is not already logged in and redirect to timetable if that is the case
     if 'username' not in session:
         return redirect("/login")
+    
+    ## check for course selection and redirect, if no courses are selected
+    cur = sqlite3.connect(databaseName).cursor()
+    cur.execute(f'SELECT class_code FROM userdata WHERE e_mail={session["username"]}')
+    if cur.fetchall()[0][0] == None:
+        return redirect("/updateCourseSelection")
 
     return "The Timetable"
 
