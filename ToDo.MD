@@ -4,3 +4,4 @@
 - [ ] AUTH: Password forget
 - [ ] Theme support
 - [ ] HOUSEKEEPING: Update Readme
+- [ ] push-notification for course updates
