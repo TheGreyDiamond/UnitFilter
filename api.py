@@ -66,3 +66,72 @@ def getAvailableSubjects():
                 subjects.append(k.subjects[0].name)
 
     return str(set(subjects))
+
+@api.route("/api/getFilteredTimetable")
+def getFilteredTimetable(): 
+    ## init database
+    database = sqlite3.connect(databaseName)
+    cur = database.cursor()
+
+    ## check for course selection and redirect, if no courses are selected
+    cur.execute(f'SELECT subjects FROM userdata WHERE e_mail={session["username"]}')
+    userSubjects = cur.fetchall()[0][0]
+    if userSubjects != None:
+        userSubjects = userSubjects.split(",")
+
+
+    ## gain school and class code for given user
+    cur.execute(f"SELECT school,class_code FROM userdata WHERE e_mail='{session['username']}'")
+    data = cur.fetchall()
+    school = data[0][0]
+    classname = data[0][1]
+
+    ## get server and password of the given school
+    cur.execute(f"SELECT server,password FROM schooldata WHERE school='{school}' AND class='{classname}'")
+    data = cur.fetchall()
+    server = data[0][0]
+    password = data[0][1]
+
+    untisSession = webuntis.Session(
+        server=f'{server}.webuntis.com',
+        school=school,
+        username=classname,
+        password=password,
+        useragent=config.untisAgentName
+    )
+
+    filteredTimetable = []
+
+    with untisSession.login():
+        klasse=untisSession.klassen().filter(name=classname)[0]
+        timetable = untisSession.timetable(klasse=klasse, start=20211008, end=20211016)
+
+        for lesson in timetable:
+            if len(lesson.subjects):
+                if lesson.subjects[0].name in userSubjects:
+                    filteredTimetable.append(lesson)
+    
+
+        jsonTimetable = []
+
+        for lesson in filteredTimetable:
+            subject = lesson.subjects[0]
+            print(lesson)
+            lessonDict = {
+                'code':lesson.code,
+                'start':str(lesson.start),
+                'end':str(lesson.end),
+                'subject':{'id':subject.id,'name':subject.name,'longName':subject.long_name},
+                'original_rooms':lesson.original_rooms,
+                'original_teachers':lesson.original_teachers,
+                'rooms':[{'id':x.id,
+                        'name':x.name,
+                        'longName':x.long_name} for x in lesson.rooms],
+                #'teachers':lesson.teachers if (lesson.code != "cancelled") else None,
+                'type':lesson.type
+            }
+            jsonTimetable.append(lessonDict)
+    
+    return str(jsonTimetable)
+
+    
