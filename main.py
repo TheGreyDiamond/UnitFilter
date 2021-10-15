@@ -1,6 +1,7 @@
 from flask import Flask, redirect, render_template, request, session
 from api import api
 from admin import adminpage
+from me import userpages
 import logging
 import sqlite3
 import hashlib
@@ -10,6 +11,7 @@ import webuntis
 app = Flask("UnitFilter", static_url_path='/', static_folder='static')
 app.register_blueprint(api)
 app.register_blueprint(adminpage)
+app.register_blueprint(userpages)
 app.secret_key = b'~p\xbc\xd9\x1b\x84\xdd\xe9-w\xd4ma\xe8GZK\xe3\x18foP\x9d\xe0C\x87\xb3\x06&\x1a\xad+'
 
 databaseName = config.databaseName
@@ -122,25 +124,6 @@ def register():
             return redirect('/updateCourseSelection')
 
     return render_template('register.html', error=error)
-
-@app.route('/updateCourseSelection')
-def updateCourseSelection():
-    return 'nothing here yet'
-
-@app.route("/timetable")
-def timetable():
-    ## check if user is not already logged in and redirect to timetable if that is the case
-    if 'username' not in session:
-        return redirect("/login")
-    
-    ## check for course selection and redirect, if no courses are selected
-    cur = sqlite3.connect(databaseName).cursor()
-    cur.execute(f'SELECT class_code FROM userdata WHERE e_mail={session["username"]}')
-    if cur.fetchall()[0][0] == None:
-        return redirect("/updateCourseSelection")
-
-    return "The Timetable"
-
 
 def initDB():
     logging.info("Initializing database...")
