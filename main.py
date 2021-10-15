@@ -71,7 +71,7 @@ def logout():
 def register():
     ## check if user is already logged in and redirect to timetable if that is the case
     if 'username' in session:
-        return redirect("/timetable")
+        return redirect("/me")
 
     error = ''
 
