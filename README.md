@@ -6,8 +6,10 @@ A filtering software for Webuntis written in Python using Flask and the webuntis
     /login
     /logout
     /register
-    /updateCourseSelection
-    /timetable
+    /me
+        /updateCourseSelection
+        /timetable
+        /holidays #TODO
     /admin
         /users
         /classes
