@@ -9,6 +9,10 @@ databaseName = config.databaseName
 userpages = Blueprint('me', __name__, template_folder='templates/me')
 
 
+@userpages.route('/me')
+def me():
+    return redirect('/me/timetable')
+
 @userpages.route('/me/updateCourseSelection')
 def updateCourseSelection():
     ## check if user is not already logged in and redirect to timetable if that is the case
