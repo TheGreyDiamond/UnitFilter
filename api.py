@@ -31,14 +31,17 @@ def getAvailableSubjects():
     if 'username' not in session:
         return
 
+    ## init database
     database = sqlite3.connect(databaseName)
     cur = database.cursor()
 
+    ## gain school and class code for given user
     cur.execute(f"SELECT school,class_code FROM userdata WHERE e_mail='{session['username']}'")
     data = cur.fetchall()
     school = data[0][0]
     classname = data[0][1]
 
+    ## get server and password of the given school
     cur.execute(f"SELECT server,password FROM schooldata WHERE school='{school}' AND class='{classname}'")
     data = cur.fetchall()
     server = data[0][0]
