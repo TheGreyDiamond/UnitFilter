@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>UnitFilter - Admin</title>
+  <meta name="description" content="A simple HTML5 Template for new projects.">
+  <meta name="author" content="TheGreydiamond and XilefTech">
+
+  <meta property="og:title" content="UnitFilter - Login">
+  <meta property="og:type" content="website">
+
+  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <link rel="stylesheet" href="/css/tailwind.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"
+
+</head>
+<body class="dark:bg-gray-800 h-screen overflow-hidden flex items-center justify-center" onresize="triangle()">
+
+  <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
+      <h1>Welcome to the Admininterface!</h1>
+    <div class="mb-4">
+       <button onclick="window.location.href = '/admin/classes/addClass'" class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker hover:bg-gray-200 transition duration-500 ease-in-out">Add a new class <i class="fas fa-arrow-right"></i></button>
+       <button onclick="window.location.href = '/admin/classes'" class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker hover:bg-gray-200 transition duration-500 ease-in-out">Show all classes <i class="fas fa-arrow-right"></i></button>
+       <button onclick="window.location.href = '/admin/users'" class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker hover:bg-gray-200 transition duration-500 ease-in-out">Show all users <i class="fas fa-arrow-right"></i></button>
+    </div>
+
+
+</div>
+
+</div>
+
+<script src='https://unpkg.com/trianglify@^4/dist/trianglify.bundle.js'></script>
+
+<script>
+  function triangle(){
+    try {
+
+      toDel = document.getElementsByTagName("canvas")
+      i = 0
+      while(i <= toDel.length){
+        toDel[i].remove()
+        i++;
+      }
+    }catch(e){
+    console.log("Removal of canvas failed")
+  }
+
+      const pattern = trianglify({
+        cellSize: 100,
+        width: window.innerWidth,
+        height: window.innerHeight,
+        /*
+        width: 3840,
+        height: 2160,*/
+      colorSpace: 'lab',
+      colorFunction: trianglify.colorFunctions.interpolateLinear(0.5),
+      //xColors: ['#67001f', '#b2182b', '#d6604d', '#f4a582', '#fddbc7', '#ffffff', '#e0e0e0', '#bababa', '#878787', '#4d4d4d', '#1a1a1a'],
+      //yColors: ['#FFF']
+      })
+      document.body.appendChild(pattern.toCanvas())
+  
+  }
+triangle()
+</script>
+</body>
+</html>
