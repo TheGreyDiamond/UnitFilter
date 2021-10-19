@@ -13,7 +13,7 @@ def getAllClasses():
     database = sqlite3.connect(databaseName)
     cur = database.cursor()
     cur.execute("SELECT * FROM schooldata")
-    return str(cur.fetchall())
+    return jsonify(cur.fetchall())
 
 @api.route("/api/getAllUsers")
 def getAllUsers():
