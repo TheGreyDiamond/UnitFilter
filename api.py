@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, request, session
+from flask import Blueprint, redirect, render_template, request, session, jsonify
 import sqlite3
 import config
 import webuntis
@@ -23,7 +23,7 @@ def getAllUsers():
     cur.execute("SELECT * FROM userdata")
     userdata = cur.fetchall()
 
-    return str(userdata)
+    return jsonify(userdata)
 
 @api.route('/api/getAvailableSubjects')
 def getAvailableSubjects():
