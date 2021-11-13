@@ -2,6 +2,7 @@ from flask import Blueprint, redirect, render_template, request, session, jsonif
 import sqlite3
 import config
 import webuntis
+from datetime import datetime, timedelta, date
 
 databaseName = config.databaseName
 
@@ -80,7 +81,7 @@ def getAvailableSubjects():
             if len(k.subjects):
                 subjects.append(k.subjects[0].name)
 
-    return str(set(subjects))
+    return jsonify(set(subjects))
 
 @api.route("/api/getTimegridUnits")
 def getTimegridUnits():
@@ -121,7 +122,7 @@ def getTimegridUnits():
     with untisSession.login():
         timegrid = untisSession.timegrid_units()
 
-    return str(timegrid)
+    return jsonify(timegrid)
 
 @api.route("/api/getFilteredTimetable")
 def getFilteredTimetable(): 
@@ -134,7 +135,7 @@ def getFilteredTimetable():
     cur = database.cursor()
 
     ## check for course selection and redirect, if no courses are selected
-    cur.execute(f'SELECT subjects FROM userdata WHERE e_mail={session["username"]}')
+    cur.execute(f'SELECT subjects FROM userdata WHERE e_mail="{session["username"]}"')
     userSubjects = cur.fetchall()[0][0]
     if userSubjects != None:
         userSubjects = userSubjects.split(",")
@@ -162,9 +163,14 @@ def getFilteredTimetable():
 
     filteredTimetable = []
 
+    ## get date of current week
+    today = date.today()
+    start = today - timedelta(days=today.weekday())
+    end = start + timedelta(days=13)
+
     with untisSession.login():
         klasse=untisSession.klassen().filter(name=classname)[0]
-        timetable = untisSession.timetable(klasse=klasse, start=20211008, end=20211016)
+        timetable = untisSession.timetable(klasse=klasse, start=start, end=end)
 
         for lesson in timetable:
             if len(lesson.subjects):
@@ -192,6 +198,6 @@ def getFilteredTimetable():
             }
             jsonTimetable.append(lessonDict)
     
-    return str(jsonTimetable)
+    return jsonify(jsonTimetable)
 
     
