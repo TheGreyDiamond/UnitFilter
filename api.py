@@ -25,6 +25,21 @@ def getAllUsers():
 
     return jsonify(userdata)
 
+@api.route("/api/removeUser")
+def removeUser():
+    if request.args:
+        id = request.args.get('id')
+    else: return "No param given"
+
+    database = sqlite3.connect(databaseName)
+    cur = database.cursor()
+
+    cur.execute(f"DELETE FROM userdata WHERE id='{id}'")
+    database.commit()
+    cur.close()
+
+    return "Deletion Successful"
+
 @api.route('/api/getAvailableSubjects')
 def getAvailableSubjects():
     ## check if user is logged in
