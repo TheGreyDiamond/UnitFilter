@@ -32,7 +32,7 @@ def timetable():
     cur = database.cursor()
 
     ## check for course selection and redirect, if no courses are selected
-    cur.execute(f'SELECT subjects FROM userdata WHERE e_mail={session["username"]}')
+    cur.execute(f'SELECT subjects FROM userdata WHERE e_mail="{session["username"]}"')
     userSubjects = cur.fetchall()[0][0]
     if userSubjects == None:
         return redirect("/me/updateCourseSelection")
