@@ -26,7 +26,7 @@ def root():
 def login():
     ## check if user is already logged in and redirect to timetable if that is the case
     if 'username' in session:
-        return redirect("/timetable")
+        return redirect("/me/timetable")
 
     error = None
 
@@ -52,7 +52,7 @@ def login():
                 session['userID'] = cur.fetchall()[0][0]
                 session['username'] = email
 
-                return redirect("/timetable")
+                return redirect("/me/timetable")
             else:
                 ## wrong password
                 error = 'Invalid Password. Please try again.'
@@ -121,7 +121,7 @@ def register():
             cur.close()
             print(f'Created new user with email-address "{email}"')
 
-            return redirect('/updateCourseSelection')
+            return redirect('/me/updateCourseSelection')
 
     return render_template('register.html', error=error)
 
