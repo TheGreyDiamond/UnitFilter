@@ -118,8 +118,12 @@ def register():
             cur.execute(f'''INSERT INTO userdata (e_mail, password_hash, school, class_code, class_password)
                         VALUES ("{email}", "{passwordhash}", "{school}", "{classCode}", "{classPass}");''')
             database.commit()
-            cur.close()
             print(f'Created new user with email-address "{email}"')
+
+            cur.execute(f'SELECT id FROM userdata WHERE e_mail="{email}";')
+            session['userID'] = cur.fetchall()[0][0]
+            session['username'] = email
+            cur.close()
 
             return redirect('/me/updateCourseSelection')
 
