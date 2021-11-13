@@ -5,3 +5,4 @@
 - [ ] Theme support
 - [ ] HOUSEKEEPING: Update Readme
 - [ ] push-notification for course updates
+- [ ] Delete button in admin userinterface
