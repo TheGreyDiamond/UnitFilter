@@ -6,3 +6,5 @@
 - [ ] HOUSEKEEPING: Update Readme
 - [ ] push-notification for course updates
 - [ ] Delete button in admin userinterface
+- [ ] Back buttons to all the Admin pages
+- [ ] detect if someone has a session with deleted user data and do something against it
